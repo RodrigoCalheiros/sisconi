@@ -4,8 +4,10 @@
 	<meta charset="utf-8">
 	<title>jQuery UI Example Page</title>
 	<link href="css/south-street/jquery-ui-1.10.2.custom.css" rel="stylesheet">
-	<script src="js/jquery-1.9.1.js"></script>
-	<script src="js/jquery-ui-1.10.2.custom.js"></script>
+	<script src="js/jquery/jquery-1.9.1.js"></script>
+	<script src="js/jquery/jquery-ui-1.10.2.custom.js"></script>
+	<script type="text/javascript" src="js/MascaraValidacao.js"></script>
+	<link href="css/sisconi.css" rel="stylesheet">
 	<script>
 	$(function() {
 		
@@ -177,7 +179,9 @@
 <!-- Autocomplete -->
 <h2 class="demoHeaders">Autocomplete</h2>
 <div>
-	<input id="autocomplete" title="type &quot;a&quot;">
+	<input type="text" id="autocomplete" name="nome" placeholder="Insira o nome completo aqui" required pattern="[A-Za-z]+" onkeypress="return naoNumeros();" title="type &quot;a&quot;">
+	<input type="text" id="autocomplete" name="nome" placeholder="Insira o nome completo aqui" required pattern="[A-Za-z]+" onkeypress="return naoNumeros();">
+	<input>
 </div>
 
 
