@@ -4,13 +4,12 @@
 <html>
 <%@include file="inc_head.jsp"%>
 <body>
-<table width="100%">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
 	<td><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
 	<td>
-	
 	</td>
 </tr>
 <tr>
