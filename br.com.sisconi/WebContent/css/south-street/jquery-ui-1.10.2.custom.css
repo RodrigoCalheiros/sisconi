@@ -536,7 +536,7 @@ button.ui-button::-moz-focus-inner {
 	overflow: visible !important;
 	margin-top: -3px;
 	position: absolute;
-	width:250px;
+	width:150px;
 }
 .ui-menu .ui-menu-item {
 	margin: 0;
@@ -550,7 +550,8 @@ button.ui-button::-moz-focus-inner {
 	display: block; 
 	width: auto !important;
 	margin: 5px 5px !important; 
-	padding: 0 0 !important; 
+	padding: 0 0 !important;
+	font-size: .8em;
 }	
 
 .ui-menu > li > a { 

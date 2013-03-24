@@ -3,16 +3,16 @@
 	<td>
 		<a href="inicio.jsp"><img border="0" width="100px" height="98px" src="_imagens/logos/logo_sisconi.jpg"></a>
 	</td>
-	<td valign="middle" align="right">
-		<table border="0" cellpadding="0" cellspacing="7" width="100%">
+	<td valign="bottom" align="right">
+		<table border="0" cellpadding="3" cellspacing="0" width="100%">
 			<tr>
-				<td align="right">Usuário: RodrigoCalheiros</td>
+				<td align="right"><font size="2" color="gray">Usuário: RodrigoCalheiros</font></td>
 			</tr>
 			<tr>
-				<td align="right">Tipo de usuário: Administrdor</td>
+				<td align="right"><font size="2" color="gray">Tipo de usuário: Administrdor</font></td>
 			</tr>
 			<tr>
-				<td align="right">Horário: 05/06/2012 - 21:06</td>
+				<td align="right"><font size="2" color="gray">Horário: 05/06/2012 - 21:06</font></td>
 			</tr>
 		</table>
 	</td>
@@ -22,7 +22,7 @@
 	<br>
 	<ul id="menu">
 	    <li>
-	        <a href="#"><img src="_imagens/icones/16X16/address-book.gif" align="absmiddle">&nbsp;Paciente</a>
+	        <a href="#"><img src="_imagens/icones/16X16/address-book.gif">&nbsp;Paciente</a>
 	        <ul>
 	            <li><a href="#">Cadastrar Paciente</a></li>
 	            <li><a href="#">Localizar Paciente</a></li>
@@ -58,7 +58,7 @@
 	            <li><a href="#">Sair do Sistema</a></li>
 	        </ul>
 	    </li>
-	</ul>
+	</ul>	
 	</td>
 </tr>
 </table>
