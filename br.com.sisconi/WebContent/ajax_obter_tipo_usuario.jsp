@@ -2,6 +2,8 @@
  <jsp:useBean id="usuario" class="model.Usuario"/> 
 <%
 	String pNrCpf = request.getParameter("nrCpf");
+	pNrCpf = pNrCpf.replace(".", "");
+	pNrCpf = pNrCpf.replace("-", "");
 	try {  
 		List<String[]> listTipoUsuario = usuario.getTipoUsuario(pNrCpf); 
 %>
