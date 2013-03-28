@@ -4,9 +4,21 @@
 <html>
 <%@include file="inc_head.jsp"%>
 <script type="text/javascript">
+	
 	$(document).ready(function(){
 		$("#nr_cpf").mask("999.999.999-99");
 	});
+	
+function obterTipoUsuario(nr_cpf){
+	$.ajax({
+  		url: "ajax_tipo_usuario.jsp?nrCpf=" + nr_cpf,
+  		beforeSend: function () {
+    		$("#sp_tipousuario").html("");
+  		}
+	}).done(function (retornoSucesso) {
+    		$("#sp_tipousuario").html(retornoSucesso);
+	});
+}
 </script>
 <body>
 <table width="100%">
@@ -18,11 +30,11 @@
 				<img border="0" width="100px" height="98px" src="_imagens/logos/logo_sisconi.jpg">
 			</td>
 			<td valign="bottom" align="right">
-				<form id="frm_login" action="" method="get">
+				<form id="frm_login" action="" method="post">
 				<table border="0" cellpadding="0" cellspacing="10">
 					<tr>
 						<td align="right" valign="middle">CPF:</td>
-						<td align="left" valign="middle"><input type="text" id="nr_cpf" name="nr_cpf" onBlur="ValidarCPF(form.cpf);" maxlength="14" size="20" placeholder="Insira CPF aqui" required></td>
+						<td align="left" valign="middle"><input type="text" id="nr_cpf" name="nr_cpf" onBlur="obterTipoUsuario(this.value);" maxlength="14" size="20" placeholder="Insira CPF aqui" required></td>
 					</tr>
 					<tr>
 						<td align="right" valign="middle">Senha:</td>
