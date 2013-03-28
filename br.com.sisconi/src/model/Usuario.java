@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import dao.UsuarioDAO;
 
 public class Usuario {
@@ -45,6 +47,12 @@ public class Usuario {
 		Usuario usu = udao.select(cpf, senha, tipoUsuario);
 		return true;
 		
+	}
+	
+	public List<String[]> getTipoUsuario(String cpf) {
+		UsuarioDAO udao = new UsuarioDAO();
+		List<String[]> lista = udao.getTipoUsuario(cpf);
+		return lista;
 	}
 
 }
