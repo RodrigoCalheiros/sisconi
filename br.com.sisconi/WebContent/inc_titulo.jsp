@@ -1,3 +1,10 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#menu").menu({
+			position: {at: "left bottom"}
+		});
+	});
+</script>
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:996px;">
 <tr>
 	<td>

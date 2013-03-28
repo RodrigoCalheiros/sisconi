@@ -3,12 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <%@include file="inc_head.jsp"%>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#nr_cpf").mask("999.999.999-99");
+	});
+</script>
 <body>
 <table width="100%">
 <tr>
 	<td align="center">	
-		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:700px;">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:996px;">
 		<tr>
 			<td>
 				<img border="0" width="100px" height="98px" src="_imagens/logos/logo_sisconi.jpg">
@@ -29,7 +33,7 @@
 						<td align="left" valign="middle"><span id="sp_tipousuario">-</span></td>
 					</tr>
 					<tr>
-						<td><input type="text" id="teste" name="teste"></td>
+						<td></td>
 						<td align="right" valign="middle"><input type="submit" id="bt_entrar" name="bt_entrar" value="Entrar"></td>
 					</tr>
 				</table>
