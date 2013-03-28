@@ -11,7 +11,7 @@
 	
 function obterTipoUsuario(nr_cpf){
 	$.ajax({
-  		url: "ajax_tipo_usuario.jsp?nrCpf=" + nr_cpf,
+  		url: "ajax_obter_tipo_usuario.jsp?nrCpf=" + nr_cpf,
   		beforeSend: function () {
     		$("#sp_tipousuario").html("");
   		}
@@ -30,7 +30,7 @@ function obterTipoUsuario(nr_cpf){
 				<img border="0" width="100px" height="98px" src="_imagens/logos/logo_sisconi.jpg">
 			</td>
 			<td valign="bottom" align="right">
-				<form id="frm_login" action="" method="post">
+				<form id="frm_login" action="login_processa.jsp" method="post">
 				<table border="0" cellpadding="0" cellspacing="10">
 					<tr>
 						<td align="right" valign="middle">CPF:</td>

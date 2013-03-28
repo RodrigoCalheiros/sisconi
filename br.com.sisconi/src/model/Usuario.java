@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import dao.UsuarioDAO;
 
 public class Usuario {
@@ -9,7 +11,7 @@ public class Usuario {
 	protected String nome;
 	protected String cpf;
 	protected String senha;
-	protected int tipoUsuario;
+	protected TipoUsuario tipoUsuario;
 	
 	public int getCodigoUsuario() {
 		return codigoUsuario;
@@ -35,24 +37,24 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}	
-	public int getTipoUsuario() {
+	public TipoUsuario getTipoUsuario() {
 		return tipoUsuario;
 	}
-	public void setTipoUsuario(int tipoUsuario) {
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
 	
-	public boolean efetuarLogin(String cpf, String senha, int tipoUsuario) {
+	public Usuario efetuarLogin(String cpf, String senha, int tipoUsuario) {
 		UsuarioDAO udao = new UsuarioDAO();
-		Usuario usu = udao.select(cpf, senha, tipoUsuario);
-		return true;
+		Usuario usu = udao.getDadosLogin(cpf, senha, tipoUsuario);
+		return usu;
 		
 	}
 	
-	public List<String[]> getTipoUsuario(String cpf) {
+	public List<TipoUsuario> getTipoUsuario(String cpf) {
 		UsuarioDAO udao = new UsuarioDAO();
-		List<String[]> lista = udao.getTipoUsuario(cpf);
-		return lista;
+		List<TipoUsuario> listaTipoUsuario = udao.getTipoUsuario(cpf);
+		return listaTipoUsuario;
 	}
-
+	
 }
