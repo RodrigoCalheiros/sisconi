@@ -1,4 +1,4 @@
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:996px;">
 <tr>
 	<td>
 		<a href="inicio.jsp"><img border="0" width="100px" height="98px" src="_imagens/logos/logo_sisconi.jpg"></a>
@@ -6,13 +6,13 @@
 	<td valign="bottom" align="right">
 		<table border="0" cellpadding="3" cellspacing="0" width="100%">
 			<tr>
-				<td align="right"><font size="2" color="gray">Usuário: RodrigoCalheiros</font></td>
+				<td align="right"><font size="3" color="gray">Usuário: RodrigoCalheiros</font></td>
 			</tr>
 			<tr>
-				<td align="right"><font size="2" color="gray">Tipo de usuário: Administrdor</font></td>
+				<td align="right"><font size="3" color="gray">Tipo de usuário: Administrdor</font></td>
 			</tr>
 			<tr>
-				<td align="right"><font size="2" color="gray">Horário: 05/06/2012 - 21:06</font></td>
+				<td align="right"><font size="3" color="gray">Horário: 05/06/2012 - 21:06</font></td>
 			</tr>
 		</table>
 	</td>
