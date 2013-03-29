@@ -7,7 +7,7 @@
 	try {  
 		List<TipoUsuario> listTipoUsuario = usuario.getTipoUsuario(pNrCpf); 
 %>
-<select id="co_tipo_usuario" name="co_tipo_usuario">
+<select id="co_tipo_usuario" name="co_tipo_usuario" style="width: 150px;">
 <%
 	for (int i=0; i<listTipoUsuario.size(); i++) {
 %>

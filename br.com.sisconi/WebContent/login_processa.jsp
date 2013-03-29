@@ -5,8 +5,11 @@
 	pNrCpf = pNrCpf.replace(".", "");
 	pNrCpf = pNrCpf.replace("-", "");
 	String pDsSenha = request.getParameter("ds_senha");
-	String parametroCodigoTipoUsuario = request.getParameter("co_tipo_usuario");
-	int pCoTipoUsuario = Integer.parseInt(parametroCodigoTipoUsuario);
+	int pCoTipoUsuario = 0;
+	if (request.getParameter("co_tipo_usuario") != null){
+		String parametroCodigoTipoUsuario = request.getParameter("co_tipo_usuario");
+		pCoTipoUsuario = Integer.parseInt(parametroCodigoTipoUsuario);
+	}
 	Usuario usu = usuario.efetuarLogin(pNrCpf, pDsSenha, pCoTipoUsuario);
 	if (usu.getCodigoUsuario() > 0){
 		session.setAttribute( "co_usuario", usu.getCodigoUsuario());
@@ -17,6 +20,6 @@
 		response.sendRedirect("inicio.jsp");  
 	}
 	else{
-		response.sendRedirect("login.jsp");
+		response.sendRedirect("login.jsp?msgErro='Número de CPF ou senha está incorreto'");
 	}
 %>
