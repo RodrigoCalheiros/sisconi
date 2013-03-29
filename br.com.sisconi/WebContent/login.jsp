@@ -13,10 +13,10 @@ function obterTipoUsuario(nr_cpf){
 	$.ajax({
   		url: "ajax_obter_tipo_usuario.jsp?nrCpf=" + nr_cpf,
   		beforeSend: function () {
-    		$("#sp_tipousuario").html("");
+    		$("#spantipousuario").html("");
   		}
 	}).done(function (retornoSucesso) {
-    		$("#sp_tipousuario").html(retornoSucesso);
+    		$("#spantipousuario").html(retornoSucesso);
 	});
 }
 </script>
@@ -42,7 +42,7 @@ function obterTipoUsuario(nr_cpf){
 					</tr>
 					<tr>
 						<td align="right" valign="middle">Tipo:</td>
-						<td align="left" valign="middle"><span id="sp_tipousuario">-</span></td>
+						<td align="left" valign="middle"><span id="spantipousuario">-</span></td>
 					</tr>
 					<tr>
 						<td></td>

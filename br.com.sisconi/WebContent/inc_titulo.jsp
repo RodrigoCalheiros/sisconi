@@ -3,7 +3,19 @@
 		$("#menu").menu({
 			position: {at: "left bottom"}
 		});
+		relogio();
 	});
+	
+	function relogio(){
+		$.ajax({
+	  		url: "ajax_obter_horario.jsp",
+	  		beforeSend: function () {
+	  		}
+		}).done(function (retornoSucesso) {
+	    		$("#spanRelogio").html(retornoSucesso);
+		});
+		setTimeout('relogio()',1000);
+	}
 </script>
 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:996px;">
 <tr>
@@ -13,16 +25,13 @@
 	<td valign="bottom" align="right">
 		<table border="0" cellpadding="3" cellspacing="0" width="100%">
 			<tr>
-				<td align="right" width="100%"><font size="3" color="gray">Usuário:</font></td>
-				<td><font size="3" color="gray"><%=session.getAttribute("nm_usuario")%></font></td>
+				<td align="right"><font size="4" color="gray">Usuário: <%=session.getAttribute("nm_usuario")%></font></td>
 			</tr>
 			<tr>
-				<td align="right"><font size="3" color="gray">Tipo de usuário:</font>
-				<td><font size="3" color="gray"><%=session.getAttribute("ds_tipo_usuario")%></font></td>
+				<td align="right"><font size="4" color="gray">Tipo de usuário: <%=session.getAttribute("ds_tipo_usuario")%></font></td>
 			</tr>
 			<tr>
-				<td align="right"><font size="3" color="gray">Horário:</font>
-				<td><font size="3" color="gray"></font></td>
+				<td align="right"><font size="4" color="gray">Horário: <span id="spanRelogio"></span></font></td>
 			</tr>
 		</table>
 	</td>
