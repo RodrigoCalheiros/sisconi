@@ -1,23 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=windows-1252"
     pageEncoding="windows-1252"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%
-	String pMsgErro = request.getParameter("msgErro");
-%>
 <html>
 <%@include file="inc_head.jsp"%>
 <script type="text/javascript">
-	
-$(document).ready(function(){
-	<%if (pMsgErro != null){%>
-	var msgErro = <%=pMsgErro%>;
-	<%}else{%>
-	var msgErro = '';
-	<%}%>
-	if (msgErro != ''){
-		alert(msgErro);
-	}
 
+var pMsgErro = <%=request.getParameter("msgErro")%>
+
+$(document).ready(function(){
+	if (pMsgErro != '' && pMsgErro != null){
+		alert(pMsgErro);
+	}
 });
 	
 function obterTipoUsuario(nr_cpf){
