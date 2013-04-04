@@ -11,6 +11,7 @@
 </tr>
 <tr>
 	<td>
+	<input id="datepicker">
 	</td>
 </tr>
 <tr>

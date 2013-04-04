@@ -7,7 +7,7 @@
 /* Layout helpers
 ----------------------------------*/
 body{
-	font: 62.5% "Trebuchet MS", sans-serif;
+	font: "Trebuchet MS", sans-serif;
 }
 
 .ui-helper-hidden {
@@ -299,7 +299,7 @@ button.ui-button::-moz-focus-inner {
 	padding: 0;
 }
 .ui-datepicker {
-	width: 17em;
+	width: 12em;
 	padding: .2em .2em 0;
 	display: none;
 }
@@ -311,8 +311,8 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker .ui-datepicker-next {
 	position: absolute;
 	top: 2px;
-	width: 1.8em;
-	height: 1.8em;
+	width: 1.3em;
+	height: 1.3em;
 }
 .ui-datepicker .ui-datepicker-prev-hover,
 .ui-datepicker .ui-datepicker-next-hover {
@@ -345,7 +345,7 @@ button.ui-button::-moz-focus-inner {
 	text-align: center;
 }
 .ui-datepicker .ui-datepicker-title select {
-	font-size: 1em;
+	font-size: 0.6em;
 	margin: 1px 0;
 }
 .ui-datepicker select.ui-datepicker-month-year {
@@ -357,7 +357,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-datepicker table {
 	width: 100%;
-	font-size: .9em;
+	font-size: .5em;
 	border-collapse: collapse;
 	margin: 0 0 .4em;
 }
