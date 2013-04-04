@@ -56,7 +56,7 @@ public class UsuarioDAO {
 					"from tb_usuario as usu " +
 					"join tb_tipo_usuario as tpusu on usu.co_usuario = tpusu.co_usuario " +
 					"join tb_descricao_tipo_usuario tbdesc on tpusu.co_tipo_usuario = tbdesc.co_tipo_usuario " +
-					"where usu.nr_cpf="+cpf);
+					"where usu.nr_cpf like '" + cpf + "'");
 			ResultSet res = stm.executeQuery(sql);
 			while (res.next()) {
 				TipoUsuario tpUsu = new TipoUsuario();

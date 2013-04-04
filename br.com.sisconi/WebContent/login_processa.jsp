@@ -2,8 +2,6 @@
  <jsp:useBean id="usuario" class="model.Usuario"/> 
 <%
 	String pNrCpf = request.getParameter("nr_cpf");
-	pNrCpf = pNrCpf.replace(".", "");
-	pNrCpf = pNrCpf.replace("-", "");
 	String pDsSenha = request.getParameter("ds_senha");
 	int pCoTipoUsuario = 0;
 	if (request.getParameter("co_tipo_usuario") != null){

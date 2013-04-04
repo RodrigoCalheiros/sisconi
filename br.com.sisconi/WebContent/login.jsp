@@ -43,11 +43,11 @@ function onBlurCpf(pCpf){
 				<table border="0" cellpadding="0" cellspacing="10">
 					<tr>
 						<td align="right" valign="middle">CPF:</td>
-						<td align="left" valign="middle"><input type="text" id="nr_cpf" name="nr_cpf" onBlur="onBlurCpf(this.value);" onKeyPress="MascaraCPF(form.nr_cpf);" maxlength="14" size="20" placeholder="Insira CPF aqui" required></td>
+						<td align="left" valign="middle"><input type="text" id="nr_cpf" name="nr_cpf" onBlur="onBlurCpf(this.value);" onKeyPress="MascaraCPF(form.nr_cpf);" maxlength="14" size="20" placeholder="Insira o CPF" required></td>
 					</tr>
 					<tr>
 						<td align="right" valign="middle">Senha:</td>
-						<td align="left" valign="middle"><input type="password" id="ds_senha" name="ds_senha" size="20" placeholder="Insira a senha aqui" required></td>
+						<td align="left" valign="middle"><input type="password" id="ds_senha" name="ds_senha" maxlength="16" size="20" placeholder="Insira a senha" required></td>
 					</tr>
 					<tr>
 						<td align="right" valign="middle">Tipo:</td>

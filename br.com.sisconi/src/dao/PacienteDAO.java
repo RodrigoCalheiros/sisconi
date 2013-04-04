@@ -28,14 +28,14 @@ public class PacienteDAO {
 					"ds_complemento, " +
 					"co_cidade) " +
 					"values " +
-					"((select count(temp.co_paciente)+1 from (select co_paciente from tb_endereco) as temp join tb_paciente on tb_paciente.co_paciente=temp.co_paciente where tb_paciente.nr_sus=\""+p.getNumeroSus()+"\"), " +
-					"(select tb_paciente.co_paciente from tb_paciente where tb_paciente.nr_sus=\""+p.getNumeroSus()+"\"), " +
-					"\""+p.getEnderecoRua()+"\", " +
-					"\""+p.getEnderecoNumero()+"\", " +
-					"\""+p.getEnderecoBairro()+"\", " +
-					"\""+p.getEnderecoCEP()+"\", " +
-					"\""+p.getEnderecoComplemento()+"\", " + 
-					"(select co_cidade from tb_cidade where nm_cidade=\""+p.getEnderecoCidade()+"\"))";
+					"((select count(temp.co_paciente)+1 from (select co_paciente from tb_endereco) as temp join tb_paciente on tb_paciente.co_paciente=temp.co_paciente where tb_paciente.nr_sus like '"+p.getNumeroSus()+"'), " +
+					"(select tb_paciente.co_paciente from tb_paciente where tb_paciente.nr_sus like '"+p.getNumeroSus()+"'), " +
+					"'"+p.getEnderecoRua()+"', " +
+					"'"+p.getEnderecoNumero()+"', " +
+					"'"+p.getEnderecoBairro()+"', " +
+					"'"+p.getEnderecoCEP()+"', " +
+					"'"+p.getEnderecoComplemento()+"', " + 
+					"'"+p.getEnderecoCodigoCidade()+"')";
 			
 			stmt.setString(1, p.getNumeroSus());  
 		    stmt.setString(2, p.getCpf());  
@@ -54,7 +54,7 @@ public class PacienteDAO {
 		    
 		    System.out.println("Paciente "+p.getNome()+" inserido com sucesso.");
 		    
-		    ConexaoBD.getInstancia().fecharConexao();
+		    //ConexaoBD.getInstancia().fecharConexao();
 		    return true;
 		} catch (SQLException e) {			
 			e.printStackTrace();
@@ -88,7 +88,7 @@ public class PacienteDAO {
 			p.setEnderecoComplemento(res.getString("ds_complemento"));
 			p.setEnderecoCidade(res.getString("tb_cidade.nm_cidade"));
 			p.setEnderecoEstado(res.getString("tb_estado.nm_estado"));
-			ConexaoBD.getInstancia().fecharConexao();
+			//ConexaoBD.getInstancia().fecharConexao();
 			return p;
 		} catch (SQLException e) {
 			e.printStackTrace();

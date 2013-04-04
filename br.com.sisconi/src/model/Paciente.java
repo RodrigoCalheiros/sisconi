@@ -16,7 +16,9 @@ public class Paciente {
 	private String enderecoBairro;
 	private String enderecoCEP;
 	private String enderecoComplemento;
+	private int enderecoCodigoCidade;
 	private String enderecoCidade;
+	private int enderecoCodigoEstado;
 	private String enderecoEstado;
 	private String numeroTelefone;
 	private Date dataNascimento;
@@ -104,6 +106,18 @@ public class Paciente {
 	}
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+	public int getEnderecoCodigoCidade() {
+		return enderecoCodigoCidade;
+	}
+	public void setEnderecoCodigoCidade(int enderecoCodigoCidade) {
+		this.enderecoCodigoCidade = enderecoCodigoCidade;
+	}
+	public int getEnderecoCodigoEstado() {
+		return enderecoCodigoEstado;
+	}
+	public void setEnderecoCodigoEstado(int enderecoCodigoEstado) {
+		this.enderecoCodigoEstado = enderecoCodigoEstado;
 	}
 	
 	public boolean cadastrarPaciente() {

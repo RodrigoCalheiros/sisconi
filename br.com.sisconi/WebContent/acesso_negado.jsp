@@ -10,7 +10,8 @@
 	<td><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td>
+	<td align="center">
+		<font color="red" size="6">Você não possui acesso a esta página.</font>
 	</td>
 </tr>
 <tr>
