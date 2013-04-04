@@ -1,7 +1,7 @@
-<%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Estado, model.Paciente"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="paciente" class="model.Paciente"/> 
+
 <html>
 <%@include file="inc_head.jsp"%>
 <script>
@@ -42,7 +42,7 @@ function getCidades(){
 				</tr>
 				<tr>
 					<td align="right">Data de Nascimento:</td>
-					<td align="left"><input type="text" id="dt_nascimento" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" required></td>
+					<td align="left"><input type="text" id="datePicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" required></td>
 				</tr>
 				<tr>
 					<td align="right">Telefone:</td>
