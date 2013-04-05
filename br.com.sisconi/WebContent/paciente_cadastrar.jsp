@@ -44,7 +44,7 @@ function getExisteNrSusPaciente(pNrSus){
 function getCidades(){
 	var codigoEstado = 	$('#co_estado').val();
 	$.ajax({
-	  url: "ajax_get_cidades.jsp?codigoEstado=" + codigoEstado,
+	  url: "ajax_obter_cidades.jsp?codigoEstado=" + codigoEstado,
 	  context: document.body
 	}).done(function(retornoSucesso) {
 		$('#spanCidade').html(retornoSucesso);

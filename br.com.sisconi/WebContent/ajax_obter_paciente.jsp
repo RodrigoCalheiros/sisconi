@@ -1,9 +1,12 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html" language="java" import="java.util.*, model.Paciente"%>
  <jsp:useBean id="paciente" class="model.Paciente"/> 
 <%
 	String pNrSus = request.getParameter("nr_sus");	
 	paciente.setNumeroSus(pNrSus);
 	paciente = paciente.localizarPaciente();
+	Date dtNascimento = paciente.getDataNascimento();
+	java.text.DateFormat dateformat = new java.text.SimpleDateFormat("dd/MM/yyyy");
 %>
 <table border="0" cellpadding="0" cellspacing="8">
 	<tr>
@@ -31,7 +34,7 @@
 	</tr>
 	<tr>
 		<td align="right">Data de Nascimento:</td>
-		<td align="left"><%=paciente.getDataNascimento()%></td>
+		<td align="left"><%=dateformat.format(dtNascimento) %></td>
 	</tr>
 	<tr>
 		<td align="left" colspan="2">Endereço</td>

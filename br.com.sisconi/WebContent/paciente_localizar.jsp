@@ -15,7 +15,7 @@ function mostrarMsg(){
 
 function getPaciente(){
 	$.ajax({
-		url: "ajax_get_paciente.jsp?nr_sus=" + $('#nr_sus').val(),
+		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_sus').val(),
 		}).done(function(retornoSucesso) {
 			$('#span_dados_paciente').html(retornoSucesso);
 	});	
