@@ -13,6 +13,14 @@ function mostrarMsg(){
 	}
 }	
 
+function getPaciente(){
+	$.ajax({
+		url: "ajax_get_paciente.jsp?nr_sus=" + $('#nr_sus').val(),
+		}).done(function(retornoSucesso) {
+			$('#span_dados_paciente').html(retornoSucesso);
+	});	
+}
+
 function getExisteCpfPaciente(pCpf){
 	if (pCpf!= ""){
 		$.ajax({
@@ -157,107 +165,24 @@ function onBlurNrSus(){
 	<td><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td>Cadastrar Paciente<hr>
-		<table border="0" cellpadding="0" cellspacing="8">
+	<td>Localizar Paciente<hr>
+		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
-				<td>Número do SUS:</td>
-				<td><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="button" id="bt_localizar" name="bt_localizar" value="Localizar"></td>
-			</tr>
+				<td align="right" width="40%">Número do SUS:</td>
+				<td align="left" width="60%"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="getPaciente()"></td>
+			</tr>			
 		</table>
 	</td>
 </tr>
 <tr>
 	<td>
-		<form id="frm_paciente" action="paciente_cadastrar_processa.jsp" method="post">
-			<table border="0" cellpadding="0" cellspacing="8">
-				<tr>
-					<td align="left" colspan="2">Dados Pessoais</td>
-				</tr>
-				<tr>
-					<td align="right">Nome:</td>
-					<td align="left"><input type="text" id="nm_paciente" name="nm_paciente" maxlength="70" size="50" placeholder="Insira o nome do paciente" required></td>
-				</tr>
-				<tr>
-					<td align="right">Nome da Mãe:</td>
-					<td align="left"><input type="text" id="nm_mae" name="nm_mae" maxlength="70" size="50" placeholder="Insira o nome da mãe do paciente" required></td>
-				</tr>
-				<tr>
-					<td align="right">CPF:</td>
-					<td align="left"><input type="text" id="nr_cpf" name="nr_cpf" maxlength="14" size="50" placeholder="Insira o número do CPF do paciente" onKeyPress="MascaraCPF(form.nr_cpf);" onBlur="onBlurNrCpf();"></td>
-				</tr>
-				<tr>
-					<td align="right">Número do SUS:</td>
-					<td align="left"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required></td>
-				</tr>
-				<tr>
-					<td align="right">Telefone:</td>
-					<td align="left"><input type="text" id="nr_telefone" name="nr_telefone" maxlength="14" size="50" placeholder="Insira o número do telefone do paciente" onKeyPress="MascaraTelefone(form.nr_telefone);"></td>
-				</tr>
-				<tr>
-					<td align="right">Data de Nascimento:</td>
-					<td align="left"><input type="text" id="datepicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" required></td>
-				</tr>
-				<tr>
-					<td align="left" colspan="2">Endereço</td>
-				</tr>
-				<tr>
-					<td align="right">Rua:</td>
-					<td align="left"><input type="text" id="ds_rua" name="ds_rua" maxlength="60" size="50" placeholder="Insira o nome da rua do endereço do paciente" required></td>
-				</tr>
-				<tr>
-					<td align="right">Número:</td>
-					<td align="left"><input type="text" id="ds_numero" name="ds_numero" maxlength="10" size="50" placeholder="Insira o número do endereço do paciente" onKeyPress="mascaraInteiro();" required></td>
-				</tr>
-				<tr>
-					<td align="right">Complemento:</td>
-					<td align="left"><input type="text" id="ds_complemento" name="ds_complemento" maxlength="100" size="50" placeholder="Insira o complemento do endereço do paciente" ></td>
-				</tr>
-				<tr>
-					<td align="right">Bairro:</td>
-					<td align="left"><input type="text" id="ds_bairro" name="ds_bairro" maxlength="40" size="50" placeholder="Insira o nome do bairro do endereço do paciente" required></td>
-				</tr>
-				<tr>
-					<td align="right">CEP:</td>
-					<td align="left"><input type="text" id="ds_cep" name="ds_cep" maxlength="10" size="50" placeholder="Insira o CEP do endereço do paciente" onKeyPress="MascaraCep(form.ds_cep);"></td>
-				</tr>
-				<tr>
-					<td align="right">Estado:</td>
-					<td align="left">
-						<select name="co_estado" id="co_estado" onchange="getCidades()" required>
-							<option value="0">--</option>
-						<%      
-						   try {  
-						      List<Estado> les = paciente.getEstados();    
-						        
-						      for (int i=0; i<les.size(); i++) {
-						    	  Estado e = les.get(i);
-						%>
-						    	  <option value=<%=e.getCodigoEstado()%>><%=e.getUF()%></option>
-						<%
-						      }
-						   }catch (Exception e) {  
-						      e.printStackTrace();  
-							}
-						%>
-						      
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td align="right">Cidade:</td>
-					<td align="left"><span id="spanCidade">-</span></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td align="left"><input type="reset" id="bt_reset" name="bt_reset" value="Limpar" style="font-size: 15px;">&nbsp;<input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()" style="font-size: 15px;"></td>
-				</tr>
-			</table>
+		<form id="frm_paciente" action="" method="post">
+			<span id="span_dados_paciente"></span>
 		</form>	
 	</td>
+</tr>
+<tr>
+	<td><input type="button" id="bt_localizar_" name="bt_localizar_historico" value="bt_localizar_historico" onclick="getHistoricoPaciente()"></td>
 </tr>
 <tr>
 	<td align="center"><%@include file="inc_rodape.jsp"%></td>

@@ -44,7 +44,7 @@
 	        <a href="#"><img src="_imagens/icones/16X16/address-book.gif">&nbsp;Paciente</a>
 	        <ul>
 	            <li><a href="paciente_cadastrar.jsp">Cadastrar Paciente</a></li>
-	            <li><a href="#">Localizar Paciente</a></li>
+	            <li><a href="paciente_localizar.jsp">Localizar Paciente</a></li>
 	        </ul>
 	    </li>
 	    <li>
