@@ -21,7 +21,6 @@ background-color: #90EE90;
 input{
   border:1px solid #ccc;
   border-color: #88a;
-  display:block;
   outline: none;
   -webkit-border-radius:5px;
   -moz-border-radius:5px;

@@ -27,20 +27,6 @@ function getExisteCpfPaciente(pCpf){
 	}
 }
 
-function getExisteNrSusPaciente(pNrSus){
-	if (pNrSus != ""){
-		$.ajax({
-			url: "ajax_existe_numero_sus_paciente.jsp?nr_sus=" + pNrSus,
-			}).done(function(retornoSucesso) {
-			var retorno = retornoSucesso;
-			if (retorno == 1){
-				alert("Número do SUS " + pNrSus + " já cadastrado.");
-				$('#nr_sus').focus();
-			}
-		});	
-	}
-}
-
 function getCidades(){
 	var codigoEstado = 	$('#co_estado').val();
 	$.ajax({
@@ -172,6 +158,20 @@ function onBlurNrSus(){
 </tr>
 <tr>
 	<td>Cadastrar Paciente<hr>
+		<table border="0" cellpadding="0" cellspacing="8">
+			<tr>
+				<td>Número do SUS:</td>
+				<td><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="button" id="bt_localizar" name="bt_localizar" value="Localizar"></td>
+			</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td>
 		<form id="frm_paciente" action="paciente_cadastrar_processa.jsp" method="post">
 			<table border="0" cellpadding="0" cellspacing="8">
 				<tr>
@@ -253,7 +253,7 @@ function onBlurNrSus(){
 				</tr>
 				<tr>
 					<td></td>
-					<td align="left"><input type="reset" id="bt_reset" name="bt_reset" value="Limpar">&nbsp;<input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></td>
+					<td align="left"><input type="reset" id="bt_reset" name="bt_reset" value="Limpar" style="font-size: 15px;">&nbsp;<input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()" style="font-size: 15px;"></td>
 				</tr>
 			</table>
 		</form>	
