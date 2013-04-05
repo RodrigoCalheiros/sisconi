@@ -69,7 +69,6 @@ public class PacienteDAO {
 		    return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getErrorCode());
 			return false;
 		}
 	}

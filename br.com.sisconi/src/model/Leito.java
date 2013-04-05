@@ -2,7 +2,8 @@ package model;
 
 public class Leito {
 	private int codigoLeito;
-	private String statusLeito;
+	private int codigoAla;
+	private int statusLeito;
 	
 	
 	public int getCodigoLeito() {
@@ -10,14 +11,17 @@ public class Leito {
 	}
 	public void setCodigoLeito(int codigoLeito) {
 		this.codigoLeito = codigoLeito;
-	}
-	public String getStatusLeito() {
+	}	
+	public int getStatusLeito() {
 		return statusLeito;
 	}
-	public void setStatusLeito(String statusLeito) {
+	public void setStatusLeito(int statusLeito) {
 		this.statusLeito = statusLeito;
 	}
-	
-	
-
+	public int getCodigoAla() {
+		return codigoAla;
+	}
+	public void setCodigoAla(int codigoAla) {
+		this.codigoAla = codigoAla;
+	}
 }
