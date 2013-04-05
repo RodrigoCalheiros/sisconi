@@ -1,13 +1,7 @@
 <style type="text/css">
 
-:invalid { 
-  border-color: #e88;
-  border: 2px solid #ff0000;
-  -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
-  -moz-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
-  -o-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
-  -ms-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
-  box-shadow:0 0 5px rgba(255, 0, 0, .8);
+body{
+	font: Helvetica, sans-serif;
 }
 
 :required {
@@ -44,5 +38,10 @@ select {
   -o-border-radius:5px;
   -ms-border-radius:5px;
   border-radius:5px;
+}
+
+hr{
+	border:3px dashed #D3D3D3;
+	size: 1px;
 }
 </style>

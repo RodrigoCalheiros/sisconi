@@ -11,11 +11,10 @@
 </tr>
 <tr>
 	<td>
-	<input id="datepicker">
 	</td>
 </tr>
 <tr>
-	<td align="center"><%@include file="inc_rodape.jsp"%></td>
+	<td align="center"><hr><%@include file="inc_rodape.jsp"%></td>
 </tr>
 </table>
 </body>

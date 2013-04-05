@@ -25,13 +25,13 @@
 	<td valign="bottom" align="right">
 		<table border="0" cellpadding="3" cellspacing="0" width="100%">
 			<tr>
-				<td align="right"><font size="4" color="gray">Usuário: <%=session.getAttribute("nm_usuario")%></font></td>
+				<td align="right">Usuário: <%=session.getAttribute("nm_usuario")%></td>
 			</tr>
 			<tr>
-				<td align="right"><font size="4" color="gray">Tipo de usuário: <%=session.getAttribute("ds_tipo_usuario")%></font></td>
+				<td align="right">Tipo de usuário: <%=session.getAttribute("ds_tipo_usuario")%></td>
 			</tr>
 			<tr>
-				<td align="right"><font size="4" color="gray">Horário: <span id="spanRelogio"></span></font></td>
+				<td align="right">Horário: <span id="spanRelogio"></span></td>
 			</tr>
 		</table>
 	</td>

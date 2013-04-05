@@ -72,27 +72,34 @@ function ValidaData(data){
 //valida o CPF digitado
 function ValidarCPF(pValor, pIdCampo){
 	var cpf = pValor;
-	exp = /\.|\-/g;
-	cpf = cpf.toString().replace( exp, "" ); 
-	var digitoDigitado = eval(cpf.charAt(9)+cpf.charAt(10));
-	var soma1=0, soma2=0;
-	var vlr =11;
-	
-	for(i=0;i<9;i++){
-		soma1+=eval(cpf.charAt(i)*(vlr-1));
-		soma2+=eval(cpf.charAt(i)*vlr);
-		vlr--;
-	}	
-	soma1 = (((soma1*10)%11)==10 ? 0:((soma1*10)%11));
-	soma2=(((soma2+(2*soma1))*10)%11);
-	
-	var digitoGerado=(soma1*10)+soma2;
-	if(digitoGerado!=digitoDigitado)
-		//alert('CPF Invalido!');
-		document.getElementById(pIdCampo).style.backgroundColor='#fcc';
-		 //$(this).css({"border" : "1px solid #F00", "padding": "2px"});
-	else
+	if (cpf != ''){
+		exp = /\.|\-/g;
+		cpf = cpf.toString().replace( exp, "" ); 
+		var digitoDigitado = eval(cpf.charAt(9)+cpf.charAt(10));
+		var soma1=0, soma2=0;
+		var vlr =11;
+		
+		for(i=0;i<9;i++){
+			soma1+=eval(cpf.charAt(i)*(vlr-1));
+			soma2+=eval(cpf.charAt(i)*vlr);
+			vlr--;
+		}	
+		soma1 = (((soma1*10)%11)==10 ? 0:((soma1*10)%11));
+		soma2=(((soma2+(2*soma1))*10)%11);
+		
+		var digitoGerado=(soma1*10)+soma2;
+		if(digitoGerado!=digitoDigitado){
+			//alert('CPF Invalido!');
+			document.getElementById(pIdCampo).style.backgroundColor='#fcc';
+			 //$(this).css({"border" : "1px solid #F00", "padding": "2px"});
+		}
+		else{
+			document.getElementById(pIdCampo).style.backgroundColor='transparent';
+		}
+	}
+	else{
 		document.getElementById(pIdCampo).style.backgroundColor='transparent';
+	}
 }
 
 //valida numero inteiro com mascara

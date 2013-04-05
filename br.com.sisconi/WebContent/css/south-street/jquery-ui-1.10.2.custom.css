@@ -6,10 +6,6 @@
 
 /* Layout helpers
 ----------------------------------*/
-body{
-	font: "Trebuchet MS", sans-serif;
-}
-
 .ui-helper-hidden {
 	display: none;
 }
