@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +93,8 @@ public class PacienteDAO {
 			p.setNome(res.getString("nm_paciente"));
 			p.setNomeMae(res.getString("nm_mae"));
 			p.setNumeroTelefone(res.getString("nr_telefone"));
-			p.setDataNascimento((java.util.Date)res.getDate("dt_nascimento"));
+			String formatData = new SimpleDateFormat("dd/MM/yyyy").format(res.getDate("dt_nascimento"));
+			p.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(formatData));
 			p.setEnderecoRua(res.getString("ds_rua"));
 			p.setEnderecoNumero(res.getInt("ds_numero"));
 			p.setEnderecoBairro(res.getString("ds_bairro"));
@@ -102,6 +105,9 @@ public class PacienteDAO {
 			//ConexaoBD.getInstancia().fecharConexao();
 			return p;
 		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
 		}
