@@ -56,8 +56,9 @@ public class PacienteDAO {
 		    
 		    //ConexaoBD.getInstancia().fecharConexao();
 		    return true;
-		} catch (SQLException e) {			
+		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(e.getErrorCode());
 			return false;
 		}
 	}
@@ -146,6 +147,38 @@ public class PacienteDAO {
 	
 	public boolean insertPaciente(){
 		return false;		
+	}
+	
+	public boolean existeCpfPaciente(String cpf) {
+		try {
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery("select nr_cpf from tb_paciente where nr_cpf like '"+cpf+"'");
+			if (res.next()) {
+				return true;
+			}
+			return false;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
+	public boolean existeNumeroSusPaciente(String numeroSus) {
+		try {
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery("select nr_sus from tb_paciente where nr_sus like '"+numeroSus+"'");
+			if (res.next()) {
+				return true;
+			}
+			return false;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}	
 	}
 
 }

@@ -143,6 +143,16 @@ public class Paciente {
 		return pdao.getCidades(codigoEstado);		
 	}
 	
+	public boolean existeCpfPaciente(String cpf) {
+		PacienteDAO pdao = new PacienteDAO();
+		return pdao.existeCpfPaciente(cpf);
+	}
+	
+	public boolean existeNumeroSusPaciente(String numeroSus) {
+		PacienteDAO pdao = new PacienteDAO();
+		return pdao.existeNumeroSusPaciente(numeroSus);
+	}
+	
 	@Override
 	public String toString() {
 		return "Paciente [codigoPaciente=" + codigoPaciente + ", nome=" + nome
