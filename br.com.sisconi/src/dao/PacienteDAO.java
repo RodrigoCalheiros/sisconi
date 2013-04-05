@@ -2,7 +2,6 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,7 +17,29 @@ public class PacienteDAO {
 	public boolean insert(Paciente p) {		
 		try {
 			Connection con = ConexaoBD.getInstancia().getConexao();
-			PreparedStatement stmt = con.prepareStatement("insert into tb_paciente (nr_sus, nr_cpf, nm_paciente, nm_mae, nr_telefone, dt_nascimento) values (?,?,?,?,?,?)");
+			if (p.getCpf().equals("")) {
+				p.setCpf(null);
+			}
+			if (p.getNumeroTelefone().equals("")) {
+				p.setNumeroTelefone(null);
+			}
+			if (p.getEnderecoCEP().equals("")) {
+				p.setEnderecoCEP(null);
+			}
+			if (p.getEnderecoComplemento().equals("")) {
+				p.setEnderecoComplemento(null);
+			}
+			
+			String sqlPaciente = "insert into tb_paciente (nr_sus, nr_cpf, nm_paciente, nm_mae, nr_telefone, dt_nascimento) " +
+					"values (" +
+					"'"+p.getNumeroSus()+"', " +
+					"'"+p.getCpf()+"', " +
+					"'"+p.getNome()+"', " +
+					"'"+p.getNomeMae()+"', " +
+					"'"+p.getNumeroTelefone()+"', " +
+					"'"+new Date(p.getDataNascimento().getTime())+"'" +
+					")";
+			
 			String sqlEndereco = "insert into tb_endereco (co_endereco, " +
 					"co_paciente, " +
 					"ds_rua, " +
@@ -36,21 +57,11 @@ public class PacienteDAO {
 					"'"+p.getEnderecoCEP()+"', " +
 					"'"+p.getEnderecoComplemento()+"', " + 
 					"'"+p.getEnderecoCodigoCidade()+"')";
-			
-			stmt.setString(1, p.getNumeroSus());  
-		    stmt.setString(2, p.getCpf());  
-		    stmt.setString(3, p.getNome());
-		    stmt.setString(4, p.getNomeMae());  
-		    stmt.setString(5, p.getNumeroTelefone()); 
-		    stmt.setDate(6, new Date(p.getDataNascimento().getTime()));
-		    
-		    stmt.execute();
-		    stmt.close();
-		    
+	
 		    Statement smt = con.createStatement();
+		    smt.execute(sqlPaciente);
 		    smt.execute(sqlEndereco);
 		    smt.close();
-		    
 		    
 		    System.out.println("Paciente "+p.getNome()+" inserido com sucesso.");
 		    
