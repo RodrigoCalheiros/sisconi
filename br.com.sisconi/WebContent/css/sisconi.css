@@ -4,6 +4,11 @@ body{
 	font: Helvetica, sans-serif;
 }
 
+input:focus
+{ 
+background-color: #90EE90;
+}
+
 :required {
   border-color: #88a;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, .5);

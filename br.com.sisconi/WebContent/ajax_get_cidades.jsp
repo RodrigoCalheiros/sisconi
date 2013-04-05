@@ -4,7 +4,7 @@
 	String parametroCodigoEstado = request.getParameter("codigoEstado");	
 	int codigoEstado = Integer.parseInt(parametroCodigoEstado);
 %>
-<select id="co_cidade" name="co_cidade">
+<select id="co_cidade" name="co_cidade" required>
 <%      
    try {  
       List<Cidade> lci = paciente.getCidades(codigoEstado);    

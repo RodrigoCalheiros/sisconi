@@ -5,14 +5,14 @@
 <%@include file="inc_head.jsp"%>
 <script type="text/javascript">
 
-var pMsgErro = <%=request.getParameter("msgErro")%>
+var pMsg = <%=request.getParameter("msg")%>
 
 $(document).ready(function(){
-	if (pMsgErro != '' && pMsgErro != null){
-		alert(pMsgErro);
+	if (pMsg != '' && pMsg != null){
+		alert(pMsg);
 	}
 });
-	
+
 function obterTipoUsuario(nr_cpf){
 	$.ajax({
   		url: "ajax_obter_tipo_usuario.jsp?nrCpf=" + nr_cpf,

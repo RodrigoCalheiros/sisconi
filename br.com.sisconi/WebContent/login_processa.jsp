@@ -18,6 +18,6 @@
 		response.sendRedirect("inicio.jsp");  
 	}
 	else{
-		response.sendRedirect("login.jsp?msgErro='Número de CPF ou senha está incorreto'");
+		response.sendRedirect("login.jsp?msg='Número de CPF ou senha está incorreto'");
 	}
 %>

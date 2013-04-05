@@ -5,6 +5,14 @@
 <html>
 <%@include file="inc_head.jsp"%>
 <script>
+var pMsg = <%=request.getParameter("msg")%>
+
+function mostrarMsg(){
+	if (pMsg != '' && pMsg != null){
+		alert(pMsg);
+	}
+}	
+
 function getCidades(){
 	var codigoEstado = 	$('#co_estado').val();
 	$.ajax({
@@ -14,8 +22,109 @@ function getCidades(){
 		$('#spanCidade').html(retornoSucesso);
 	});	
 }
+
+function remover(pValor,caractere){  
+	var texto = pValor;  
+	var novo_texto='';  
+	for(i = 0; i < texto.length; i++) 
+	{
+		if (texto.charAt(i) != caractere)
+		{
+			novo_texto += texto.charAt(i);  
+		}
+	}
+	return novo_texto;
+}
+
+function validarCadastro(){
+	var pNmPaciente = remover($('#nm_paciente').val(), ' ');
+	if (pNmPaciente == ""){
+		alert("O nome do Paciente deve ser preenchido.");
+		$('#nm_paciente').val("");
+		$('#nm_paciente').focus();
+		return false;
+	}
+	var pNmMae = remover($('#nm_mae').val(), ' ');
+	if (pNmMae == ""){
+		alert("O nome da Mãe deve ser preenchido.");
+		$('#nm_mae').val("");
+		$('#nm_mae').focus();
+		return false;
+	}
+	var pNrCpf = remover($('#nr_cpf').val(), ' ');
+	if (pNrCpf == ""){
+		$('#nr_cpf').val("");
+	}
+	var pNrSus = remover($('#nr_sus').val(), ' ');
+	if (pNrSus == ""){
+		alert("O número do SUS deve ser preenchido.");
+		$('#nr_sus').val("");
+		$('#nr_sus').focus();
+		return false;
+	}
+	var pDtNascimento = remover($("#datepicker").val(), ' ');
+	if (pDtNascimento == ""){
+		alert("A data Nascimento deve ser preenchida.");
+		$('#datepicker').val("");
+		$('#datepicker').focus();
+		return false;
+	}
+	var pNrTelefone = remover($('#nr_telefone').val(), ' ');
+	if (pNrTelefone == ""){
+		$('#nr_telefone').val("");
+	}
+	var pDsRua = remover($('#ds_rua').val(), ' ');
+	if (pDsRua == ""){
+		alert("O nome da Rua deve ser preenchido.");
+		$('#ds_rua').val("");
+		$('#ds_rua').focus();
+		return false;
+	}
+	var pDsNumero = remover($('#ds_numero').val(), ' ');
+	if (pDsNumero == ""){
+		alert("O número do Endereço deve ser preenchido.");
+		$('#ds_numero').val("");
+		$('#ds_numero').focus();
+		return false;
+	}
+	var pDsComplemento = remover($('#ds_complemento').val(), ' ');
+	if (pDsComplemento == ""){
+		$('#ds_complemento').val("");
+	}
+	var pDsBairro = remover($('#ds_bairro').val(), ' ');
+	if (pDsBairro == ""){
+		alert("O nome do Bairro deve ser preenchido.");
+		$('#ds_bairro').val("");
+		$('#ds_bairro').focus();
+		return false;
+	}
+	var pDsCep = remover($('#ds_cep').val(), ' ');
+	if (pDsCep == ""){
+		$('#ds_cep').val("");
+	}
+	if ($('#co_estado').val() == "0"){
+		alert("O nome do Estado deve ser preenchido.");
+		$('#co_estado').focus();
+		return false;
+	}
+	if ($('#co_cidade').val() == ""){
+		alert("O nome da cidade deve ser preenchido.");
+		$('#co_cidade').focus();
+		return false;
+	}
+	return true;
+}
+
+function salvarCadastro(){
+	if (validarCadastro()){
+		if (confirm("Você deseja cadastrar o paciente?")){
+			document.forms['frm_paciente'].submit();	
+		}	
+	} 
+	
+}
 </script>
-<body>
+<body onload="mostrarMsg()">
 <table border="0" cellpadding="0" cellspacing="10" width="100%">
 <tr>
 	<td><%@include file="inc_titulo.jsp"%></td>
@@ -79,7 +188,7 @@ function getCidades(){
 				<tr>
 					<td align="right">Estado:</td>
 					<td align="left">
-						<select name="co_estado" id="co_estado" onchange="getCidades()">
+						<select name="co_estado" id="co_estado" onchange="getCidades()" required>
 							<option value="0">--</option>
 						<%      
 						   try {  
@@ -105,7 +214,7 @@ function getCidades(){
 				</tr>
 				<tr>
 					<td></td>
-					<td align="left"><input type="submit" id="bt_salvar" name="bt_salvar" value="Salvar"></td>
+					<td align="left"><input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></td>
 				</tr>
 			</table>
 		</form>	
