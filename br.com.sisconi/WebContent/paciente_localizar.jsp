@@ -175,14 +175,14 @@ function onBlurNrSus(){
 	</td>
 </tr>
 <tr>
+	<td><input type="button" id="bt_dados_paciente" name="bt_dados_paciente" value="Dados do Paciente" onclick=""><input type="button" id="bt_atualizar_dados_paciente" name="bt_atualizar_dados_paciente" value="Atualizar Dados do Paciente" onclick=""><input type="button" id="bt_localizar_historico" name="bt_localizar_historico" value="Localizar Histórico" onclick=""></td>
+</tr>
+<tr>
 	<td>
 		<form id="frm_paciente" action="" method="post">
 			<span id="span_dados_paciente"></span>
 		</form>	
 	</td>
-</tr>
-<tr>
-	<td><input type="button" id="bt_localizar_" name="bt_localizar_historico" value="bt_localizar_historico" onclick="getHistoricoPaciente()"></td>
 </tr>
 <tr>
 	<td align="center"><%@include file="inc_rodape.jsp"%></td>
