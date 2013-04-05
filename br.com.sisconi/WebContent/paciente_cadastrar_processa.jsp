@@ -32,10 +32,10 @@
 	paciente.setEnderecoCodigoCidade(pCoCidade);
 	
 	boolean retorno = paciente.cadastrarPaciente();
-	if (retorno){
-		response.sendRedirect("paciente_cadastrar.jsp?msg='Paciente Cadastrado com sucesso.'");
+	if (retorno == true){
+		response.sendRedirect("paciente_cadastrar.jsp?msg='Paciente " + pNmPaciente + " foi Cadastrado com sucesso.'");
 	}
 	else{
-		response.sendRedirect("paciente_cadastrar.jsp?msg='Paciente Cadastrado com sucesso.'");
+		response.sendRedirect("paciente_cadastrar.jsp?msg='Erro ao cadastrar o paciente.'");
 	}
 %>
