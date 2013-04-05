@@ -7,11 +7,11 @@
 
 var pMsg = <%=request.getParameter("msg")%>
 
-$(document).ready(function(){
+function mostrarMsg(){
 	if (pMsg != '' && pMsg != null){
 		alert(pMsg);
 	}
-});
+}	
 
 function obterTipoUsuario(nr_cpf){
 	$.ajax({
@@ -29,7 +29,7 @@ function onBlurCpf(pCpf){
 	ValidarCPF(document.getElementById('nr_cpf').value, 'nr_cpf');
 }
 </script>
-<body>
+<body onload="mostrarMsg()">
 <table width="100%">
 <tr>
 	<td align="center">	

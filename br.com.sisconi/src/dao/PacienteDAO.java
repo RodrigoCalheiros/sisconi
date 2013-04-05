@@ -163,7 +163,7 @@ public class PacienteDAO {
 		try {
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			Statement stm = con.createStatement();
-			ResultSet res = stm.executeQuery("select nr_cpf from tb_paciente where nr_cpf like '"+cpf+"'");
+			ResultSet res = stm.executeQuery("select nr_cpf from tb_paciente where nr_cpf like '"+cpf+"' and nr_cpf not like ''");
 			if (res.next()) {
 				return true;
 			}

@@ -13,6 +13,34 @@ function mostrarMsg(){
 	}
 }	
 
+function getExisteCpfPaciente(pCpf){
+	if (pCpf!= ""){
+		$.ajax({
+			url: "ajax_existe_cpf_paciente.jsp?nr_cpf=" + pCpf,
+			}).done(function(retornoSucesso) {
+			var retorno = retornoSucesso;
+			if (retorno == 1){
+				alert("CPF " + pCpf + " já cadastrado.");
+				$('#nr_cpf').focus();
+			}
+		});	
+	}
+}
+
+function getExisteNrSusPaciente(pNrSus){
+	if (pNrSus != ""){
+		$.ajax({
+			url: "ajax_existe_numero_sus_paciente.jsp?nr_sus=" + pNrSus,
+			}).done(function(retornoSucesso) {
+			var retorno = retornoSucesso;
+			if (retorno == 1){
+				alert("Número do SUS " + pNrSus + " já cadastrado.");
+				$('#nr_sus').focus();
+			}
+		});	
+	}
+}
+
 function getCidades(){
 	var codigoEstado = 	$('#co_estado').val();
 	$.ajax({
@@ -54,6 +82,11 @@ function validarCadastro(){
 	var pNrCpf = remover($('#nr_cpf').val(), ' ');
 	if (pNrCpf == ""){
 		$('#nr_cpf').val("");
+	}
+	if (ValidarCPF($('#nr_cpf').val(), 'nr_cpf') == false){
+		alert("O CPF " + $('#nr_cpf').val() + " é inválido.");
+		$('#nr_cpf').focus();
+		return false;
 	}
 	var pNrSus = remover($('#nr_sus').val(), ' ');
 	if (pNrSus == ""){
@@ -116,12 +149,20 @@ function validarCadastro(){
 }
 
 function salvarCadastro(){
-	if (validarCadastro()){
+	if (validarCadastro() == true){
 		if (confirm("Você deseja cadastrar o paciente?")){
 			document.forms['frm_paciente'].submit();	
 		}	
 	} 
-	
+}
+
+function onBlurNrCpf(){
+	ValidarCPF(document.getElementById('nr_cpf').value, 'nr_cpf');
+	getExisteCpfPaciente(document.getElementById('nr_cpf').value);
+}
+
+function onBlurNrSus(){
+	getExisteNrSusPaciente(document.getElementById('nr_sus').value);
 }
 </script>
 <body onload="mostrarMsg()">
@@ -134,8 +175,7 @@ function salvarCadastro(){
 		<form id="frm_paciente" action="paciente_cadastrar_processa.jsp" method="post">
 			<table border="0" cellpadding="0" cellspacing="8">
 				<tr>
-					<td align="right"></td>
-					<td align="left">Dados Pessoais</td>
+					<td align="left" colspan="2">Dados Pessoais</td>
 				</tr>
 				<tr>
 					<td align="right">Nome:</td>
@@ -147,23 +187,22 @@ function salvarCadastro(){
 				</tr>
 				<tr>
 					<td align="right">CPF:</td>
-					<td align="left"><input type="text" id="nr_cpf" name="nr_cpf" maxlength="14" size="50" placeholder="Insira o número do CPF do paciente" onKeyPress="MascaraCPF(form.nr_cpf);" onBlur="ValidarCPF(document.getElementById('nr_cpf').value, 'nr_cpf');"></td>
+					<td align="left"><input type="text" id="nr_cpf" name="nr_cpf" maxlength="14" size="50" placeholder="Insira o número do CPF do paciente" onKeyPress="MascaraCPF(form.nr_cpf);" onBlur="onBlurNrCpf();"></td>
 				</tr>
 				<tr>
 					<td align="right">Número do SUS:</td>
-					<td align="left"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" required></td>
-				</tr>
-				<tr>
-					<td align="right">Data de Nascimento:</td>
-					<td align="left"><input type="text" id="datepicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" required></td>
+					<td align="left"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" required onBlur="onBlurNrSus();"></td>
 				</tr>
 				<tr>
 					<td align="right">Telefone:</td>
 					<td align="left"><input type="text" id="nr_telefone" name="nr_telefone" maxlength="14" size="50" placeholder="Insira o número do telefone do paciente" onKeyPress="MascaraTelefone(form.nr_telefone);"></td>
 				</tr>
 				<tr>
-					<td align="right"></td>
-					<td align="left">Endereço</td>
+					<td align="right">Data de Nascimento:</td>
+					<td align="left"><input type="text" id="datepicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" required></td>
+				</tr>
+				<tr>
+					<td align="left" colspan="2">Endereço</td>
 				</tr>
 				<tr>
 					<td align="right">Rua:</td>

@@ -71,6 +71,7 @@ function ValidaData(data){
 
 //valida o CPF digitado
 function ValidarCPF(pValor, pIdCampo){
+	var retorno = false;
 	var cpf = pValor;
 	if (cpf != ''){
 		exp = /\.|\-/g;
@@ -89,17 +90,18 @@ function ValidarCPF(pValor, pIdCampo){
 		
 		var digitoGerado=(soma1*10)+soma2;
 		if(digitoGerado!=digitoDigitado){
-			//alert('CPF Invalido!');
 			document.getElementById(pIdCampo).style.backgroundColor='#fcc';
-			 //$(this).css({"border" : "1px solid #F00", "padding": "2px"});
 		}
 		else{
 			document.getElementById(pIdCampo).style.backgroundColor='transparent';
+			retorno = true;
 		}
 	}
 	else{
 		document.getElementById(pIdCampo).style.backgroundColor='transparent';
+		retorno = false;
 	}
+	return retorno;
 }
 
 //valida numero inteiro com mascara
