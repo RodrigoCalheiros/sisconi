@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.sql.PreparedStatement;
+
 import model.Cidade;
 import model.Estado;
 import model.Paciente;
@@ -32,7 +34,19 @@ public class PacienteDAO {
 				p.setEnderecoComplemento(null);
 			}
 			
-			String sqlPaciente = "insert into tb_paciente (nr_sus, nr_cpf, nm_paciente, nm_mae, nr_telefone, dt_nascimento) " +
+			PreparedStatement psmt = con.prepareStatement("insert into tb_paciente (nr_sus, nr_cpf, nm_paciente, nm_mae, nr_telefone, dt_nascimento)" +
+					"values (?,?,?,?,?,?)");
+			psmt.setString(1, p.getNumeroSus());
+			psmt.setString(2, p.getCpf());
+			psmt.setString(3, p.getNome());
+			psmt.setString(4, p.getNomeMae());
+			psmt.setString(5, p.getNumeroTelefone());
+			psmt.setDate(6, new Date(p.getDataNascimento().getTime()));
+			
+			psmt.executeUpdate();
+			psmt.close();
+			
+			/*String sqlPaciente = "insert into tb_paciente (nr_sus, nr_cpf, nm_paciente, nm_mae, nr_telefone, dt_nascimento) " +
 					"values (" +
 					"'"+p.getNumeroSus()+"', " +
 					"'"+p.getCpf()+"', " +
@@ -40,9 +54,27 @@ public class PacienteDAO {
 					"'"+p.getNomeMae()+"', " +
 					"'"+p.getNumeroTelefone()+"', " +
 					"'"+new Date(p.getDataNascimento().getTime())+"'" +
-					")";
+					")";*/
 			
-			String sqlEndereco = "insert into tb_endereco (co_paciente, " +
+			PreparedStatement psmtEndereco = con.prepareStatement("insert into tb_endereco (co_paciente, ds_rua, ds_numero, ds_bairro, ds_cep, ds_complemento, co_cidade) " +
+					"values (?,?,?,?,?,?,?)");
+			
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery("select tb_paciente.co_paciente from tb_paciente where tb_paciente.nr_sus like '"+p.getNumeroSus()+"'");
+			if (res.next()) {
+				psmtEndereco.setInt(1, res.getInt("co_paciente"));
+			}			
+			psmtEndereco.setString(2, p.getEnderecoRua());
+			psmtEndereco.setInt(3, p.getEnderecoNumero());
+			psmtEndereco.setString(4, p.getEnderecoBairro());
+			psmtEndereco.setString(5, p.getEnderecoCEP());
+			psmtEndereco.setString(6, p.getEnderecoComplemento());
+			psmtEndereco.setInt(7, p.getEnderecoCodigoCidade());
+			
+			psmtEndereco.executeUpdate();
+			psmtEndereco.close();
+			
+			/*String sqlEndereco = "insert into tb_endereco (co_paciente, " +
 					"ds_rua, " +
 					"ds_numero, " +
 					"ds_bairro, " +
@@ -56,12 +88,12 @@ public class PacienteDAO {
 					"'"+p.getEnderecoBairro()+"', " +
 					"'"+p.getEnderecoCEP()+"', " +
 					"'"+p.getEnderecoComplemento()+"', " + 
-					"'"+p.getEnderecoCodigoCidade()+"')";
+					"'"+p.getEnderecoCodigoCidade()+"')";*/
 	
-		    Statement smt = con.createStatement();
-		    smt.execute(sqlPaciente);
-		    smt.execute(sqlEndereco);
-		    smt.close();
+		    //Statement smt = con.createStatement();
+		    //smt.execute(sqlPaciente);
+		    //smt.execute(sqlEndereco);
+		    //smt.close();
 		    
 		    System.out.println("Paciente "+p.getNome()+" inserido com sucesso.");
 		    

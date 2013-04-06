@@ -133,6 +133,11 @@ public class Paciente {
 		return pdao.select(getNumeroSus());
 	}
 	
+	public boolean atualizarPaciente() {
+		PacienteDAO pdao = new PacienteDAO();
+		return pdao.update(this);
+	}
+	
 	public List<Estado> getEstados() {
 		PacienteDAO pdao = new PacienteDAO();
 		return pdao.getEstados();
