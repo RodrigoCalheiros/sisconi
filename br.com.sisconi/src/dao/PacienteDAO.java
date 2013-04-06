@@ -130,7 +130,34 @@ public class PacienteDAO {
 	}
 	
 	public boolean update(Paciente p) {
-		return false;
+		try {
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement stm = con.createStatement();
+			String sqlPaciente = "UPDATE tb_paciente SET " +
+					"nr_sus = '"+p.getNumeroSus()+"' , " +
+					"nr_cpf = '"+p.getCpf()+"', " +
+					"nm_paciente = '"+p.getNome()+"', " +
+					"nm_mae = , '"+p.getNomeMae()+"'" +
+					"nr_telefone = , '"+p.getNumeroTelefone()+"'" +
+					"dt_nascimento = '"+new Date(p.getDataNascimento().getTime())+"'" +
+					"WHERE co_paciente = '"+p.getCodigoPaciente()+"'";
+			stm.executeUpdate(sqlPaciente);
+			
+			String sqlEndereco = "UPDATE tb_endereco SET " +
+					"ds_rua = '"+p.getEnderecoRua()+"' , " +
+					"ds_numero = '"+p.getEnderecoNumero()+"', " +
+					"ds_bairro = '"+p.getEnderecoBairro()+"', " +
+					"ds_cep = , '"+p.getEnderecoCEP()+"'" +
+					"ds_complemento = , '"+p.getEnderecoComplemento()+"'" +
+					"co_cidade = '"+p.getEnderecoCodigoCidade()+"'" +
+					"WHERE co_paciente = '"+p.getCodigoPaciente()+"'";
+			stm.executeUpdate(sqlEndereco);
+			stm.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public List<Estado> getEstados() {
@@ -150,7 +177,7 @@ public class PacienteDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}		
+		}
 	}
 	
 	public List<Cidade> getCidades(int codigoEstado) {
@@ -164,25 +191,13 @@ public class PacienteDAO {
 				ci.setCodigoCidade(res.getInt("co_cidade"));
 				ci.setNomeCidade(res.getString("nm_cidade"));
 				ci.setCodigoEstado(res.getInt("co_estado"));
-				lci.add(ci);		
+				lci.add(ci);
 			}
 			return lci;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}		
-	}
-	
-	public Paciente getPacienteCod(int codPaciente){		
-		return null;
-	}
-	
-	public Paciente getPacienteSus(int nrSus){		
-		return null;
-	}
-	
-	public boolean insertPaciente(){
-		return false;		
+		}
 	}
 	
 	public boolean existeCpfPaciente(String cpf) {
