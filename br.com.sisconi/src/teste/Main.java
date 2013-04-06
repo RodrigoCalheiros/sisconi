@@ -27,7 +27,7 @@ public class Main {
 		pdao.insert(p);*/
 		
 		Paciente p = new Paciente();
-		p.setNumeroSus("999999999999999");		
+		p.setNumeroSus("111111111111111");		
 		p = p.localizarPaciente();
 		System.out.println(p.toString());
 	}

@@ -18,7 +18,7 @@ public class LeitoDAO {
 		    smt.execute(sqlLeito);
 		    
 		    String sqlStatusLeito = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial) values (" +
-		    		"(select count(temp.co_status_leito)+1 from (select co_paciente from tb_endereco) as temp join tb_paciente on tb_paciente.co_paciente=temp.co_paciente where tb_paciente.nr_sus=111111111111111, " +
+		    		"(select count(temp.co_leito)+1 from (select co_status_leito from tb_status_leito) as temp where co_leito = "+l.getCodigoLeito()+"), " +
 					""+l.getCodigoLeito()+", " +
 					""+1+", " +
 					""+new java.sql.Date(new java.util.Date().getTime())+")";
@@ -44,7 +44,8 @@ public class LeitoDAO {
 			Statement smt = con.createStatement();
 		    smt.executeUpdate(sqlUpdateLeitoAntigo);
 		    
-		    String sqlInsertLeitoStatusNovo = "insert into tb_status_leito (co_leito, co_status, dt_inicial) values (" +
+		    String sqlInsertLeitoStatusNovo = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial) values (" +
+		    		"(select count(temp.co_leito)+1 from (select co_leito from tb_status_leito) as temp where temp.co_leito = "+l.getCodigoLeito()+"), " +
 					""+l.getCodigoLeito()+", " +
 					""+l.getCodigoStatusLeito()+", " +
 					""+new java.sql.Date(new java.util.Date().getTime())+")";

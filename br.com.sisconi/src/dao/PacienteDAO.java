@@ -120,14 +120,14 @@ public class PacienteDAO {
 				p.setCodigoPaciente(res.getInt("tb_paciente.co_paciente"));
 				p.setNumeroSus(res.getString("nr_sus"));
 				String cpf = res.getString("nr_cpf");
-				if (cpf.equals(null)) {
+				if (cpf == null) {
 					cpf="";
 				}
 				p.setCpf(cpf);
 				p.setNome(res.getString("nm_paciente"));
 				p.setNomeMae(res.getString("nm_mae"));
 				String telefone = res.getString("nr_telefone");
-				if (telefone.equals(null)) {
+				if (telefone == null) {
 					telefone="";
 				}
 				p.setNumeroTelefone(telefone);
@@ -137,12 +137,12 @@ public class PacienteDAO {
 				p.setEnderecoNumero(res.getInt("ds_numero"));
 				p.setEnderecoBairro(res.getString("ds_bairro"));
 				String cep = res.getString("ds_cep");
-				if (cep.equals(null)) {
+				if (cep == null) {
 					cep="";
 				}
 				p.setEnderecoCEP(cep);
 				String complemento = res.getString("ds_complemento");
-				if (complemento.equals(null)) {
+				if (complemento == null) {
 					complemento="";
 				}
 				p.setEnderecoComplemento(complemento);
@@ -165,7 +165,34 @@ public class PacienteDAO {
 	public boolean update(Paciente p) {
 		try {
 			Connection con = ConexaoBD.getInstancia().getConexao();
-			Statement stm = con.createStatement();
+			
+			if (p.getCpf().equals("")) {
+				p.setCpf(null);
+			}
+			if (p.getNumeroTelefone().equals("")) {
+				p.setNumeroTelefone(null);
+			}
+			if (p.getEnderecoCEP().equals("")) {
+				p.setEnderecoCEP(null);
+			}
+			if (p.getEnderecoComplemento().equals("")) {
+				p.setEnderecoComplemento(null);
+			}
+			
+			PreparedStatement psmt = con.prepareStatement("update tb_paciente set nr_sus=?, nr_cpf=?, nm_paciente=?, nm_mae=?, nr_telefone=?, dt_nascimento=? where co_paciente=?");
+			
+			psmt.setString(1, p.getNumeroSus());
+			psmt.setString(2, p.getCpf());
+			psmt.setString(3, p.getNome());
+			psmt.setString(4, p.getNomeMae());
+			psmt.setString(5, p.getNumeroTelefone());
+			psmt.setDate(6, new Date(p.getDataNascimento().getTime()));
+			psmt.setInt(7, p.getCodigoPaciente());
+			
+			psmt.executeUpdate();
+			psmt.close();
+			
+			/*Statement stm = con.createStatement();
 			String sqlPaciente = "UPDATE tb_paciente SET " +
 					"nr_sus = '"+p.getNumeroSus()+"', " +
 					"nr_cpf = '"+p.getCpf()+"', " +
@@ -174,9 +201,22 @@ public class PacienteDAO {
 					"nr_telefone = '"+p.getNumeroTelefone()+"', " +
 					"dt_nascimento = '"+new Date(p.getDataNascimento().getTime())+"' " +
 					"WHERE co_paciente = "+p.getCodigoPaciente();
-			stm.executeUpdate(sqlPaciente);
+			stm.executeUpdate(sqlPaciente);*/
 			
-			String sqlEndereco = "UPDATE tb_endereco SET " +
+			PreparedStatement psmtEndereco = con.prepareStatement("update tb_endereco set ds_rua=?, ds_numero=?, ds_bairro=?, ds_cep=?, ds_complemento=?, co_cidade=? where co_paciente=?");
+			
+			psmtEndereco.setString(1, p.getEnderecoRua());
+			psmtEndereco.setInt(2, p.getEnderecoNumero());
+			psmtEndereco.setString(3, p.getEnderecoBairro());
+			psmtEndereco.setString(4, p.getEnderecoCEP());
+			psmtEndereco.setString(5, p.getEnderecoComplemento());
+			psmtEndereco.setInt(6, p.getEnderecoCodigoCidade());
+			psmtEndereco.setInt(7, p.getCodigoPaciente());
+			
+			psmtEndereco.executeUpdate();
+			psmtEndereco.close();
+			
+			/*String sqlEndereco = "UPDATE tb_endereco SET " +
 					"ds_rua = '"+p.getEnderecoRua()+"', " +
 					"ds_numero = '"+p.getEnderecoNumero()+"', " +
 					"ds_bairro = '"+p.getEnderecoBairro()+"', " +
@@ -184,9 +224,8 @@ public class PacienteDAO {
 					"ds_complemento = '"+p.getEnderecoComplemento()+"', " +
 					"co_cidade = "+p.getEnderecoCodigoCidade()+" " +
 					"WHERE co_paciente = "+p.getCodigoPaciente();
-			System.out.println(sqlEndereco);
 			stm.executeUpdate(sqlEndereco);
-			stm.close();
+			stm.close();*/
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
