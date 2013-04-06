@@ -5,17 +5,17 @@
 <html>
 <%@include file="inc_head.jsp"%>
 <body>
-<table border="0" cellpadding="0" cellspacing="10" width="100%">
+<table class="tblConteudo">
 <tr>
-	<td><%@include file="inc_titulo.jsp"%></td>
+	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td align="center">
-		<font color="red" size="6">Você não possui acesso a esta página.</font>
+	<td class="tblConteudoCorpo" align="center">
+		<font color="red" size="4"><hr>Você não possui acesso a essa página.</font>
 	</td>
 </tr>
 <tr>
-	<td align="center"><%@include file="inc_rodape.jsp"%></td>
+	<td class="tblConteudoRodape"><hr><%@include file="inc_rodape.jsp"%></td>
 </tr>
 </table>
 </body>

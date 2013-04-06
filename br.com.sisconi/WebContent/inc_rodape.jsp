@@ -1,1 +1,1 @@
-<font size="2" color="gray">FR Tecnologia - Plataforma SISCONI</font>
+FR Tecnologia - Plataforma SISCONI

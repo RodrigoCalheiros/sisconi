@@ -8,63 +8,74 @@
 	Date dtNascimento = paciente.getDataNascimento();
 	java.text.DateFormat dateformat = new java.text.SimpleDateFormat("dd/MM/yyyy");
 %>
-<table border="0" cellpadding="0" cellspacing="8">
-	<tr>
-		<td align="left" colspan="2">Dados Pessoais</td>
-	</tr>
-	<tr>
-		<td align="right">Nome:</td>
-		<td align="left"><%=paciente.getNome()%></td>
-	</tr>
-	<tr>
-		<td align="right">Nome da Mãe:</td>
-		<td align="left"><%=paciente.getNomeMae()%></td>
-	</tr>
-	<tr>
-		<td align="right">CPF:</td>
-		<td align="left"><%=paciente.getCpf()%></td>
-	</tr>
-	<tr>
-		<td align="right">Número do SUS:</td>
-		<td align="left"><%=paciente.getNumeroSus()%></td>
-	</tr>
-	<tr>
-		<td align="right">Telefone:</td>
-		<td align="left"><%=paciente.getNumeroTelefone()%></td>
-	</tr>
-	<tr>
-		<td align="right">Data de Nascimento:</td>
-		<td align="left"><%=dateformat.format(dtNascimento) %></td>
-	</tr>
-	<tr>
-		<td align="left" colspan="2">Endereço</td>
-	</tr>
-	<tr>
-		<td align="right">Rua:</td>
-		<td align="left"><%=paciente.getEnderecoRua()%></td>
-	</tr>
-	<tr>
-		<td align="right">Número:</td>
-		<td align="left"><%=paciente.getEnderecoNumero()%></td>
-	</tr>
-	<tr>
-		<td align="right">Complemento:</td>
-		<td align="left"><%=paciente.getEnderecoComplemento()%></td>
-	</tr>
-	<tr>
-		<td align="right">Bairro:</td>
-		<td align="left"><%=paciente.getEnderecoBairro()%></td>
-	</tr>
-	<tr>
-		<td align="right">CEP:</td>
-		<td align="left"><%=paciente.getEnderecoCEP()%></td>
-	</tr>
-	<tr>
-		<td align="right">Estado:</td>
-		<td align="left"><%=paciente.getEnderecoEstado()%></td>
-	</tr>
-	<tr>
-		<td align="right">Cidade:</td>
-		<td align="left"><%=paciente.getEnderecoCidade()%></td>
-	</tr>
+<table class="tbl">
+	<thead>
+		<tr>
+			<th colspan="2">Dados Pessoais</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td align="right" width="180px">Nome:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getNome()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Nome da Mãe:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getNomeMae()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">CPF:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getCpf()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Número do SUS:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getNumeroSus()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Telefone:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getNumeroTelefone()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Data de Nascimento:</td>
+			<td align="left"><font style="font-weight: bold;"><%=dateformat.format(dtNascimento)%></font></td>
+		</tr>
+	</tbody>
+</table>
+<br>
+<table class="tbl">
+	<thead>
+		<tr>
+			<th colspan="2">Endereço</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td align="right" width="180px">Rua:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoRua()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Número:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoNumero()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Complemento:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoComplemento()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Bairro:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoBairro()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">CEP:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoCEP()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Estado:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoEstado()%></font></td>
+		</tr>
+		<tr>
+			<td align="right">Cidade:</td>
+			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoCidade()%></font></td>
+		</tr>
+	</tbody>
 </table>

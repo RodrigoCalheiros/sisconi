@@ -160,32 +160,32 @@ function onBlurNrSus(){
 }
 </script>
 <body onload="mostrarMsg()">
-<table border="0" cellpadding="0" cellspacing="10" width="100%">
+<table class="tblConteudo">
 <tr>
-	<td><%@include file="inc_titulo.jsp"%></td>
+	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td>Localizar Paciente<hr>
+	<td class="tblConteudoCorpo"><br><font color="#28166F">Paciente > Localizar Paciente</font><hr>
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
 				<td align="left" width="60%"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="getPaciente()"></td>
-			</tr>			
+			</tr>
+			<tr>
+				<td colspan="2"><input type="button" id="bt_dados_paciente" name="bt_dados_paciente" value="Dados do Paciente" onclick=""><input type="button" id="bt_atualizar_dados_paciente" name="bt_atualizar_dados_paciente" value="Atualizar Dados do Paciente" onclick=""><input type="button" id="bt_localizar_historico" name="bt_localizar_historico" value="Localizar Histórico" onclick=""></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<form id="frm_paciente" action="" method="post">
+						<span id="span_dados_paciente"></span>
+					</form>	
+				</td>
+			</tr>		
 		</table>
 	</td>
 </tr>
 <tr>
-	<td><input type="button" id="bt_dados_paciente" name="bt_dados_paciente" value="Dados do Paciente" onclick=""><input type="button" id="bt_atualizar_dados_paciente" name="bt_atualizar_dados_paciente" value="Atualizar Dados do Paciente" onclick=""><input type="button" id="bt_localizar_historico" name="bt_localizar_historico" value="Localizar Histórico" onclick=""></td>
-</tr>
-<tr>
-	<td>
-		<form id="frm_paciente" action="" method="post">
-			<span id="span_dados_paciente"></span>
-		</form>	
-	</td>
-</tr>
-<tr>
-	<td align="center"><%@include file="inc_rodape.jsp"%></td>
+	<td class="tblConteudoRodape"><hr><%@include file="inc_rodape.jsp"%></td>
 </tr>
 </table>
 </body>

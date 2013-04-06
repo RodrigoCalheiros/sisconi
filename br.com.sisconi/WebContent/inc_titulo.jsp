@@ -17,7 +17,7 @@
 		setTimeout('relogio()',1000);
 	}
 </script>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:996px;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
 	<td>
 		<a href="inicio.jsp"><img border="0" width="100px" height="98px" src="_imagens/logos/logo_sisconi.jpg"></a>
@@ -25,13 +25,13 @@
 	<td valign="bottom" align="right">
 		<table border="0" cellpadding="3" cellspacing="0" width="100%">
 			<tr>
-				<td align="right">Usuário: <%=session.getAttribute("nm_usuario")%></td>
+				<td align="right">Usuário:<font style="font-weight: bold;"> <%=session.getAttribute("nm_usuario")%></font></td>
 			</tr>
 			<tr>
-				<td align="right">Tipo de usuário: <%=session.getAttribute("ds_tipo_usuario")%></td>
+				<td align="right">Tipo de usuário:<font style="font-weight: bold;"> <%=session.getAttribute("ds_tipo_usuario")%></font></td>
 			</tr>
 			<tr>
-				<td align="right">Horário: <span id="spanRelogio"></span></td>
+				<td align="right">Horário:<font style="font-weight: bold;"> <span id="spanRelogio"></span></font></td>
 			</tr>
 		</table>
 	</td>

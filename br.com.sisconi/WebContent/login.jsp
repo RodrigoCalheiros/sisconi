@@ -5,6 +5,10 @@
 <%@include file="inc_head.jsp"%>
 <script type="text/javascript">
 
+$(function(){
+	$("#nr_cpf").focus();
+});
+
 var pMsg = <%=request.getParameter("msg")%>
 
 function mostrarMsg(){
@@ -30,10 +34,10 @@ function onBlurCpf(pCpf){
 }
 </script>
 <body onload="mostrarMsg()">
-<table width="100%">
+<table class="tblConteudo">
 <tr>
-	<td align="center">	
-		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:996px;">
+	<td class="tblConteudoTitulo">	
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr>
 			<td>
 				<img border="0" width="100px" height="98px" src="_imagens/logos/logo_sisconi.jpg">
@@ -65,15 +69,10 @@ function onBlurCpf(pCpf){
 	</td>
 </tr>
 <tr>
-	<td>
-		<hr width="100%"/>
-	</td>
+	<td class="tblConteudoCorpo" align="center"><hr>Bem Vindo ao Sistema de Controle de Internação do Hospital Universitário - SISCONI</td>
 </tr>
 <tr>
-	<td align="center">Bem Vindo ao Sistema de Controle de Internação do Hospital Universitário - SISCONI</td>
-</tr>
-<tr>
-	<td align="center"><%@include file="inc_rodape.jsp"%></td>
+	<td class="tblConteudoRodape"><hr><%@include file="inc_rodape.jsp"%></td>
 </tr>
 </table>
 </body>

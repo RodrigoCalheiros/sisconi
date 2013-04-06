@@ -1,24 +1,13 @@
 <style type="text/css">
 
-body{
-	font: Helvetica, sans-serif;
+body {  
+	color: #494949; 
+	margin: 0px; 
+	text-align: center; 
 }
 
-input:focus
-{ 
-background-color: #90EE90;
-}
-
-:required {
-  border-color: #88a;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-  -o-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-  -ms-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-  box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-}
-
-input{
+input, textarea{
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   border:1px solid #ccc;
   border-color: #88a;
   outline: none;
@@ -34,7 +23,13 @@ input{
   border-radius:5px;
 }
 
+input:focus
+{ 
+	background-color: #90EE90;
+}
+
 select {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   border:1px solid #ccc;
   outline: none;
   -webkit-border-radius:5px;
@@ -47,5 +42,109 @@ select {
 hr{
 	border:3px dashed #D3D3D3;
 	size: 1px;
+}
+
+fieldset { 
+	margin: 4px; 
+	font-family: Tahoma, arial, helvetica, sans-serif; 
+	font-size: 9px; 
+}
+
+fieldset legend { 
+	font-weight: bold; 
+}
+
+fieldset table td { 
+	font-family: Tahoma, arial, helvetica, sans-serif; 
+	font-size: 11px; 
+}
+
+.tbl {
+ 	border: 1px;
+ 	border-style: none;
+ 	border-collapse: collapse;
+ 	border-color:#327E04;
+ 	padding: 1px;
+ 	background-color: #FFFFFF;
+ 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 12px;
+	width: 100%;
+}
+
+.tbl thead th {
+ 	text-align: center;
+ 	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: #459e00;
+ 	padding: 4px;
+ 	border-top: 2px solid #327E04;
+ 	border-left: 2px solid #327E04;
+ 	border-right: 2px solid #327E04;
+ 	border-bottom: 1px solid #fff;
+ 	color: #ffffff;
+}
+
+.tbl tbody td {
+ 	
+ 	padding: 2px;
+ 	background: #f5f3e5;
+ 	border-bottom: 1px solid #fff;
+ 	color: #312e25;
+ 	border-top: 1px solid transparent;
+}
+
+.tbl tbody tr:hover td {
+	background: #67b021;
+	color: #ffffff;
+}
+
+.tbl tfoot td {
+ 	text-align: center;
+ 	color: #ffffff;
+ 	text-transform: uppercase;
+ 	background: #459e00;
+ 	padding: 4px;
+}
+
+.tblConteudo { 
+	border:0px hidden #ffffff; 
+	border-spacing:0px; 
+	border-collapse: collapse; 
+	padding: 0px; 
+	width: 100%; 
+	min-width:996px; 
+	margin-left: auto; 
+	margin-right: auto; 
+	height: 100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 14px;
+}
+
+.tblConteudoTitulo { 
+	background-color: #FFFFFF; 
+}
+
+.tblConteudoCorpo {  
+	background-color: #FFFFFF; 
+	vertical-align: top; 
+	height: 100%; 
+}
+
+.tblConteudoRodape { 
+	background-color: #FFFFFF; 
+	padding: 5px; 
+	text-align: center; 
+	font-size: 12px; 
+	font-family: Arial; 
+	color: #28166F; 
+}
+
+:required {
+  border-color: #88a;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+  -o-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+  -ms-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+  box-shadow: 0 0 5px rgba(0, 0, 255, .5);
 }
 </style>
