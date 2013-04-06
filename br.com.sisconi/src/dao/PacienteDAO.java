@@ -184,6 +184,7 @@ public class PacienteDAO {
 					"ds_complemento = '"+p.getEnderecoComplemento()+"', " +
 					"co_cidade = "+p.getEnderecoCodigoCidade()+" " +
 					"WHERE co_paciente = "+p.getCodigoPaciente();
+			System.out.println(sqlEndereco);
 			stm.executeUpdate(sqlEndereco);
 			stm.close();
 			return true;

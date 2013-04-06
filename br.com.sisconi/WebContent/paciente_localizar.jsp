@@ -15,10 +15,58 @@ function mostrarMsg(){
 
 function getPaciente(){
 	$.ajax({
-		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_sus').val(),
+		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_localizar_sus').val(),
 		}).done(function(retornoSucesso) {
-			$('#span_dados_paciente').html(retornoSucesso);
+			if (retornoSucesso != 0){
+				$('#span_dados_paciente').html(retornoSucesso);
+				$('#span_botoes_localizar_paciente').show();
+				$('#span_bt_salvar').show();
+			}else{
+				$('#span_dados_paciente').html("");
+				$('#span_botoes_localizar_paciente').slideUp();
+				alert("Paciente não cadastrado.");
+			}
 	});	
+}
+
+function getPacienteBloqueandoCampos(){
+	$.ajax({
+		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_localizar_sus').val(),
+		}).done(function(retornoSucesso) {
+			if (retornoSucesso != 0){
+				$('#span_dados_paciente').html(retornoSucesso);
+				$('#span_botoes_localizar_paciente').show();
+				desabilitarCamposPaciente();
+				$('#span_bt_salvar').slideUp();
+			}else{
+				$('#span_dados_paciente').html("");
+				$('#span_botoes_localizar_paciente').slideUp();
+				alert("Paciente não cadastrado.");
+			}
+	});	
+}
+
+function obterDadosPaciente(){
+	getPacienteBloqueandoCampos();
+}
+
+function obterDadosPacienteAtualizar(){
+	getPaciente();
+}
+
+function desabilitarCamposPaciente(){
+	$('#nm_paciente').attr("disabled", true);
+	$('#nm_mae').attr("disabled", true);
+	$('#nr_cpf').attr("disabled", true);
+	$('#nr_sus').attr("disabled", true);
+	$('#nr_telefone').attr("disabled", true);
+	$('#datepicker').attr("disabled", true);
+	$('#ds_rua').attr("disabled", true);
+	$('#ds_numero').attr("disabled", true);
+	$('#ds_complemento').attr("disabled", true);
+	$('#ds_bairro').attr("disabled", true);
+	$('#ds_cep').attr("disabled", true);
+	$('#co_estado').attr("disabled", true);
 }
 
 function getExisteCpfPaciente(pCpf){
@@ -35,10 +83,24 @@ function getExisteCpfPaciente(pCpf){
 	}
 }
 
+function getExisteNrSusPaciente(pNrSus){
+	if (pNrSus != ""){
+		$.ajax({
+			url: "ajax_existe_numero_sus_paciente.jsp?nr_sus=" + pNrSus,
+			}).done(function(retornoSucesso) {
+			var retorno = retornoSucesso;
+			if (retorno == 1){
+				alert("Número do SUS " + pNrSus + " já cadastrado.");
+				$('#nr_sus').focus();
+			}
+		});	
+	}
+}
+
 function getCidades(){
 	var codigoEstado = 	$('#co_estado').val();
 	$.ajax({
-	  url: "ajax_get_cidades.jsp?codigoEstado=" + codigoEstado,
+	  url: "ajax_obter_cidades.jsp?codigoEstado=" + codigoEstado,
 	  context: document.body
 	}).done(function(retornoSucesso) {
 		$('#spanCidade').html(retornoSucesso);
@@ -134,29 +196,31 @@ function validarCadastro(){
 		$('#co_estado').focus();
 		return false;
 	}
-	if ($('#co_cidade').val() == ""){
-		alert("O nome da cidade deve ser preenchido.");
-		$('#co_cidade').focus();
-		return false;
+	if ($('#co_cidade').val() != null){
+		$('#hidden_co_cidade').val($('#co_cidade').val());
 	}
 	return true;
 }
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja cadastrar o paciente?")){
+		if (confirm("Você deseja atualizar os dados do paciente?")){
 			document.forms['frm_paciente'].submit();	
 		}	
 	} 
 }
 
 function onBlurNrCpf(){
-	ValidarCPF(document.getElementById('nr_cpf').value, 'nr_cpf');
-	getExisteCpfPaciente(document.getElementById('nr_cpf').value);
+	if ($('#hidden_nr_cpf').val() != $('#nr_cpf').val()){
+		ValidarCPF(document.getElementById('nr_cpf').value, 'nr_cpf');
+		getExisteCpfPaciente(document.getElementById('nr_cpf').value);
+	}
 }
 
 function onBlurNrSus(){
-	getExisteNrSusPaciente(document.getElementById('nr_sus').value);
+	if ($('#hidden_nr_sus').val() != $('#nr_sus').val()){
+		getExisteNrSusPaciente(document.getElementById('nr_sus').value);
+	}
 }
 </script>
 <body onload="mostrarMsg()">
@@ -169,16 +233,16 @@ function onBlurNrSus(){
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
-				<td align="left" width="60%"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="getPaciente()"></td>
+				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterDadosPaciente()"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="button" id="bt_dados_paciente" name="bt_dados_paciente" value="Dados do Paciente" onclick=""><input type="button" id="bt_atualizar_dados_paciente" name="bt_atualizar_dados_paciente" value="Atualizar Dados do Paciente" onclick=""><input type="button" id="bt_localizar_historico" name="bt_localizar_historico" value="Localizar Histórico" onclick=""></td>
+				<td colspan="2"><span id="span_botoes_localizar_paciente" style="display: none;"><input type="button" id="bt_dados_paciente" name="bt_dados_paciente" value="Dados do Paciente" onclick="obterDadosPaciente()"><input type="button" id="bt_atualizar_dados_paciente" name="bt_atualizar_dados_paciente" value="Atualizar Dados do Paciente" onclick="obterDadosPacienteAtualizar()"><input type="button" id="bt_localizar_historico" name="bt_localizar_historico" value="Localizar Histórico" onclick=""></span></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<form id="frm_paciente" action="" method="post">
+					<form id="frm_paciente" action="paciente_atualizar_processa.jsp" method="post">
 						<span id="span_dados_paciente"></span>
-					</form>	
+					</form>
 				</td>
 			</tr>		
 		</table>

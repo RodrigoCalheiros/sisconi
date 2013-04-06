@@ -1,13 +1,17 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page contentType="text/html" language="java" import="java.util.*, model.Paciente"%>
+<%@ page contentType="text/html" language="java" import="java.util.*, model.Estado, model.Paciente"%>
  <jsp:useBean id="paciente" class="model.Paciente"/> 
 <%
 	String pNrSus = request.getParameter("nr_sus");	
 	paciente.setNumeroSus(pNrSus);
 	paciente = paciente.localizarPaciente();
-	Date dtNascimento = paciente.getDataNascimento();
-	java.text.DateFormat dateformat = new java.text.SimpleDateFormat("dd/MM/yyyy");
+	if (paciente.getCodigoPaciente() > 0){
+		Date dtNascimento = paciente.getDataNascimento();
+		java.text.DateFormat dateformat = new java.text.SimpleDateFormat("dd/MM/yyyy");
 %>
+<input type="hidden" id="hidden_co_paciente" name="hidden_co_paciente" value="<%=paciente.getCodigoPaciente()%>">
+<input type="hidden" id="hidden_nr_sus" name="hidden_nr_sus" value="<%=paciente.getNumeroSus()%>">
+<input type="hidden" id="hidden_nr_cpf" name="hidden_nr_cpf" value="<%=paciente.getCpf()%>">
 <table class="tbl">
 	<thead>
 		<tr>
@@ -17,31 +21,33 @@
 	<tbody>
 		<tr>
 			<td align="right" width="180px">Nome:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getNome()%></font></td>
-		</tr>
-		<tr>
-			<td align="right">Nome da Mãe:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getNomeMae()%></font></td>
-		</tr>
-		<tr>
-			<td align="right">CPF:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getCpf()%></font></td>
+			<td align="left"><input type="text" id="nm_paciente" name="nm_paciente" maxlength="70" size="50" placeholder="Insira o nome do paciente" value="<%=paciente.getNome()%>" required></td>
 		</tr>
 		<tr>
 			<td align="right">Número do SUS:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getNumeroSus()%></font></td>
+			<td align="left"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" value="<%=paciente.getNumeroSus()%>" required></td>
 		</tr>
 		<tr>
-			<td align="right">Telefone:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getNumeroTelefone()%></font></td>
+			<td align="right">Nome da Mãe:</td>
+			<td align="left"><input type="text" id="nm_mae" name="nm_mae" maxlength="70" size="50" placeholder="Insira o nome da mãe do paciente" value="<%=paciente.getNomeMae()%>" required></td>
 		</tr>
 		<tr>
 			<td align="right">Data de Nascimento:</td>
-			<td align="left"><font style="font-weight: bold;"><%=dateformat.format(dtNascimento)%></font></td>
+			<td align="left"><input type="text" id="datepicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" value="<%=dateformat.format(dtNascimento)%>" required></td>
 		</tr>
+		<tr>
+			<td align="right">CPF:</td>
+			<td align="left"><input type="text" id="nr_cpf" name="nr_cpf" maxlength="14" size="50" placeholder="Insira o número do CPF do paciente" onKeyPress="MascaraCPF(form.nr_cpf);" onBlur="onBlurNrCpf();" value="<%=paciente.getCpf()%>"></td>
+		</tr>
+		<tr>
+			<td align="right">Telefone:</td>
+			<td align="left"><input type="text" id="nr_telefone" name="nr_telefone" maxlength="14" size="50" placeholder="Insira o número do telefone do paciente" onKeyPress="MascaraTelefone(form.nr_telefone);" value="<%=paciente.getNumeroTelefone()%>"></td>
+		</tr>
+	
 	</tbody>
 </table>
 <br>
+<input type="hidden" id="hidden_co_cidade" name="hidden_co_cidade" value="<%=paciente.getEnderecoCodigoCidade()%>">
 <table class="tbl">
 	<thead>
 		<tr>
@@ -51,31 +57,62 @@
 	<tbody>
 		<tr>
 			<td align="right" width="180px">Rua:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoRua()%></font></td>
+			<td align="left"><input type="text" id="ds_rua" name="ds_rua" maxlength="60" size="50" placeholder="Insira o nome da rua do endereço do paciente" value="<%=paciente.getEnderecoRua()%>" required></td>
 		</tr>
 		<tr>
 			<td align="right">Número:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoNumero()%></font></td>
+			<td align="left"><input type="text" id="ds_numero" name="ds_numero" maxlength="10" size="50" placeholder="Insira o número do endereço do paciente" onKeyPress="mascaraInteiro();" value="<%=paciente.getEnderecoNumero()%>" required></td>
 		</tr>
 		<tr>
 			<td align="right">Complemento:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoComplemento()%></font></td>
+			<td align="left"><input type="text" id="ds_complemento" name="ds_complemento" maxlength="100" size="50" placeholder="Insira o complemento do endereço do paciente" value="<%=paciente.getEnderecoComplemento()%>"></td>
 		</tr>
 		<tr>
 			<td align="right">Bairro:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoBairro()%></font></td>
+			<td align="left"><input type="text" id="ds_bairro" name="ds_bairro" maxlength="40" size="50" placeholder="Insira o nome do bairro do endereço do paciente" value="<%=paciente.getEnderecoBairro()%>" required></td>
 		</tr>
 		<tr>
 			<td align="right">CEP:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoCEP()%></font></td>
+			<td align="left"><input type="text" id="ds_cep" name="ds_cep" maxlength="10" size="50" placeholder="Insira o CEP do endereço do paciente" onKeyPress="MascaraCep(form.ds_cep);" value="<%=paciente.getEnderecoCEP()%>"></td>
 		</tr>
 		<tr>
 			<td align="right">Estado:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoEstado()%></font></td>
+			<td align="left">
+				<select name="co_estado" id="co_estado" onclick="getCidades()" required>
+					<option value="0">--</option>
+				<%      
+				   try {  
+				      List<Estado> les = paciente.getEstados();    
+				        
+				      for (int i=0; i<les.size(); i++) {
+				    	  Estado e = les.get(i);
+				%>
+				    	  <option value=<%=e.getCodigoEstado()%> <%if (paciente.getEnderecoCodigoEstado() == e.getCodigoEstado()){%>selected<%}%>><%=e.getUF()%></option>
+				<%
+				      }
+				   }catch (Exception e) {  
+				      e.printStackTrace();  
+					}
+				%>
+				      
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td align="right">Cidade:</td>
-			<td align="left"><font style="font-weight: bold;"><%=paciente.getEnderecoCidade()%></font></td>
+			<td align="left"><span id="spanCidade"><font style="font-weight: bold;"><%=paciente.getEnderecoCidade()%></font></span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="left"><span id="span_bt_salvar" style="display:none;"><input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></span></td>
 		</tr>
 	</tbody>
 </table>
+<%
+	}
+	else{
+%>
+<%=0%>
+<%
+	}
+%>
