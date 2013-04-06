@@ -84,40 +84,41 @@ public class PacienteDAO {
 					" join tb_estado on tb_cidade.co_estado = tb_estado.co_estado" +
 					" where nr_sus=\""+numeroSus+"\"");
 			Paciente p = new Paciente();
-			res.next();
-			p.setCodigoPaciente(res.getInt("tb_paciente.co_paciente"));
-			p.setNumeroSus(res.getString("nr_sus"));
-			String cpf = res.getString("nr_cpf");
-			if (cpf.equals(null)) {
-				cpf="";
+			if (res.next()) {
+				p.setCodigoPaciente(res.getInt("tb_paciente.co_paciente"));
+				p.setNumeroSus(res.getString("nr_sus"));
+				String cpf = res.getString("nr_cpf");
+				if (cpf.equals(null)) {
+					cpf="";
+				}
+				p.setCpf(cpf);
+				p.setNome(res.getString("nm_paciente"));
+				p.setNomeMae(res.getString("nm_mae"));
+				String telefone = res.getString("nr_telefone");
+				if (telefone.equals(null)) {
+					telefone="";
+				}
+				p.setNumeroTelefone(telefone);
+				String formatData = new SimpleDateFormat("dd/MM/yyyy").format(res.getDate("dt_nascimento"));
+				p.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(formatData));
+				p.setEnderecoRua(res.getString("ds_rua"));
+				p.setEnderecoNumero(res.getInt("ds_numero"));
+				p.setEnderecoBairro(res.getString("ds_bairro"));
+				String cep = res.getString("ds_cep");
+				if (cep.equals(null)) {
+					cep="";
+				}
+				p.setEnderecoCEP(cep);
+				String complemento = res.getString("ds_complemento");
+				if (complemento.equals(null)) {
+					complemento="";
+				}
+				p.setEnderecoComplemento(complemento);
+				p.setEnderecoCidade(res.getString("tb_cidade.nm_cidade"));
+				p.setEnderecoEstado(res.getString("tb_estado.nm_estado"));
+				p.setEnderecoCodigoCidade(res.getInt("tb_cidade.co_cidade"));
+				p.setEnderecoCodigoEstado(res.getInt("tb_estado.co_estado"));
 			}
-			p.setCpf(cpf);
-			p.setNome(res.getString("nm_paciente"));
-			p.setNomeMae(res.getString("nm_mae"));
-			String telefone = res.getString("nr_telefone");
-			if (telefone.equals(null)) {
-				telefone="";
-			}
-			p.setNumeroTelefone(telefone);
-			String formatData = new SimpleDateFormat("dd/MM/yyyy").format(res.getDate("dt_nascimento"));
-			p.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(formatData));
-			p.setEnderecoRua(res.getString("ds_rua"));
-			p.setEnderecoNumero(res.getInt("ds_numero"));
-			p.setEnderecoBairro(res.getString("ds_bairro"));
-			String cep = res.getString("ds_cep");
-			if (cep.equals(null)) {
-				cep="";
-			}
-			p.setEnderecoCEP(cep);
-			String complemento = res.getString("ds_complemento");
-			if (complemento.equals(null)) {
-				complemento="";
-			}
-			p.setEnderecoComplemento(complemento);
-			p.setEnderecoCidade(res.getString("tb_cidade.nm_cidade"));
-			p.setEnderecoEstado(res.getString("tb_estado.nm_estado"));
-			p.setEnderecoCodigoCidade(res.getInt("tb_cidade.co_cidade"));
-			p.setEnderecoCodigoEstado(res.getInt("tb_estado.co_estado"));
 			//ConexaoBD.getInstancia().fecharConexao();
 			return p;
 		} catch (SQLException e) {
@@ -134,23 +135,23 @@ public class PacienteDAO {
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			Statement stm = con.createStatement();
 			String sqlPaciente = "UPDATE tb_paciente SET " +
-					"nr_sus = '"+p.getNumeroSus()+"' , " +
+					"nr_sus = '"+p.getNumeroSus()+"', " +
 					"nr_cpf = '"+p.getCpf()+"', " +
 					"nm_paciente = '"+p.getNome()+"', " +
-					"nm_mae = , '"+p.getNomeMae()+"'" +
-					"nr_telefone = , '"+p.getNumeroTelefone()+"'" +
-					"dt_nascimento = '"+new Date(p.getDataNascimento().getTime())+"'" +
-					"WHERE co_paciente = '"+p.getCodigoPaciente()+"'";
+					"nm_mae = '"+p.getNomeMae()+"', " +
+					"nr_telefone = '"+p.getNumeroTelefone()+"', " +
+					"dt_nascimento = '"+new Date(p.getDataNascimento().getTime())+"' " +
+					"WHERE co_paciente = "+p.getCodigoPaciente();
 			stm.executeUpdate(sqlPaciente);
 			
 			String sqlEndereco = "UPDATE tb_endereco SET " +
-					"ds_rua = '"+p.getEnderecoRua()+"' , " +
+					"ds_rua = '"+p.getEnderecoRua()+"', " +
 					"ds_numero = '"+p.getEnderecoNumero()+"', " +
 					"ds_bairro = '"+p.getEnderecoBairro()+"', " +
-					"ds_cep = , '"+p.getEnderecoCEP()+"'" +
-					"ds_complemento = , '"+p.getEnderecoComplemento()+"'" +
-					"co_cidade = '"+p.getEnderecoCodigoCidade()+"'" +
-					"WHERE co_paciente = '"+p.getCodigoPaciente()+"'";
+					"ds_cep = '"+p.getEnderecoCEP()+"', " +
+					"ds_complemento = '"+p.getEnderecoComplemento()+"', " +
+					"co_cidade = "+p.getEnderecoCodigoCidade()+" " +
+					"WHERE co_paciente = "+p.getCodigoPaciente();
 			stm.executeUpdate(sqlEndereco);
 			stm.close();
 			return true;
