@@ -5,7 +5,16 @@
 <html>
 <%@include file="inc_head.jsp"%>
 <script>
+
 var pMsg = <%=request.getParameter("msg")%>
+var pNrSus = <%=request.getParameter("nr_sus")%>
+
+$(function(){
+	if (pNrSus != '' && pNrSus != null){
+		$("#nr_localizar_sus").val(pNrSus);
+		obterDadosPaciente();
+	}
+});
 
 function mostrarMsg(){
 	if (pMsg != '' && pMsg != null){
