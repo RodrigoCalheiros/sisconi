@@ -1,10 +1,13 @@
 package model;
 
+import java.util.List;
+
 import dao.LeitoDAO;
 
 public class Leito {
 	private int codigoLeito;
 	private int codigoAla;
+	private int codigoPatrimonio;
 	private int codigoStatusLeito;
 	private String descricaoStatusLeito;
 	
@@ -22,6 +25,14 @@ public class Leito {
 
 	public void setCodigoAla(int codigoAla) {
 		this.codigoAla = codigoAla;
+	}
+
+	public int getCodigoPatrimonio() {
+		return codigoPatrimonio;
+	}
+
+	public void setCodigoPatrimonio(int codigoPatrimonio) {
+		this.codigoPatrimonio = codigoPatrimonio;
 	}
 
 	public int getCodigoStatusLeito() {
@@ -47,6 +58,54 @@ public class Leito {
 	
 	public boolean desbloquearLeito() {
 		LeitoDAO ldao = new LeitoDAO();
+		if (codigoStatusLeito == 1) {
+			this.setCodigoStatusLeito(2);
+			return ldao.update(this);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean bloquearLeito() {
+		LeitoDAO ldao = new LeitoDAO();
+		this.setCodigoStatusLeito(1);
 		return ldao.update(this);
 	}
+	
+	public boolean liberarLeito() {
+		LeitoDAO ldao = new LeitoDAO();
+		if (codigoStatusLeito == 2) {
+			this.setCodigoStatusLeito(3);
+			return ldao.update(this);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public List<Leito> getLeitosLivres() {
+		LeitoDAO ldao = new LeitoDAO();
+		return ldao.getLeitosLivres();
+	}
+	
+	public List<Leito> getLeitos() {
+		LeitoDAO ldao = new LeitoDAO();
+		return ldao.getLeitos();
+	}
+	
+	public List<Leito> getLeitos(int codigoAla) {
+		LeitoDAO ldao = new LeitoDAO();
+		return ldao.getLeitos(codigoAla);
+	}
+
+	@Override
+	public String toString() {
+		return "Leito [codigoLeito=" + codigoLeito + ", codigoAla=" + codigoAla
+				+ ", codigoPatrimonio=" + codigoPatrimonio
+				+ ", codigoStatusLeito=" + codigoStatusLeito
+				+ ", descricaoStatusLeito=" + descricaoStatusLeito + "]";
+	}
+	
+	
 }
