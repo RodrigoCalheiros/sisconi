@@ -3,6 +3,8 @@ package model;
 import java.util.Date;
 import java.util.List;
 
+import dao.InternacaoDAO;
+
 public class Internacao {
 	private int codigoInternacao;
 	private Paciente paciente;
@@ -55,6 +57,25 @@ public class Internacao {
 		this.descricaoDaAlta = descricaoDaAlta;
 	}
 	
+	public boolean iniciarInternacao() {
+		InternacaoDAO idao = new InternacaoDAO();
+		return idao.insert(this);
+	}
+	
+	public boolean encerrarInternacao() {
+		InternacaoDAO idao = new InternacaoDAO();
+		return idao.encerrarInternacao(this);
+	}
+	
+	public boolean remanejarInternacao(int codigoLeitoNovo) {
+		InternacaoDAO idao = new InternacaoDAO();
+		return idao.remanejarInternacao(this, codigoLeitoNovo);
+	}
+	
+	public boolean darAlta() {
+		InternacaoDAO idao = new InternacaoDAO();
+		return idao.darAlta(this);
+	}
 	
 
 }

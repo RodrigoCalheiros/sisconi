@@ -107,6 +107,11 @@ public class Leito {
 		LeitoDAO ldao = new LeitoDAO();
 		return ldao.getLeitos(codigoAla);
 	}
+	
+	public Leito getStatusLeito(int codigoLeito) {
+		LeitoDAO ldao = new LeitoDAO();
+		return ldao.getStatusLeito(codigoLeito);
+	}
 
 	@Override
 	public String toString() {

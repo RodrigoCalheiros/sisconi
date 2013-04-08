@@ -1,12 +1,15 @@
 package teste;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import dao.PacienteDAO;
 
 import model.Ala;
+import model.Internacao;
 import model.Leito;
+import model.Medico;
 import model.Paciente;
 
 public class Main {
@@ -45,10 +48,10 @@ public class Main {
 //		l.setCodigoPatrimonio(1);
 //		l.cadastrarLeito();
 		
-		Leito l = new Leito();
-		l.setCodigoStatusLeito(2);
-		l.setCodigoLeito(1);
-		l.liberarLeito();
+//		Leito l = new Leito();
+//		l.setCodigoStatusLeito(2);
+//		l.setCodigoLeito(1);
+//		l.liberarLeito();
 		
 //		Leito l = new Leito();
 //		List<Leito> lle = l.getLeitos(1);
@@ -61,6 +64,23 @@ public class Main {
 //		for(int i=0; i<lle.size(); i++) {
 //			System.out.println(lle.get(i).toString());
 //		}
+		
+		Paciente p = new Paciente();
+		p.setCodigoPaciente(2);
+		Leito l = new Leito();
+		l.setCodigoLeito(1);
+		Medico m1 = new Medico();
+		m1.setCodigoUsuario(2);
+		List<Medico> lm = new ArrayList<Medico>();
+		lm.add(m1);
+		
+		Internacao i = new Internacao();
+		i.setPaciente(p);
+		i.setLeito(l);
+		i.setListaMedico(lm);
+		
+		i.iniciarInternacao();
+		
 	}
 	
 

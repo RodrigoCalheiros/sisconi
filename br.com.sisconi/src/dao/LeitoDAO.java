@@ -154,5 +154,26 @@ public class LeitoDAO {
 			return null;
 		}
 	}
+	
+	public Leito getStatusLeito(int codigoLeito) {
+		try{
+			Leito l = new Leito();
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery("select tb_leito.co_leito, tb_status_leito.co_status, tb_status.ds_status from tb_leito" +
+					"join tb_status_leito on tb_leito.co_leito = tb_status_leito.co_leito " +
+					"join tb_status on tb_status_leito.co_status = tb_status.co_status " +
+					"where tb_leito.co_leito = "+codigoLeito+" and tb_status_leito.dt_final is null");
+			while (res.next()) {
+				l.setCodigoLeito(res.getInt("tb_leito.co_leito"));
+				l.setCodigoStatusLeito(res.getInt("tb_status_leito.co_status"));
+				l.setDescricaoStatusLeito(res.getString("tb_status.ds_status"));				
+			}
+			return l;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }
