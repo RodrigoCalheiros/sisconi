@@ -9,10 +9,25 @@
 		Date dtNascimento = paciente.getDataNascimento();
 		java.text.DateFormat dateformat = new java.text.SimpleDateFormat("dd/MM/yyyy");
 %>
+<script type="text/javascript">
+	$(function(){
+		$( "#datepicker" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "1900:<%=new java.util.Date()%>",
+			dateFormat: 'dd/mm/yy',
+	        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+	        dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+		});
+	});
+</script>
 <input type="hidden" id="hidden_co_paciente" name="hidden_co_paciente" value="<%=paciente.getCodigoPaciente()%>">
 <input type="hidden" id="hidden_nr_sus" name="hidden_nr_sus" value="<%=paciente.getNumeroSus()%>">
 <input type="hidden" id="hidden_nr_cpf" name="hidden_nr_cpf" value="<%=paciente.getCpf()%>">
-<table class="tbl">
+<table class="tbl" width="100%">
 	<thead>
 		<tr>
 			<th colspan="2">Dados Pessoais</th>
@@ -48,7 +63,7 @@
 </table>
 <br>
 <input type="hidden" id="hidden_co_cidade" name="hidden_co_cidade" value="<%=paciente.getEnderecoCodigoCidade()%>">
-<table class="tbl">
+<table class="tbl" width="100%">
 	<thead>
 		<tr>
 			<th colspan="2">Endereço</th>

@@ -8,9 +8,33 @@
 
 function obterLeitos(){
 	$.ajax({
-		url: "ajax_obter_leitos.jsp?co_Ala=" + $('#co_ala').val(),
+		url: "ajax_obter_leitos.jsp?co_ala=" + $('#co_ala').val(),
 		}).done(function(retornoSucesso) {
 			$('#span_Leitos').html(retornoSucesso);
+		});
+}
+
+function desbloquearLeito(pCoLeito, pCoStatus){
+	$.ajax({
+		url: "ajax_desbloquear_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
+		}).done(function(retornoSucesso) {
+			obterLeitos();
+		});
+}
+
+function liberarLeito(pCoLeito, pCoStatus){
+	$.ajax({
+		url: "ajax_liberar_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
+		}).done(function(retornoSucesso) {
+			obterLeitos();
+		});
+}
+
+function bloquearLeito(pCoLeito, pCoStatus){
+	$.ajax({
+		url: "ajax_bloquear_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
+		}).done(function(retornoSucesso) {
+			obterLeitos();
 		});
 }
 
@@ -48,7 +72,41 @@ function obterLeitos(){
 				<td colspan="2">
 					<span id="span_Leitos"></span>
 				</td>
-			</tr>	
+			</tr>
+			<tr>
+				<td>
+					<table class="tblegenda">
+						<thead>
+							<tr>
+								<th>Cor</th>
+								<th>Status do Leito</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="center"><img src="_imagens/qd_green.png"></td>
+								<td align="left">Livre</td>
+							</tr>
+							<tr>
+								<td align="center"><img src="_imagens/qd_red.png"></td>
+								<td align="left">Ocupado</td>
+							</tr>
+							<tr>
+								<td align="center"><img src="_imagens/qd_gray.png"></td>
+								<td align="left">Bloqueado</td>
+							</tr>
+							<tr>
+								<td align="center"><img src="_imagens/qd_orange.png"></td>
+								<td align="left">Reservado</td>
+							</tr>
+							<tr>
+								<td align="center"><img src="_imagens/qd_blue.png"></td>
+								<td align="left">Em Higienização</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
 		</table>
 	</td>
 </tr>

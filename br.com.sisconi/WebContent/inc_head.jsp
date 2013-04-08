@@ -18,14 +18,13 @@
 	
 	<script type="text/javascript">
 	$(function(){
+		  $( "#accordion" ).accordion({
+		      event: "click hoverintent"
+		    });
 		$( "#datepicker" ).datepicker({
 			changeMonth: true,
 			changeYear: true,
 			yearRange: "1900:<%=new java.util.Date()%>",
-			showOn: "both",
-		    buttonImageOnly: true,
-		    buttonImage: "_imagens/icones/calendar.gif",
-		    buttonText: "Calendar",
 			dateFormat: 'dd/mm/yy',
 	        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
 	        dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],

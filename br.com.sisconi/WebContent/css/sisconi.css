@@ -86,6 +86,242 @@ fieldset table td {
 }
 
 .tbl tbody td {
+ 	padding: 2px;
+ 	background: #f5f3e5;
+ 	border-bottom: 1px solid #fff;
+ 	color: #312e25;
+ 	border-top: 1px solid transparent;
+}
+
+.tbl tfoot td {
+ 	text-align: center;
+ 	color: #ffffff;
+ 	text-transform: uppercase;
+ 	background: #459e00;
+ 	padding: 4px;
+}
+
+.tblegenda {
+ 	border: 1px;
+ 	border-style: none;
+ 	border-collapse: collapse;
+ 	border-color:#327E04;
+ 	padding: 1px;
+ 	background-color: #FFFFFF;
+ 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 12px;
+}
+
+.tblegenda thead th {
+ 	text-align: center;
+ 	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: #459e00;
+ 	padding: 4px;
+ 	border-top: 2px solid #327E04;
+ 	border-left: 2px solid #327E04;
+ 	border-right: 2px solid #327E04;
+ 	border-bottom: 1px solid #fff;
+ 	color: #ffffff;
+}
+
+.tblegenda tbody td {
+ 	padding: 2px;
+ 	background: #f5f3e5;
+ 	border-bottom: 1px solid #fff;
+ 	color: #312e25;
+ 	border-top: 1px solid transparent;
+}
+
+.tbbloqueado{
+ 	border: 1px;
+ 	border-style: none;
+ 	border-collapse: collapse;
+ 	border-color:#327E04;
+ 	padding: 1px;
+ 	background-color: #FFFFFF;
+ 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 12px;
+ 	width: 100%;
+}
+
+.tbbloqueado tbody td {
+ 	padding: 2px;
+ 	background: #f5f3e5;
+ 	border-bottom: 1px solid #fff;
+ 	color: #312e25;
+ 	border-top: 1px solid transparent;
+}
+
+
+.tbbloqueado thead th {
+ 	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: #696969;
+ 	padding: 4px;
+ 	border-top: 2px solid #4F4F4F;
+ 	border-left: 2px solid #4F4F4F;
+ 	border-right: 2px solid #4F4F4F;
+ 	border-bottom: 1px solid #fff;
+ 	color: #ffffff;
+}
+
+.tbemhigienizacao{
+ 	border: 1px;
+ 	border-style: none;
+ 	border-collapse: collapse;
+ 	border-color:#327E04;
+ 	padding: 1px;
+ 	background-color: #FFFFFF;
+ 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 12px;
+ 	width: 100%;
+}
+
+.tbemhigienizacao tbody td {
+ 	padding: 2px;
+ 	background: #f5f3e5;
+ 	border-bottom: 1px solid #fff;
+ 	color: #312e25;
+ 	border-top: 1px solid transparent;
+}
+
+.tbemhigienizacao thead th {
+ 	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: #0000FF;
+ 	padding: 4px;
+ 	border-top: 2px solid #8470FF;
+ 	border-left: 2px solid #8470FF;
+ 	border-right: 2px solid #8470FF;
+ 	border-bottom: 1px solid #fff;
+ 	color: #ffffff;
+}
+
+.tblivre {
+ 	border: 1px;
+ 	border-style: none;
+ 	border-collapse: collapse;
+ 	border-color:#327E04;
+ 	padding: 1px;
+ 	background-color: #FFFFFF;
+ 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 12px;
+ 	width: 100%;
+}
+
+.tblivre tbody td {
+ 	padding: 2px;
+ 	background: #f5f3e5;
+ 	border-bottom: 1px solid #fff;
+ 	color: #312e25;
+ 	border-top: 1px solid transparent;
+}
+
+.tblivre thead th {
+ 	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: #67b021;
+ 	padding: 4px;
+ 	border-top: 2px solid #327E04;
+ 	border-left: 2px solid #327E04;
+ 	border-right: 2px solid #327E04;
+ 	border-bottom: 1px solid #fff;
+ 	color: #ffffff;
+}
+
+.tbocupado {
+ 	border: 1px;
+ 	border-style: none;
+ 	border-collapse: collapse;
+ 	border-color:#327E04;
+ 	padding: 1px;
+ 	background-color: #FFFFFF;
+ 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 12px;
+ 	width: 100%;
+}
+
+.tbocupado tbody td {
+ 	padding: 2px;
+ 	background: #f5f3e5;
+ 	border-bottom: 1px solid #fff;
+ 	color: #312e25;
+ 	border-top: 1px solid transparent;
+}
+
+.tbocupado thead th {
+ 	text-align: center;
+ 	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: #FF0000;
+ 	padding: 4px;
+ 	border-top: 2px solid #CD0000;
+ 	border-left: 2px solid #CD0000;
+ 	border-right: 2px solid #CD0000;
+ 	border-bottom: 1px solid #fff;
+ 	color: #ffffff;
+}
+
+.tbreservado {
+ 	border: 1px;
+ 	border-style: none;
+ 	border-collapse: collapse;
+ 	border-color:#327E04;
+ 	padding: 1px;
+ 	background-color: #FFFFFF;
+ 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 12px;
+ 	width: 100%;
+}
+
+.tbreservado tbody td {
+ 	padding: 2px;
+ 	background: #f5f3e5;
+ 	border-bottom: 1px solid #fff;
+ 	color: #312e25;
+ 	border-top: 1px solid transparent;
+}
+
+.tbreservado thead th {
+ 	text-align: center;
+ 	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: orange;
+ 	padding: 4px;
+ 	border-top: 2px solid #FF8C00;
+ 	border-left: 2px solid #FF8C00;
+ 	border-right: 2px solid #FF8C00;
+ 	border-bottom: 1px solid #fff;
+ 	color: #ffffff;
+}
+
+.tblInformacao {
+ 	border: 1px;
+ 	border-style: none;
+ 	border-collapse: collapse;
+ 	border-color:#327E04;
+ 	padding: 1px;
+ 	background-color: #FFFFFF;
+ 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+ 	font-size: 12px;
+	width: 100%;
+}
+
+.tblInformacao thead th {
+ 	text-align: center;
+ 	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: #459e00;
+ 	padding: 4px;
+ 	border-top: 2px solid #327E04;
+ 	border-left: 2px solid #327E04;
+ 	border-right: 2px solid #327E04;
+ 	border-bottom: 1px solid #fff;
+ 	color: #ffffff;
+}
+
+.tblInformacao tbody td {
  	
  	padding: 2px;
  	background: #f5f3e5;
@@ -94,12 +330,12 @@ fieldset table td {
  	border-top: 1px solid transparent;
 }
 
-.tbl tbody tr:hover td {
+.tblInformacao tbody tr:hover td {
 	background: #67b021;
 	color: #ffffff;
 }
 
-.tbl tfoot td {
+.tblInformacao tfoot td {
  	text-align: center;
  	color: #ffffff;
  	text-transform: uppercase;
@@ -149,7 +385,7 @@ fieldset table td {
   box-shadow: 0 0 5px rgba(0, 0, 255, .5);
 }
 
-:disabled {
+input:disabled {
   background-color: #ffedad;
   font-weight: bold;
 }

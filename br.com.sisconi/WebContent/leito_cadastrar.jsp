@@ -29,7 +29,7 @@ function remover(pValor,caractere){
 function validarCadastro(){
 	var pCoPatrimonio = remover($('#co_patrimonio').val(), ' ');
 	if (pCoPatrimonio == ""){
-		alert("O código do patrimnônio deve ser preenchido.");
+		alert("O código do patrimônio deve ser preenchido.");
 		$('#co_patrimonio').val("");
 		$('#co_patrimonio').focus();
 		return false;
@@ -53,7 +53,7 @@ function salvarCadastro(){
 <tr>
 	<td class="tblConteudoCorpo"><br><font color="#28166F">Leito > Cadastrar Leito</font><hr>
 		<form id="frm_leito" action="leito_cadastrar_processa.jsp" method="post">
-			<table class="tbl">
+			<table class="tbl" width="100%">
 				<thead>
 					<tr>
 						<th colspan="2">Dados do Leito</th>

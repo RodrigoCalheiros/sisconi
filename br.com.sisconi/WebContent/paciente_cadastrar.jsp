@@ -176,7 +176,7 @@ function onBlurNrSus(){
 <tr>
 	<td class="tblConteudoCorpo"><br><font color="#28166F">Paciente > Cadastrar Paciente</font><hr>
 		<form id="frm_paciente" action="paciente_cadastrar_processa.jsp" method="post">
-			<table class="tbl">
+			<table class="tbl" width="100%">
 				<thead>
 					<tr>
 						<th colspan="2">Dados Pessoais</th>
@@ -210,7 +210,7 @@ function onBlurNrSus(){
 				</tbody>
 			</table>
 			<br>
-			<table class="tbl">
+			<table class="tbl" width="100%">
 				<thead>
 					<tr>
 						<th colspan="2">Endereço</th>
