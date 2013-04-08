@@ -108,7 +108,18 @@ function ValidarCPF(pValor, pIdCampo){
 		soma2=(((soma2+(2*soma1))*10)%11);
 		
 		var digitoGerado=(soma1*10)+soma2;
-		if(digitoGerado!=digitoDigitado){
+		
+		var digitosIguais = true;
+		var digitoAnterior = cpf.charAt(0);
+		for(i=1;i<10;i++){
+			if (digitoAnterior != cpf.charAt(i)){
+				digitosIguais = false;
+				break;
+			}
+			digitoAnterior = cpf.charAt(i);
+		}
+		
+		if(digitoGerado!=digitoDigitado || digitosIguais == true){
 			document.getElementById(pIdCampo).style.backgroundColor='#fcc';
 		}
 		else{

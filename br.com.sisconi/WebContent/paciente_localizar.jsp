@@ -78,6 +78,22 @@ function desabilitarCamposPaciente(){
 	$('#co_estado').attr("disabled", true);
 }
 
+function limparCamposPaciente(){
+	$('#nm_paciente').val("");
+	$('#nm_mae').val("");
+	$('#nr_cpf').val("");
+	$('#nr_sus').val("");
+	$('#nr_telefone').val("");
+	$('#datepicker').val("");
+	$('#ds_rua').val("");
+	$('#ds_numero').val("");
+	$('#ds_complemento').val("");
+	$('#ds_bairro').val("");
+	$('#ds_cep').val("");
+	$('#co_estado').val("");
+	$('#spanCidade').html("");
+}
+
 function getExisteCpfPaciente(pCpf){
 	if (pCpf!= ""){
 		$.ajax({
@@ -245,7 +261,13 @@ function onBlurNrSus(){
 				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterDadosPaciente()"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><span id="span_botoes_localizar_paciente" style="display: none;"><input type="button" id="bt_dados_paciente" name="bt_dados_paciente" value="Dados do Paciente" onclick="obterDadosPaciente()"><input type="button" id="bt_atualizar_dados_paciente" name="bt_atualizar_dados_paciente" value="Atualizar Dados do Paciente" onclick="obterDadosPacienteAtualizar()"><input type="button" id="bt_localizar_historico" name="bt_localizar_historico" value="Localizar Histórico" onclick=""></span></td>
+				<td colspan="2">
+					<span id="span_botoes_localizar_paciente" style="display: none;">
+						<button onclick="obterDadosPaciente()"><img src="_imagens/icones/32X32/documents.gif"><br>Dados do Paciente</button>
+						<button onclick="obterDadosPacienteAtualizar()"><img src="_imagens/icones/32X32/edit.gif"><br>Atualizar Dados do Paciente</button>
+						<button onclick=""><img src="_imagens/icones/32X32/file_temp.gif"><br>Localizar Histórico</button>
+					</span>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -253,7 +275,7 @@ function onBlurNrSus(){
 						<span id="span_dados_paciente"></span>
 					</form>
 				</td>
-			</tr>		
+			</tr>	
 		</table>
 	</td>
 </tr>

@@ -1,7 +1,7 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
-<%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Leito"%>  
+<%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<jsp:useBean id="leito" class="model.Leito"/>
+<jsp:useBean id="ala" class="model.Ala"/>
 <html>
 <%@include file="inc_head.jsp"%>
 <script>
@@ -171,82 +171,31 @@ function onBlurNrSus(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Paciente > Cadastrar Paciente</font><hr>
-		<form id="frm_paciente" action="paciente_cadastrar_processa.jsp" method="post">
+	<td class="tblConteudoCorpo"><br><font color="#28166F">Leito > Cadastrar Leito</font><hr>
+		<form id="frm_leito" action="leito_cadastrar_processa.jsp" method="post">
 			<table class="tbl">
 				<thead>
 					<tr>
-						<th colspan="2">Dados Pessoais</th>
+						<th colspan="2">Dados do Leito</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td align="right" width="180px">Nome:</td>
-						<td align="left"><input type="text" id="nm_paciente" name="nm_paciente" maxlength="70" size="50" placeholder="Insira o nome do paciente" required></td>
+						<td align="right" width="180px">Código do Patrimônio:</td>
+						<td align="left"><input type="text" id="co_patrimonio" name="co_patrimonio" maxlength="70" size="50" placeholder="Insira o código do patrimônio do leito" required></td>
 					</tr>
 					<tr>
-						<td align="right">Número do SUS:</td>
-						<td align="left"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required></td>
-					</tr>
-					<tr>
-						<td align="right">Nome da Mãe:</td>
-						<td align="left"><input type="text" id="nm_mae" name="nm_mae" maxlength="70" size="50" placeholder="Insira o nome da mãe do paciente" required></td>
-					</tr>
-					<tr>
-						<td align="right">Data de Nascimento:</td>
-						<td align="left"><input type="text" id="datepicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" onblur="validaData(form.dt_nascimento, form.dt_nascimento.value)" required></td>
-					</tr>
-					<tr>
-						<td align="right">CPF:</td>
-						<td align="left"><input type="text" id="nr_cpf" name="nr_cpf" maxlength="14" size="50" placeholder="Insira o número do CPF do paciente" onKeyPress="MascaraCPF(form.nr_cpf);" onBlur="onBlurNrCpf();"></td>
-					</tr>
-					<tr>
-						<td align="right">Telefone:</td>
-						<td align="left"><input type="text" id="nr_telefone" name="nr_telefone" maxlength="14" size="50" placeholder="Insira o número do telefone do paciente" onKeyPress="MascaraTelefone(form.nr_telefone);"></td>
-					</tr>
-				</tbody>
-			</table>
-			<br>
-			<table class="tbl">
-				<thead>
-					<tr>
-						<th colspan="2">Endereço</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td align="right" width="180px">Rua:</td>
-						<td align="left"><input type="text" id="ds_rua" name="ds_rua" maxlength="60" size="50" placeholder="Insira o nome da rua do endereço do paciente" required></td>
-					</tr>
-					<tr>
-						<td align="right">Número:</td>
-						<td align="left"><input type="text" id="ds_numero" name="ds_numero" maxlength="10" size="50" placeholder="Insira o número do endereço do paciente" onKeyPress="mascaraInteiro();" required></td>
-					</tr>
-					<tr>
-						<td align="right">Complemento:</td>
-						<td align="left"><input type="text" id="ds_complemento" name="ds_complemento" maxlength="100" size="50" placeholder="Insira o complemento do endereço do paciente" ></td>
-					</tr>
-					<tr>
-						<td align="right">Bairro:</td>
-						<td align="left"><input type="text" id="ds_bairro" name="ds_bairro" maxlength="40" size="50" placeholder="Insira o nome do bairro do endereço do paciente" required></td>
-					</tr>
-					<tr>
-						<td align="right">CEP:</td>
-						<td align="left"><input type="text" id="ds_cep" name="ds_cep" maxlength="10" size="50" placeholder="Insira o CEP do endereço do paciente" onKeyPress="MascaraCep(form.ds_cep);"></td>
-					</tr>
-					<tr>
-						<td align="right">Estado:</td>
+						<td align="right">Ala:</td>
 						<td align="left">
-							<select name="co_estado" id="co_estado" onchange="getCidades()" required>
-								<option value="0">--</option>
+							<select name="co_ala" id="co_ala" required>
 							<%      
 							   try {  
-							      List<Estado> les = paciente.getEstados();    
+							      List<Ala> listAla = ala.getAlas();    
 							        
-							      for (int i=0; i<les.size(); i++) {
-							    	  Estado e = les.get(i);
+							      for (int i=0; i<listAla.size(); i++) {
+							    	   Ala ala = listAla.get(i);
 							%>
-							    	  <option value=<%=e.getCodigoEstado()%>><%=e.getUF()%></option>
+							    	  <option value=<%=ala.getCodigoAla()%>><%=ala.getNomeAla()%></option>
 							<%
 							      }
 							   }catch (Exception e) {  
@@ -258,12 +207,8 @@ function onBlurNrSus(){
 						</td>
 					</tr>
 					<tr>
-						<td align="right">Cidade:</td>
-						<td align="left"><span id="spanCidade">-</span></td>
-					</tr>
-					<tr>
 						<td></td>
-						<td align="left"><input type="reset" id="bt_reset" name="bt_reset" value="Limpar">&nbsp;<input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></td>
+						<td align="left"><input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></td>
 					</tr>
 				</tbody>
 			</table>

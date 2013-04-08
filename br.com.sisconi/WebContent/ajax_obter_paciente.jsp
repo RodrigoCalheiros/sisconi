@@ -104,7 +104,7 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td align="left"><span id="span_bt_salvar" style="display:none;"><input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></span></td>
+			<td align="left"><span id="span_bt_salvar" style="display:none;"><input type="button" id="bt_reset" name="bt_reset" value="Limpar" onclick="limparCamposPaciente()">&nbsp;<input type="button" id="bt_cancelar" name="bt_cancelar" value="Cancelar" onclick="obterDadosPaciente()">&nbsp;<input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></span></td>
 		</tr>
 	</tbody>
 </table>

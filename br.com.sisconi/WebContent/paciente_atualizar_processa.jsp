@@ -38,7 +38,7 @@
 	boolean retorno = paciente.atualizarPaciente();
 	
 	if (retorno == true){
-		response.sendRedirect("paciente_localizar.jsp?nr_sus='" + pNrSus + "'&msg='O Paciente " + pNmPaciente + " foi atualizado com sucesso.'");
+		response.sendRedirect("paciente_localizar.jsp?nr_sus='" + pNrSus + "'&msg='Dados do Paciente " + pNmPaciente + " atualizados com sucesso.'");
 	}
 	else{
 		response.sendRedirect("paciente_localizar.jsp?msg='Erro ao atualizar os dados do paciente.'");
