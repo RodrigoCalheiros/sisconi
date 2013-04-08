@@ -263,9 +263,9 @@ function onBlurNrSus(){
 			<tr>
 				<td colspan="2">
 					<span id="span_botoes_localizar_paciente" style="display: none;">
-						<button onclick="obterDadosPaciente()"><img src="_imagens/icones/32X32/documents.gif"><br>Dados do Paciente</button>
-						<button onclick="obterDadosPacienteAtualizar()"><img src="_imagens/icones/32X32/edit.gif"><br>Atualizar Dados do Paciente</button>
-						<button onclick=""><img src="_imagens/icones/32X32/file_temp.gif"><br>Localizar Histórico</button>
+						<button onclick="obterDadosPaciente()"><img src="_imagens/icones/16X16/documents.gif">&nbsp;Dados do Paciente</button>
+						<button onclick="obterDadosPacienteAtualizar()"><img src="_imagens/icones/16X16/edit.gif">&nbsp;Atualizar Dados do Paciente</button>
+						<button onclick=""><img src="_imagens/icones/16X16/file_temp.gif">&nbsp;Localizar Histórico</button>
 					</span>
 				</td>
 			</tr>

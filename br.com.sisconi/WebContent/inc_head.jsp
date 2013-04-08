@@ -18,9 +18,7 @@
 	
 	<script type="text/javascript">
 	$(function(){
-		  $( "#accordion" ).accordion({
-		      event: "click hoverintent"
-		    });
+		  $( "#accordion" ).accordion();
 		$( "#datepicker" ).datepicker({
 			changeMonth: true,
 			changeYear: true,

@@ -1,8 +1,6 @@
 <script>
   $(function() {
-	  $( "#accordion" ).accordion({
-	      event: "click hoverintent"
-	    });
+	  $( "#accordion" ).accordion();
   });
 </script>
 <%@ page contentType="text/html" language="java" import="java.sql.*, java.util.*, model.Leito"%>
@@ -53,6 +51,7 @@
 <%
      		}
      		else if ((coAla != l.getCodigoAla()) && (coAla > 0)){
+     			coAla = l.getCodigoAla();
       			if ((contador < 5) && (contador > 0)){
       				for (int j = contador; j <= 4 ; j++) {
 %>
@@ -93,7 +92,7 @@
 						<td align="right"><button onclick="liberarLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 2){ %>disabled<%} %>><img src="_imagens/icones/16X16/apply.gif"><font style="font-weight: bold;">LIBERAR</font></button></td>
 					</tr>
 					<tr>
-						<td align="right" colspan="3"><button onclick="desbloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 1){ %>disabled<%} %>><img src="_imagens/icones/16X16/unlock.gif"><font style="font-weight: bold;">DESBLOQUEAR</font></button>&nbsp;<button onclick="bloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() == 1){ %>disabled<%} %>><img src="_imagens/icones/16X16/lock.gif"><font style="font-weight: bold;">BLOQUEAR</font></button></td>
+						<td align="right" colspan="3"><button onclick="desbloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 1){ %>disabled<%} %>><img src="_imagens/icones/16X16/unlock.gif"><font style="font-weight: bold;">DESBLOQUEAR</font></button>&nbsp;<button onclick="bloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if ((l.getCodigoStatusLeito() == 1) || (l.getCodigoStatusLeito() == 4)){ %>disabled<%} %>><img src="_imagens/icones/16X16/lock.gif"><font style="font-weight: bold;">BLOQUEAR</font></button></td>
 					</tr>
 				</tbody>
 			</table>
