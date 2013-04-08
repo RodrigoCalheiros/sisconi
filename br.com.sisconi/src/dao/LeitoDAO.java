@@ -30,9 +30,9 @@ public class LeitoDAO {
 		    res.close();
 		    
 		    String sqlStatusLeito = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial) values (" +
-		    		"(select count(temp.co_leito)+1 from (select co_leito from tb_status_leito) as temp where co_leito = "+l.getCodigoLeito()+"), " +
+		    		"1, " +
 					""+l.getCodigoLeito()+", " +
-					""+1+", " +
+					"1, " +
 					"NOW())";
 		    smt.execute(sqlStatusLeito);
 		    smt.close();

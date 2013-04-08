@@ -42,12 +42,13 @@ public class Main {
 		
 //		Leito l = new Leito();
 //		l.setCodigoAla(1);
-//		l.setCodigoPatrimonio(2);
+//		l.setCodigoPatrimonio(1);
 //		l.cadastrarLeito();
 		
-//		Leito l = new Leito();
-//		l.setCodigoLeito(1);
-//		l.liberarLeito();
+		Leito l = new Leito();
+		l.setCodigoStatusLeito(2);
+		l.setCodigoLeito(1);
+		l.liberarLeito();
 		
 //		Leito l = new Leito();
 //		List<Leito> lle = l.getLeitos(1);
@@ -55,11 +56,11 @@ public class Main {
 //			System.out.println(lle.get(i).toString());
 //		}
 		
-		Leito l = new Leito();
-		List<Leito> lle = l.getLeitosLivres();
-		for(int i=0; i<lle.size(); i++) {
-			System.out.println(lle.get(i).toString());
-		}
+//		Leito l = new Leito();
+//		List<Leito> lle = l.getLeitosLivres();
+//		for(int i=0; i<lle.size(); i++) {
+//			System.out.println(lle.get(i).toString());
+//		}
 	}
 	
 
