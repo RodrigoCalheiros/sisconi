@@ -7,6 +7,7 @@ import dao.LeitoDAO;
 public class Leito {
 	private int codigoLeito;
 	private int codigoAla;
+	private String descricaoAla;
 	private int codigoPatrimonio;
 	private int codigoStatusLeito;
 	private String descricaoStatusLeito;
@@ -25,6 +26,14 @@ public class Leito {
 
 	public void setCodigoAla(int codigoAla) {
 		this.codigoAla = codigoAla;
+	}
+	
+	public String getDescricaoAla() {
+		return descricaoAla;
+	}
+
+	public void setDescricaoAla(String descricaoAla) {
+		this.descricaoAla = descricaoAla;
 	}
 
 	public int getCodigoPatrimonio() {

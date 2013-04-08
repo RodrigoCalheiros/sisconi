@@ -79,14 +79,16 @@ public class LeitoDAO {
 			List<Leito> lle = new ArrayList<Leito>();
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			Statement stm = con.createStatement();
-			ResultSet res = stm.executeQuery("select tb_leito.co_leito, tb_leito.co_ala, tb_leito.co_patrimonio, tb_status_leito.co_status, tb_status.ds_status from tb_leito " +
+			ResultSet res = stm.executeQuery("select tb_leito.co_leito, tb_leito.co_ala, tb_leito.co_patrimonio, tb_status_leito.co_status, tb_status.ds_status, tb_ala.ds_ala from tb_leito " +
 					"join tb_status_leito on tb_status_leito.co_leito = tb_leito.co_leito " +
 					"join tb_status on tb_status_leito.co_status = tb_status.co_status " +
+					"join tb_ala on tb_leito.co_ala = tb_ala.co_ala " +
 					"where tb_status_leito.co_status = 3 and tb_status_leito.dt_final is null");
 			while (res.next()) {
 				Leito l = new Leito();
 				l.setCodigoLeito(res.getInt("tb_leito.co_leito"));
 				l.setCodigoAla(res.getInt("tb_leito.co_ala"));
+				l.setDescricaoAla(res.getString("tb_ala.ds_ala"));
 				l.setCodigoPatrimonio(res.getInt("tb_leito.co_patrimonio"));
 				l.setCodigoStatusLeito(res.getInt("tb_status_leito.co_status"));
 				l.setDescricaoStatusLeito(res.getString("tb_status.ds_status"));
@@ -104,14 +106,16 @@ public class LeitoDAO {
 			List<Leito> lle = new ArrayList<Leito>();
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			Statement stm = con.createStatement();
-			ResultSet res = stm.executeQuery("select tb_leito.co_leito, tb_leito.co_ala, tb_leito.co_patrimonio, tb_status_leito.co_status, tb_status.ds_status from tb_leito " +
+			ResultSet res = stm.executeQuery("select tb_leito.co_leito, tb_leito.co_ala, tb_leito.co_patrimonio, tb_status_leito.co_status, tb_status.ds_status, tb_ala.ds_ala from tb_leito " +
 					"join tb_status_leito on tb_status_leito.co_leito = tb_leito.co_leito " +
 					"join tb_status on tb_status_leito.co_status = tb_status.co_status " +
-					"where tb_status_leito.dt_final is null order by tb_leito.co_patrimonio");
+					"join tb_ala on tb_leito.co_ala = tb_ala.co_ala " +
+					"where tb_status_leito.dt_final is null order by tb_ala.ds_ala, tb_leito.co_leito");
 			while (res.next()) {
 				Leito l = new Leito();
 				l.setCodigoLeito(res.getInt("tb_leito.co_leito"));
 				l.setCodigoAla(res.getInt("tb_leito.co_ala"));
+				l.setDescricaoAla(res.getString("tb_ala.ds_ala"));
 				l.setCodigoPatrimonio(res.getInt("tb_leito.co_patrimonio"));
 				l.setCodigoStatusLeito(res.getInt("tb_status_leito.co_status"));
 				l.setDescricaoStatusLeito(res.getString("tb_status.ds_status"));
@@ -129,14 +133,16 @@ public class LeitoDAO {
 			List<Leito> lle = new ArrayList<Leito>();
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			Statement stm = con.createStatement();
-			ResultSet res = stm.executeQuery("select tb_leito.co_leito, tb_leito.co_ala, tb_leito.co_patrimonio, tb_status_leito.co_status, tb_status.ds_status from tb_leito " +
+			ResultSet res = stm.executeQuery("select tb_leito.co_leito, tb_leito.co_ala, tb_leito.co_patrimonio, tb_status_leito.co_status, tb_status.ds_status, tb_ala.ds_ala from tb_leito " +
 					"join tb_status_leito on tb_status_leito.co_leito = tb_leito.co_leito " +
 					"join tb_status on tb_status_leito.co_status = tb_status.co_status " +
-					"where tb_leito.co_ala = "+codigoAla+" and tb_status_leito.dt_final is null order by tb_leito.co_patrimonio");
+					"join tb_ala on tb_leito.co_ala = tb_ala.co_ala " +
+					"where tb_leito.co_ala = "+codigoAla+" and tb_status_leito.dt_final is null order by tb_ala.ds_ala, tb_leito.co_leito");
 			while (res.next()) {
 				Leito l = new Leito();
 				l.setCodigoLeito(res.getInt("tb_leito.co_leito"));
 				l.setCodigoAla(res.getInt("tb_leito.co_ala"));
+				l.setDescricaoAla(res.getString("tb_ala.ds_ala"));
 				l.setCodigoPatrimonio(res.getInt("tb_leito.co_patrimonio"));
 				l.setCodigoStatusLeito(res.getInt("tb_status_leito.co_status"));
 				l.setDescricaoStatusLeito(res.getString("tb_status.ds_status"));

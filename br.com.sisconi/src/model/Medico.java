@@ -1,7 +1,5 @@
 package model;
 
-import dao.UsuarioDAO;
-
 public class Medico extends Usuario {
 	private String crm;
 	private int codigoEspecialidade;
@@ -19,10 +17,10 @@ public class Medico extends Usuario {
 		this.codigoEspecialidade = codigoEspecialidade;
 	}
 	
-	public Medico localizarMedico() {
-		UsuarioDAO udao = new UsuarioDAO();
-		return null;
-		
-	}
+//	public Medico localizarMedico() {
+//		UsuarioDAO udao = new UsuarioDAO();
+//		return null;
+//		
+//	}
 
 }
