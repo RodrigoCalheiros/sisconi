@@ -50,8 +50,8 @@
 	    <li>
 	        <a href="#"><img src="_imagens/icones/16X16/leito.png">&nbsp;Leito</a>
 	        <ul>
-	            <li><a href="#">Cadastrar Leito</a></li>
-	            <li><a href="#">Monitorar Leitos</a></li>
+	            <li><a href="leito_cadastrar.jsp">Cadastrar Leito</a></li>
+	            <li><a href="leito_monitorar.jsp">Monitorar Leitos</a></li>
 	        </ul>
 	    </li>
 	    <li>

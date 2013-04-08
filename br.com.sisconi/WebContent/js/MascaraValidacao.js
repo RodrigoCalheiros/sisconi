@@ -90,41 +90,49 @@ function validaData(campo,valor) {
 
 //valida o CPF digitado
 function ValidarCPF(pValor, pIdCampo){
-	var retorno = false;
+	var retorno = true;
 	var cpf = pValor;
-	if (cpf != ''){
-		exp = /\.|\-/g;
-		cpf = cpf.toString().replace( exp, "" ); 
-		var digitoDigitado = eval(cpf.charAt(9)+cpf.charAt(10));
-		var soma1=0, soma2=0;
-		var vlr =11;
-		
-		for(i=0;i<9;i++){
-			soma1+=eval(cpf.charAt(i)*(vlr-1));
-			soma2+=eval(cpf.charAt(i)*vlr);
-			vlr--;
-		}	
-		soma1 = (((soma1*10)%11)==10 ? 0:((soma1*10)%11));
-		soma2=(((soma2+(2*soma1))*10)%11);
-		
-		var digitoGerado=(soma1*10)+soma2;
-		
-		var digitosIguais = true;
-		var digitoAnterior = cpf.charAt(0);
-		for(i=1;i<10;i++){
-			if (digitoAnterior != cpf.charAt(i)){
-				digitosIguais = false;
-				break;
-			}
-			digitoAnterior = cpf.charAt(i);
+	
+	cpf = cpf.replace(/[^\d]+/g,'');
+	if(cpf != ''){
+		if (cpf.length != 11 || cpf == "00000000000" || cpf == "11111111111" || cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" || cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" || cpf == "88888888888" || cpf == "99999999999"){
+			retorno = false;
 		}
 		
-		if(digitoGerado!=digitoDigitado || digitosIguais == true){
-			document.getElementById(pIdCampo).style.backgroundColor='#fcc';
+		if (retorno == true){
+			var add = 0;
+			for (i=0; i < 9; i ++){
+				add += parseInt(cpf.charAt(i)) * (10 - i);
+			}
+			rev = 11 - (add % 11);
+			if (rev == 10 || rev == 11){
+				rev = 0;
+			}
+		
+			if (rev != parseInt(cpf.charAt(9))){
+				retorno = false;
+			}
+		}
+		
+		if (retorno == true){
+			add = 0;
+			for (i = 0; i < 10; i ++){
+				add += parseInt(cpf.charAt(i)) * (11 - i);
+			}
+			rev = 11 - (add % 11);
+			if (rev == 10 || rev == 11){
+				rev = 0;
+			}
+			if (rev != parseInt(cpf.charAt(10))){
+				retorno = false;
+			}
+		}
+		
+		if(retorno == true){
+			document.getElementById(pIdCampo).style.backgroundColor='transparent';
 		}
 		else{
-			document.getElementById(pIdCampo).style.backgroundColor='transparent';
-			retorno = true;
+			document.getElementById(pIdCampo).style.backgroundColor='#fcc';
 		}
 	}
 	else{

@@ -12,7 +12,7 @@
       for (int i=0; i<lci.size(); i++) {
     	  Cidade cidade = lci.get(i);
 %>
-    	  <option value=<%=cidade.getCodigoCidade()%>><%=cidade.getNomeCidade()%></option>
+    	  <option value="<%=cidade.getCodigoCidade()%>"><%=cidade.getNomeCidade()%></option>
 <%
       }
    }catch (Exception e) {  

@@ -9,7 +9,7 @@
 <%
 	for (int i=0; i<listTipoUsuario.size(); i++) {
 %>
-	   <option value=<%=listTipoUsuario.get(i).getCodigoTipoUsuario()%>><%=listTipoUsuario.get(i).getDescricaoTipoUsuario()%></option>
+	   <option value="<%=listTipoUsuario.get(i).getCodigoTipoUsuario()%>"><%=listTipoUsuario.get(i).getDescricaoTipoUsuario()%></option>
 <%
 	    }
 	   }catch (Exception e) {  

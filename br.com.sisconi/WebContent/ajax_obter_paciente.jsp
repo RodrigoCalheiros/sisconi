@@ -87,7 +87,7 @@
 				      for (int i=0; i<les.size(); i++) {
 				    	  Estado e = les.get(i);
 				%>
-				    	  <option value=<%=e.getCodigoEstado()%> <%if (paciente.getEnderecoCodigoEstado() == e.getCodigoEstado()){%>selected<%}%>><%=e.getUF()%></option>
+				    	  <option value="<%=e.getCodigoEstado()%>" <%if (paciente.getEnderecoCodigoEstado() == e.getCodigoEstado()){%>selected<%}%>><%=e.getUF()%></option>
 				<%
 				      }
 				   }catch (Exception e) {  

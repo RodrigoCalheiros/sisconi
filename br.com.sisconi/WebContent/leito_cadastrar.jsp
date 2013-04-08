@@ -13,44 +13,6 @@ function mostrarMsg(){
 	}
 }	
 
-function getExisteCpfPaciente(pCpf){
-	if (pCpf!= ""){
-		$.ajax({
-			url: "ajax_existe_cpf_paciente.jsp?nr_cpf=" + pCpf,
-			}).done(function(retornoSucesso) {
-			var retorno = retornoSucesso;
-			if (retorno == 1){
-				alert("CPF " + pCpf + " já cadastrado.");
-				$('#nr_cpf').focus();
-			}
-		});	
-	}
-}
-
-function getExisteNrSusPaciente(pNrSus){
-	if (pNrSus != ""){
-		$.ajax({
-			url: "ajax_existe_numero_sus_paciente.jsp?nr_sus=" + pNrSus,
-			}).done(function(retornoSucesso) {
-			var retorno = retornoSucesso;
-			if (retorno == 1){
-				alert("Número do SUS " + pNrSus + " já cadastrado.");
-				$('#nr_sus').focus();
-			}
-		});	
-	}
-}
-
-function getCidades(){
-	var codigoEstado = 	$('#co_estado').val();
-	$.ajax({
-	  url: "ajax_obter_cidades.jsp?codigoEstado=" + codigoEstado,
-	  context: document.body
-	}).done(function(retornoSucesso) {
-		$('#spanCidade').html(retornoSucesso);
-	});	
-}
-
 function remover(pValor,caractere){  
 	var texto = pValor;  
 	var novo_texto='';  
@@ -65,84 +27,11 @@ function remover(pValor,caractere){
 }
 
 function validarCadastro(){
-	var pNmPaciente = remover($('#nm_paciente').val(), ' ');
-	if (pNmPaciente == ""){
-		alert("O nome do Paciente deve ser preenchido.");
-		$('#nm_paciente').val("");
-		$('#nm_paciente').focus();
-		return false;
-	}
-	var pNmMae = remover($('#nm_mae').val(), ' ');
-	if (pNmMae == ""){
-		alert("O nome da Mãe deve ser preenchido.");
-		$('#nm_mae').val("");
-		$('#nm_mae').focus();
-		return false;
-	}
-	var pNrCpf = remover($('#nr_cpf').val(), ' ');
-	if (pNrCpf == ""){
-		$('#nr_cpf').val("");
-	}
-	else if (ValidarCPF($('#nr_cpf').val(), 'nr_cpf') == false){
-		alert("O CPF " + $('#nr_cpf').val() + " é inválido.");
-		$('#nr_cpf').focus();
-		return false;
-	}
-	var pNrSus = remover($('#nr_sus').val(), ' ');
-	if (pNrSus == ""){
-		alert("O número do SUS deve ser preenchido.");
-		$('#nr_sus').val("");
-		$('#nr_sus').focus();
-		return false;
-	}
-	var pDtNascimento = remover($("#datepicker").val(), ' ');
-	if (pDtNascimento == ""){
-		alert("A data Nascimento deve ser preenchida.");
-		$('#datepicker').val("");
-		$('#datepicker').focus();
-		return false;
-	}
-	var pNrTelefone = remover($('#nr_telefone').val(), ' ');
-	if (pNrTelefone == ""){
-		$('#nr_telefone').val("");
-	}
-	var pDsRua = remover($('#ds_rua').val(), ' ');
-	if (pDsRua == ""){
-		alert("O nome da Rua deve ser preenchido.");
-		$('#ds_rua').val("");
-		$('#ds_rua').focus();
-		return false;
-	}
-	var pDsNumero = remover($('#ds_numero').val(), ' ');
-	if (pDsNumero == ""){
-		alert("O número do Endereço deve ser preenchido.");
-		$('#ds_numero').val("");
-		$('#ds_numero').focus();
-		return false;
-	}
-	var pDsComplemento = remover($('#ds_complemento').val(), ' ');
-	if (pDsComplemento == ""){
-		$('#ds_complemento').val("");
-	}
-	var pDsBairro = remover($('#ds_bairro').val(), ' ');
-	if (pDsBairro == ""){
-		alert("O nome do Bairro deve ser preenchido.");
-		$('#ds_bairro').val("");
-		$('#ds_bairro').focus();
-		return false;
-	}
-	var pDsCep = remover($('#ds_cep').val(), ' ');
-	if (pDsCep == ""){
-		$('#ds_cep').val("");
-	}
-	if ($('#co_estado').val() == "0"){
-		alert("O nome do Estado deve ser preenchido.");
-		$('#co_estado').focus();
-		return false;
-	}
-	if ($('#co_cidade').val() == ""){
-		alert("O nome da cidade deve ser preenchido.");
-		$('#co_cidade').focus();
+	var pCoPatrimonio = remover($('#co_patrimonio').val(), ' ');
+	if (pCoPatrimonio == ""){
+		alert("O código do patrimnônio deve ser preenchido.");
+		$('#co_patrimonio').val("");
+		$('#co_patrimonio').focus();
 		return false;
 	}
 	return true;
@@ -150,19 +39,10 @@ function validarCadastro(){
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja cadastrar o paciente?")){
-			document.forms['frm_paciente'].submit();	
+		if (confirm("Você deseja cadastrar o leito?")){
+			document.forms['frm_leito'].submit();	
 		}	
 	} 
-}
-
-function onBlurNrCpf(){
-	ValidarCPF(document.getElementById('nr_cpf').value, 'nr_cpf');
-	getExisteCpfPaciente(document.getElementById('nr_cpf').value);
-}
-
-function onBlurNrSus(){
-	getExisteNrSusPaciente(document.getElementById('nr_sus').value);
 }
 </script>
 <body onload="mostrarMsg()">
@@ -182,7 +62,7 @@ function onBlurNrSus(){
 				<tbody>
 					<tr>
 						<td align="right" width="180px">Código do Patrimônio:</td>
-						<td align="left"><input type="text" id="co_patrimonio" name="co_patrimonio" maxlength="70" size="50" placeholder="Insira o código do patrimônio do leito" required></td>
+						<td align="left"><input type="text" id="co_patrimonio" name="co_patrimonio" maxlength="10" size="50" placeholder="Insira o código do patrimônio do leito" onKeyPress="mascaraInteiro();" required></td>
 					</tr>
 					<tr>
 						<td align="right">Ala:</td>
@@ -190,12 +70,11 @@ function onBlurNrSus(){
 							<select name="co_ala" id="co_ala" required>
 							<%      
 							   try {  
-							      List<Ala> listAla = ala.getAlas();    
-							        
+							      List<Ala> listAla = ala.getAlas();  
 							      for (int i=0; i<listAla.size(); i++) {
-							    	   Ala ala = listAla.get(i);
+							    	   Ala a = listAla.get(i);
 							%>
-							    	  <option value=<%=ala.getCodigoAla()%>><%=ala.getNomeAla()%></option>
+							    	  <option value="<%=a.getCodigoAla()%>"><%=a.getNomeAla()%></option>
 							<%
 							      }
 							   }catch (Exception e) {  

@@ -102,6 +102,9 @@ function validarCadastro(){
 		$('#datepicker').focus();
 		return false;
 	}
+	else{
+		validaData(document.getElementById('datepicker'), $("#datepicker").val());
+	}
 	var pNrTelefone = remover($('#nr_telefone').val(), ' ');
 	if (pNrTelefone == ""){
 		$('#nr_telefone').val("");
@@ -194,7 +197,7 @@ function onBlurNrSus(){
 					</tr>
 					<tr>
 						<td align="right">Data de Nascimento:</td>
-						<td align="left"><input type="text" id="datepicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" onblur="validaData(form.dt_nascimento, form.dt_nascimento.value)" required></td>
+						<td align="left"><input type="text" id="datepicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" required></td>
 					</tr>
 					<tr>
 						<td align="right">CPF:</td>
