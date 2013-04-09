@@ -22,45 +22,59 @@ function mostrarMsg(){
 	}
 }	
 
-function getPaciente(){
+function getPaciente(pNrSus){
 	$.ajax({
-		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_localizar_sus').val(),
+		url: "ajax_obter_paciente.jsp?nr_sus=" + pNrSus,
 		}).done(function(retornoSucesso) {
 			if (retornoSucesso != 0){
 				$('#span_dados_paciente').html(retornoSucesso);
 				$('#span_botoes_localizar_paciente').show();
 				$('#span_bt_salvar').show();
 			}else{
+				$('#span_botoes_localizar_paciente').hide();
 				$('#span_dados_paciente').html("");
-				$('#span_botoes_localizar_paciente').slideUp();
 				alert("Paciente não cadastrado.");
 			}
 	});	
 }
 
-function getPacienteBloqueandoCampos(){
+function getPacienteBloqueandoCampos(pNrSus){
 	$.ajax({
-		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_localizar_sus').val(),
+		url: "ajax_obter_paciente.jsp?nr_sus=" + pNrSus,
 		}).done(function(retornoSucesso) {
 			if (retornoSucesso != 0){
 				$('#span_dados_paciente').html(retornoSucesso);
 				$('#span_botoes_localizar_paciente').show();
 				desabilitarCamposPaciente();
-				$('#span_bt_salvar').slideUp();
+				$('#span_bt_salvar').hide();
 			}else{
+				$('#span_botoes_localizar_paciente').hide();
 				$('#span_dados_paciente').html("");
-				$('#span_botoes_localizar_paciente').slideUp();
 				alert("Paciente não cadastrado.");
 			}
 	});	
 }
 
 function obterDadosPaciente(){
-	getPacienteBloqueandoCampos();
+	var pNrLocalizarSUS = remover($('#nr_localizar_sus').val(), ' ');
+	if (pNrLocalizarSUS == ""){
+		alert("O número do SUS do paciente deve ser preenchido.");
+		$('#nr_localizar_sus').val("");
+		$('#nr_localizar_sus').focus();
+	}
+	else{
+		getPacienteBloqueandoCampos($('#nr_localizar_sus').val());
+	}
+}
+
+function obterInformacoesPaciente(){
+	var pNrLocalizarSUS = $('#hidden_nr_sus').val();
+	getPacienteBloqueandoCampos(pNrLocalizarSUS);
 }
 
 function obterDadosPacienteAtualizar(){
-	getPaciente();
+	var pNrLocalizarSUS = $('#hidden_nr_sus').val();
+	getPaciente(pNrLocalizarSUS);
 }
 
 function desabilitarCamposPaciente(){
@@ -263,7 +277,7 @@ function onBlurNrSus(){
 			<tr>
 				<td colspan="2">
 					<span id="span_botoes_localizar_paciente" style="display: none;">
-						<button onclick="obterDadosPaciente()"><img src="_imagens/icones/16X16/documents.gif">&nbsp;Dados do Paciente</button>
+						<button onclick="obterInformacoesPaciente()"><img src="_imagens/icones/16X16/documents.gif">&nbsp;Dados do Paciente</button>
 						<button onclick="obterDadosPacienteAtualizar()"><img src="_imagens/icones/16X16/edit.gif">&nbsp;Atualizar Dados do Paciente</button>
 						<button onclick=""><img src="_imagens/icones/16X16/file_temp.gif">&nbsp;Localizar Histórico</button>
 					</span>

@@ -22,22 +22,34 @@ function mostrarMsg(){
 	}
 }	
 
-function getPacienteBloqueandoCampos(){
+function getPacienteBloqueandoCampos(pNrSus){
 	$.ajax({
-		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_localizar_sus').val(),
+		url: "ajax_obter_paciente.jsp?nr_sus=" + pNrSus,
 		}).done(function(retornoSucesso) {
 			if (retornoSucesso != 0){
 				$('#span_dados_paciente').html(retornoSucesso);
 				desabilitarCamposPaciente();
+				$('#spanLeito').show();
+				$('#spanMedico').show();
 			}else{
 				$('#span_dados_paciente').html("");
+				$('#spanLeito').hide();
+				$('#spanMedico').hide();
 				alert("Paciente não cadastrado.");
 			}
 	});	
 }
 
 function obterDadosPaciente(){
-	getPacienteBloqueandoCampos();
+	var pNrLocalizarSUS = remover($('#nr_localizar_sus').val(), ' ');
+	if (pNrLocalizarSUS == ""){
+		alert("O número do SUS do paciente deve ser preenchido.");
+		$('#nr_localizar_sus').val("");
+		$('#nr_localizar_sus').focus();
+	}
+	else{
+		getPacienteBloqueandoCampos($('#nr_localizar_sus').val());
+	}
 }
 
 function desabilitarCamposPaciente(){
@@ -216,41 +228,90 @@ function salvarCadastro(){
 			</tr>
 			<tr>
 				<td colspan="2">
-					<table class="tbl" width="100%">
-					<thead>
-						<tr>
-							<th colspan="2">Leito</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td align="right" width="180px">Ala:</td>
-							<td align="left">
-								<select id="co_ala" name="co_ala" onchange="getLeitosLivres()"  required>
-								 	<option value="0">--</option>
-								<%      
-								   try {  
-								      List<Ala> lAla = ala.getAlas();    
-								        
-								      for (int i=0; i<lAla.size(); i++) {
-								    	  Ala a = lAla.get(i);
-								%>
-								    <option value="<%=a.getCodigoAla()%>"><%=a.getNomeAla()%></option>
-								<%
-								      }
-								   }catch (Exception e) {  
-									      e.printStackTrace();  
-									}
-								%>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td align="right">Leitos livres:</td>
-							<td align="left"><span id="spanLeitosLivres">--</span></td>
-						</tr>
-					</tbody>
-				</table>
+					<span id="spanLeito" style="display:none;">
+						<table class="tbl" width="100%">
+						<thead>
+							<tr>
+								<th colspan="2">Leito</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="right" width="180px">Ala:</td>
+								<td align="left">
+									<select id="co_ala" name="co_ala" onchange="getLeitosLivres()"  required>
+									 	<option value="0">--</option>
+									<%      
+									   try {  
+									      List<Ala> lAla = ala.getAlas();    
+									        
+									      for (int i=0; i<lAla.size(); i++) {
+									    	  Ala a = lAla.get(i);
+									%>
+									    <option value="<%=a.getCodigoAla()%>"><%=a.getNomeAla()%></option>
+									<%
+									      }
+									   }catch (Exception e) {  
+										      e.printStackTrace();  
+										}
+									%>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">Leito livre:</td>
+								<td align="left"><span id="spanLeitosLivres">--</span></td>
+							</tr>
+						</tbody>
+						</table>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<span id="spanMedico" style="display:none;">
+						<table class="tbl" width="100%">
+						<thead>
+							<tr>
+								<th colspan="2">Médico</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="right" width="180px">Especialidade:</td>
+								<td align="left">
+									<select id="co_especialidade_medico" name="co_especialidade_medico" onchange="getMedicosEspecialidade()"  required>
+									 	<option value="0">--</option>
+									<%      
+									   try {  
+									      List<Ala> lAla = ala.getAlas();    
+									        
+									      for (int i=0; i<lAla.size(); i++) {
+									    	  Ala a = lAla.get(i);
+									%>
+									    <option value="<%=a.getCodigoAla()%>"><%=a.getNomeAla()%></option>
+									<%
+									      }
+									   }catch (Exception e) {  
+										      e.printStackTrace();  
+										}
+									%>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">Médico:</td>
+								<td align="left">
+									<div id="format">
+									  <input type="checkbox" id="check1" /><label for="check1">Rodrigo Calheiros<br>CRM:123</label>
+									  <input type="checkbox" id="check2" /><label for="check2">João Silva<br>CRM:3454</label>
+									  <input type="checkbox" id="check3" /><label for="check3">Luciana Maria<br>CRM:2334</label>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+						</table>
+					</span>
 				</td>
 			</tr>
 		</table>
