@@ -1,26 +1,21 @@
 package model;
 
+import java.util.List;
+
 public class Medico extends Usuario {
-	private String crm;
-	private int codigoEspecialidade;
+	private int crm;
+	private List<Especialidade> listaEspecialidade;
 	
-	public String getCrm() {
+	public int getCrm() {
 		return crm;
 	}
-	public void setCrm(String crm) {
+	public void setCrm(int crm) {
 		this.crm = crm;
 	}
-	public int getCodigoEspecialidade() {
-		return codigoEspecialidade;
+	public List<Especialidade> getListaEspecialidade() {
+		return listaEspecialidade;
 	}
-	public void setCodigoEspecialidade(int codigoEspecialidade) {
-		this.codigoEspecialidade = codigoEspecialidade;
+	public void setListaEspecialidade(List<Especialidade> listaEspecialidade) {
+		this.listaEspecialidade = listaEspecialidade;
 	}
-	
-//	public Medico localizarMedico() {
-//		UsuarioDAO udao = new UsuarioDAO();
-//		return null;
-//		
-//	}
-
 }

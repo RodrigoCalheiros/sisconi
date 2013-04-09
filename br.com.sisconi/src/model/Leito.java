@@ -93,9 +93,9 @@ public class Leito {
 		}
 	}
 	
-	public List<Leito> getLeitosLivres() {
+	public List<Leito> getLeitosLivres(int codigoAla) {
 		LeitoDAO ldao = new LeitoDAO();
-		return ldao.getLeitosLivres();
+		return ldao.getLeitosLivres(codigoAla);
 	}
 	
 	public List<Leito> getLeitos() {

@@ -7,8 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.ldap.HasControls;
-
+import model.Especialidade;
+import model.Medico;
 import model.TipoUsuario;
 import model.Usuario;
 
@@ -43,7 +43,6 @@ public class UsuarioDAO {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 	
 	public List<TipoUsuario> getTipoUsuario(String cpf) {
@@ -65,6 +64,52 @@ public class UsuarioDAO {
 				retorno.add(tpUsu);
 			}
 			return retorno;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Especialidade> getEspecialidades() {
+		try {
+			List<Especialidade> les = new ArrayList<Especialidade>();
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery("select co_especialidade, ds_especialidade from tb_especialidade order by ds_especialidade");
+						
+			while (res.next()){
+				Especialidade es = new Especialidade();
+				es.setCodigoEspecialidade(res.getInt("co_especialidade"));
+				es.setDescricaoEspecialidade(res.getString("ds_especialidade"));
+				les.add(es);
+			}
+			return les;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Medico> getMedicos(int codigoEspecialidade) {
+		try {
+			List<Medico> lme = new ArrayList<Medico>();
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery("select tb_medico.co_usuario, tb_medico.nr_crm, tb_usuario.nm_usuario, tb_especialidade.co_especialidade, tb_especialidade.ds_especialidade from tb_medico " +
+					"join tb_usuario on tb_usuario.co_usuario = tb_medico.co_usuario " +
+					"join tb_especialidade_medico on tb_especialidade_medico.co_usuario = tb_medico.co_usuario " +
+					"join tb_especialidade on tb_especialidade.co_especialidade = tb_especialidade_medico.co_especialidade " +
+					"where tb_especialidade.co_especialidade = "+codigoEspecialidade+" order by tb_usuario.nm_usuario");
+						
+			while (res.next()){
+				Medico m = new Medico();
+				m.setCodigoUsuario(res.getInt("tb_medico.co_usuario"));
+				m.setCrm(res.getInt("tb_medico.nr_crm"));
+				m.setNome(res.getString("tb_usuario.nm_usuario"));
+				m.setListaEspecialidade(null);
+				lme.add(m);
+			}
+			return lme;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

@@ -74,7 +74,7 @@ public class LeitoDAO {
 		}
 	}
 	
-	public List<Leito> getLeitosLivres() {
+	public List<Leito> getLeitosLivres(int codigoAla) {
 		try{
 			List<Leito> lle = new ArrayList<Leito>();
 			Connection con = ConexaoBD.getInstancia().getConexao();
@@ -83,7 +83,7 @@ public class LeitoDAO {
 					"join tb_status_leito on tb_status_leito.co_leito = tb_leito.co_leito " +
 					"join tb_status on tb_status_leito.co_status = tb_status.co_status " +
 					"join tb_ala on tb_leito.co_ala = tb_ala.co_ala " +
-					"where tb_status_leito.co_status = 3 and tb_status_leito.dt_final is null " +
+					"where tb_leito.co_ala = "+codigoAla+" and tb_status_leito.co_status = 3 and tb_status_leito.dt_final is null " +
 					"order by co_leito");
 			while (res.next()) {
 				Leito l = new Leito();
