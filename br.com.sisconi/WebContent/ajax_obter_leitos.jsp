@@ -1,46 +1,56 @@
-<script>
-  $(function() {
-	  $( "#accordion" ).accordion();
-  });
-</script>
 <%@ page contentType="text/html" language="java" import="java.sql.*, java.util.*, model.Leito"%>
- <jsp:useBean id="leito" class="model.Leito"/>
-<div id="accordion">
+<jsp:useBean id="leito" class="model.Leito"/>
 <%
 	String pStringCoAla = request.getParameter("co_ala");	
 	int coAla = Integer.parseInt(pStringCoAla);
-	
-   	try {
-   		List<Leito> lLeito = null;
-   		if (coAla > 0){
-   			lLeito = leito.getLeitos(coAla);	
-   		}
-   		else{
-   			lLeito = leito.getLeitos();
-   		}
-        
+	List<Leito> lLeito = null;
+	if (coAla > 0){
+		lLeito = leito.getLeitos(coAla);	
+	}
+	else{
+		lLeito = leito.getLeitos();
+	}
+%>
+<script>
+  function obterStatusLeitos(){
+<%
+ 	for (int i=0; i < lLeito.size(); i++) {
+ 		Leito l = lLeito.get(i);
+%>
+	obterStatusLeito(<%=l.getCodigoLeito()%>);
+<%
+ 	}
+%>
+  }
+  $(function() {
+	  $( "#accordion" ).accordion();
+	  obterStatusLeitos();
+  });
+</script>
+<div id="accordion">
+<%
    		int contador = 0;
    		coAla = 0;
    		String tbClass = "";
      	for (int i=0; i < lLeito.size(); i++) {
      		Leito l = lLeito.get(i);
-     		switch (l.getCodigoStatusLeito()){
-     			case 1: 
-     				tbClass = "tbbloqueado";
-     				break;
-     			case 2: 
-     				tbClass = "tbemhigienizacao";
-     				break;
-     			case 3: 
-     				tbClass = "tblivre";
-     				break;
-     			case 4: 
-     				tbClass = "tbocupado";
-     				break;
-     			case 5: 
-     				tbClass = "tbreservado";
-     				break;
-     		}
+      		switch (l.getCodigoStatusLeito()){
+	   			case 1: 
+	   				tbClass = "tbbloqueado";
+	   				break;
+	   			case 2: 
+	   				tbClass = "tbemhigienizacao";
+	   				break;
+	   			case 3: 
+	   				tbClass = "tblivre";
+	   				break;
+	   			case 4: 
+	   				tbClass = "tbocupado";
+	   				break;
+	   			case 5: 
+	   				tbClass = "tbreservado";
+	   				break;
+   			}
      		if ((coAla != l.getCodigoAla()) && (coAla == 0)){
      			coAla = l.getCodigoAla();
      			contador = 0;
@@ -79,7 +89,9 @@
     	  	}
 %>
 		<td width="20%">
-    		<table class="<%=tbClass%>">
+			<span id="spanLeito<%=l.getCodigoLeito() %>"> 
+			<input type="hidden" id="co_leito_status_<%=l.getCodigoLeito() %>" name="co_leito_status_<%=l.getCodigoLeito() %>" value="<%=l.getCodigoStatusLeito() %>">   		
+			 <table class="<%=tbClass%>">
 				<thead>
 					<tr>
 						<th colspan="3">Leito: <%=l.getCodigoLeito() %></th>
@@ -96,6 +108,7 @@
 					</tr>
 				</tbody>
 			</table>
+			</span>
 		</td>
 <%
 			if (contador == 5){
@@ -118,9 +131,4 @@
 %>
 	</table>	
 </div>
-<%
-   	}catch (Exception e) {  
-	      e.printStackTrace();  
-	}
-%>
 </div>

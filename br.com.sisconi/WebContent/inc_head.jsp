@@ -18,7 +18,7 @@
 	
 	<script type="text/javascript">
 	$(function(){
-		  $( "#accordion" ).accordion();
+    	$( "#accordion" ).accordion();
 		$( "#datepicker" ).datepicker({
 			changeMonth: true,
 			changeYear: true,

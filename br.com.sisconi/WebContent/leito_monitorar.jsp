@@ -6,6 +6,39 @@
 <%@include file="inc_head.jsp"%>
 <script>	
 
+function obterStatusLeito(pCoLeito){
+	$.ajax({
+		url: "ajax_obter_status_leito.jsp?co_leito=" + pCoLeito + "&co_status_leito=" + $('#co_leito_status_' + pCoLeito).val(),
+		}).done(function(retornoSucesso) {
+			if(retornoSucesso != 0){
+				$('#spanLeito' + pCoLeito).html(retornoSucesso);
+			}
+		});
+	setTimeout("obterStatusLeito(" + pCoLeito + "," + "'spanLeito" + pCoLeito + "')",10000);
+}
+
+function obterClasseTbLeito(pCoStatusLeito){
+	var retorno = "";
+	switch (pCoStatusLeito){
+		case 1: 
+			retorno = "tbbloqueado";
+			break;
+		case 2: 
+			retorno = "tbemhigienizacao";
+			break;
+		case 3: 
+			retorno = "tblivre";
+			break;
+		case 4: 
+			retorno = "tbocupado";
+			break;
+		case 5: 
+			retorno = "tbreservado";
+			break;
+	}
+	return retorno;
+}
+
 function obterLeitos(){
 	$.ajax({
 		url: "ajax_obter_leitos.jsp?co_ala=" + $('#co_ala').val(),
@@ -18,7 +51,7 @@ function desbloquearLeito(pCoLeito, pCoStatus){
 	$.ajax({
 		url: "ajax_desbloquear_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
 		}).done(function(retornoSucesso) {
-			obterLeitos();
+			obterStatusLeito(pCoLeito);
 		});
 }
 
@@ -26,7 +59,7 @@ function liberarLeito(pCoLeito, pCoStatus){
 	$.ajax({
 		url: "ajax_liberar_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
 		}).done(function(retornoSucesso) {
-			obterLeitos();
+			obterStatusLeito(pCoLeito);
 		});
 }
 
@@ -34,7 +67,8 @@ function bloquearLeito(pCoLeito, pCoStatus){
 	$.ajax({
 		url: "ajax_bloquear_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
 		}).done(function(retornoSucesso) {
-			obterLeitos();
+			obterStatusLeito(pCoLeito);
+		
 		});
 }
 
