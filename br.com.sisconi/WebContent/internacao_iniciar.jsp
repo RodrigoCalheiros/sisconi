@@ -1,27 +1,12 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
-<%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala"%>  
+<%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala, model.Especialidade, model.Medico"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="ala" class="model.Ala"/>
+<jsp:useBean id="medico" class="model.Medico"/>
+<jsp:useBean id="especialidade" class="model.Especialidade"/>
 <html>
 <%@include file="inc_head.jsp"%>
 <script>
-
-var pMsg = <%=request.getParameter("msg")%>
-var pNrSus = <%=request.getParameter("nr_sus")%>
-
-$(function(){
-	if (pNrSus != '' && pNrSus != null){
-		$("#nr_localizar_sus").val(pNrSus);
-		obterDadosPaciente();
-	}
-});
-
-function mostrarMsg(){
-	if (pMsg != '' && pMsg != null){
-		alert(pMsg);
-	}
-}	
-
 function getPacienteBloqueandoCampos(pNrSus){
 	$.ajax({
 		url: "ajax_obter_paciente.jsp?nr_sus=" + pNrSus,
@@ -31,10 +16,12 @@ function getPacienteBloqueandoCampos(pNrSus){
 				desabilitarCamposPaciente();
 				$('#spanLeito').show();
 				$('#spanMedico').show();
+				$('#spanBtSalvar').show();
 			}else{
 				$('#span_dados_paciente').html("");
 				$('#spanLeito').hide();
 				$('#spanMedico').hide();
+				$('#spanBtSalvar').hide();
 				alert("Paciente não cadastrado.");
 			}
 	});	
@@ -68,41 +55,13 @@ function desabilitarCamposPaciente(){
 }
 
 function getLeitosLivres(){
-	var coAla = 	$('#co_ala').val();
+	var coAla = $('#co_ala').val();
 	$.ajax({
 	  url: "ajax_obter_leitos_livres.jsp?co_ala=" + coAla,
 	  context: document.body
 	}).done(function(retornoSucesso) {
 		$('#spanLeitosLivres').html(retornoSucesso);
 	});	
-}
-
-function getExisteCpfPaciente(pCpf){
-	if (pCpf!= ""){
-		$.ajax({
-			url: "ajax_existe_cpf_paciente.jsp?nr_cpf=" + pCpf,
-			}).done(function(retornoSucesso) {
-			var retorno = retornoSucesso;
-			if (retorno == 1){
-				alert("CPF " + pCpf + " já cadastrado.");
-				$('#nr_cpf').focus();
-			}
-		});	
-	}
-}
-
-function getExisteNrSusPaciente(pNrSus){
-	if (pNrSus != ""){
-		$.ajax({
-			url: "ajax_existe_numero_sus_paciente.jsp?nr_sus=" + pNrSus,
-			}).done(function(retornoSucesso) {
-			var retorno = retornoSucesso;
-			if (retorno == 1){
-				alert("Número do SUS " + pNrSus + " já cadastrado.");
-				$('#nr_sus').focus();
-			}
-		});	
-	}
 }
 
 function remover(pValor,caractere){  
@@ -119,103 +78,39 @@ function remover(pValor,caractere){
 }
 
 function validarCadastro(){
-	var pNmPaciente = remover($('#nm_paciente').val(), ' ');
-	if (pNmPaciente == ""){
-		alert("O nome do Paciente deve ser preenchido.");
-		$('#nm_paciente').val("");
-		$('#nm_paciente').focus();
+	var pCoPaciente = $('#hidden_co_paciente').val();
+	if (pCoPaciente > 0){
+		alert("O Paciente deve ser preenchido.");
+		$('#nr_localizar_sus').val("");
+		$('#nr_localizar_sus').focus();
 		return false;
 	}
-	var pNmMae = remover($('#nm_mae').val(), ' ');
-	if (pNmMae == ""){
-		alert("O nome da Mãe deve ser preenchido.");
-		$('#nm_mae').val("");
-		$('#nm_mae').focus();
+	var pCoLeito = $('#co_leito').val();
+	if (pCoLeito > 0){
+		alert("O Leito deve ser preenchido.");
+		$('#co_ala').focus();
 		return false;
 	}
-	var pNrCpf = remover($('#nr_cpf').val(), ' ');
-	if (pNrCpf == ""){
-		$('#nr_cpf').val("");
-	}
-	else if (ValidarCPF($('#nr_cpf').val(), 'nr_cpf') == false){
-		alert("O CPF " + $('#nr_cpf').val() + " é inválido.");
-		$('#nr_cpf').focus();
-		return false;
-	}
-	var pNrSus = remover($('#nr_sus').val(), ' ');
-	if (pNrSus == ""){
-		alert("O número do SUS deve ser preenchido.");
-		$('#nr_sus').val("");
-		$('#nr_sus').focus();
-		return false;
-	}
-	var pDtNascimento = remover($("#datepicker").val(), ' ');
-	if (pDtNascimento == ""){
-		alert("A data Nascimento deve ser preenchida.");
-		$('#datepicker').val("");
-		$('#datepicker').focus();
-		return false;
-	}
-	var pNrTelefone = remover($('#nr_telefone').val(), ' ');
-	if (pNrTelefone == ""){
-		$('#nr_telefone').val("");
-	}
-	var pDsRua = remover($('#ds_rua').val(), ' ');
-	if (pDsRua == ""){
-		alert("O nome da Rua deve ser preenchido.");
-		$('#ds_rua').val("");
-		$('#ds_rua').focus();
-		return false;
-	}
-	var pDsNumero = remover($('#ds_numero').val(), ' ');
-	if (pDsNumero == ""){
-		alert("O número do Endereço deve ser preenchido.");
-		$('#ds_numero').val("");
-		$('#ds_numero').focus();
-		return false;
-	}
-	var pDsComplemento = remover($('#ds_complemento').val(), ' ');
-	if (pDsComplemento == ""){
-		$('#ds_complemento').val("");
-	}
-	var pDsBairro = remover($('#ds_bairro').val(), ' ');
-	if (pDsBairro == ""){
-		alert("O nome do Bairro deve ser preenchido.");
-		$('#ds_bairro').val("");
-		$('#ds_bairro').focus();
-		return false;
-	}
-	var pDsCep = remover($('#ds_cep').val(), ' ');
-	if (pDsCep == ""){
-		$('#ds_cep').val("");
-	}
-	if ($('#co_estado').val() == "0"){
-		alert("O nome do Estado deve ser preenchido.");
-		$('#co_estado').focus();
-		return false;
-	}
-	if ($('#co_cidade').val() != null){
-		$('#hidden_co_cidade').val($('#co_cidade').val());
-	}
+	
 	return true;
 }
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja atualizar os dados do paciente?")){
-			document.forms['frm_paciente'].submit();	
+		if (confirm("Você deseja cadastrar a internação?")){
+			document.forms['frm_internacao'].submit();	
 		}	
 	} 
 }
 </script>
-<body onload="mostrarMsg()">
+<body>
 <table class="tblConteudo">
 <tr>
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
 	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Iniciar Internação</font><hr>
-		<form id="frm_paciente" action="paciente_atualizar_processa.jsp" method="post">
+		<form id="frm_internacao" action="internacao_iniciar_processa.jsp" method="post">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
@@ -278,34 +173,21 @@ function salvarCadastro(){
 						</thead>
 						<tbody>
 							<tr>
-								<td align="right" width="180px">Especialidade:</td>
-								<td align="left">
-									<select id="co_especialidade_medico" name="co_especialidade_medico" onchange="getMedicosEspecialidade()"  required>
-									 	<option value="0">--</option>
-									<%      
-									   try {  
-									      List<Ala> lAla = ala.getAlas();    
-									        
-									      for (int i=0; i<lAla.size(); i++) {
-									    	  Ala a = lAla.get(i);
-									%>
-									    <option value="<%=a.getCodigoAla()%>"><%=a.getNomeAla()%></option>
-									<%
-									      }
-									   }catch (Exception e) {  
-										      e.printStackTrace();  
-										}
-									%>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td align="right">Médico:</td>
-								<td align="left">
+								<td colspan="2" align="left">
 									<div id="format">
-									  <input type="checkbox" id="check1" /><label for="check1">Rodrigo Calheiros<br>CRM:123</label>
-									  <input type="checkbox" id="check2" /><label for="check2">João Silva<br>CRM:3454</label>
-									  <input type="checkbox" id="check3" /><label for="check3">Luciana Maria<br>CRM:2334</label>
+    								<%      
+									 	List<Medico> lMedico = medico.getMedicos();
+									   	for (int j=0; j<lMedico.size(); j++) {
+									   		Medico m = lMedico.get(j);
+									%>
+	    									<input type="checkbox" class="cbMedico" id="check_<%=m.getCodigoUsuario()%>" name="" />
+	    									<label for="check_<%=m.getCodigoUsuario()%>">
+	    										<%=m.getNome()%><br>
+	    										CRM:<%=m.getCrm()%><br>
+	    									</label>
+  									<%
+										  }
+									%>
 									</div>
 								</td>
 							</tr>
@@ -313,6 +195,13 @@ function salvarCadastro(){
 						</table>
 					</span>
 				</td>
+			</tr>
+			<tr>
+				<td align="left"></td>
+				<td align="right">
+					<span id="spanBtSalvar" style="display:none;">
+						<input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()">
+					</td>
 			</tr>
 		</table>
 		</form>

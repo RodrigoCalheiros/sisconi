@@ -10,14 +10,14 @@
 	<link href="css/south-street/jquery-ui-1.10.2.custom.css" rel="stylesheet">
 	<script src="js/jquery/jquery-1.9.1.js" type="text/javascript"></script>
 	<script src="js/jquery/jquery-ui-1.10.2.custom.js" type="text/javascript"></script>
-	<script src="js/jquery/jquery.maskedinput.js" type="text/javascript"></script>	
-	
+	<script src="js/jquery/jquery.maskedinput.js" type="text/javascript"></script>
 	
 	<!-- Js Validação -->
 	<script type="text/javascript" src="js/MascaraValidacao.js"></script>
 	
 	<script type="text/javascript">
 	$(function(){
+		$( "#tabs" ).tabs();
     	$( "#accordion" ).accordion();
         $( "#check" ).button();
         $( "#format" ).buttonset();

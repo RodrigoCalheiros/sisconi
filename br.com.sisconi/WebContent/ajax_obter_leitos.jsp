@@ -55,7 +55,7 @@
      			coAla = l.getCodigoAla();
      			contador = 0;
 %>
-<h3>Ala: <%=l.getDescricaoAla() %></h3>
+<h3>Ala <%=l.getDescricaoAla() %></h3>
 <div>
 	<table width="100%">
 <%
@@ -94,7 +94,7 @@
 			 <table class="<%=tbClass%>">
 				<thead>
 					<tr>
-						<th colspan="3">Leito: <%=l.getCodigoLeito() %></th>
+						<th colspan="3">Leito <%=l.getCodigoLeito() %></th>
 					</tr>
 				</thead>
 				<tbody>

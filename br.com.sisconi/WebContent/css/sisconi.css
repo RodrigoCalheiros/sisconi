@@ -6,6 +6,18 @@ body {
 	text-align: center; 
 }
 
+button{
+  font-weight: bold;
+}
+
+input[type="button"]{
+  font-weight: bold;
+}
+
+input[type="reset"]{
+  font-weight: bold;
+}
+
 button, input, textarea{
   font-family: Verdana, Arial, Helvetica, sans-serif;
   border:1px solid #ccc;

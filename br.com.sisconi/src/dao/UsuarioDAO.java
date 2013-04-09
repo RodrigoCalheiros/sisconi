@@ -109,7 +109,8 @@ public class UsuarioDAO {
 						"join tb_especialidade_medico on tb_especialidade_medico.co_especialidade = tb_especialidade.co_especialidade " +
 						"join tb_medico on tb_especialidade_medico.co_usuario = tb_medico.co_usuario " +
 						"where tb_medico.co_usuario = "+m.getCodigoUsuario()+" order by tb_especialidade.ds_especialidade";
-				ResultSet res2 = stm.executeQuery(sqlListaEspecialidades);
+				Statement stm2 = con.createStatement();
+				ResultSet res2 = stm2.executeQuery(sqlListaEspecialidades);
 				while (res2.next()) {
 					Especialidade e = new Especialidade();
 					e.setCodigoEspecialidade(res2.getInt("tb_especialidade.co_especialidade"));

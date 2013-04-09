@@ -7,7 +7,7 @@
 <select id="co_leito" name="co_leito" required>
 <%      
    try {  
-      List<Leito> lLeito = leito.getLeitosLivres();    
+      List<Leito> lLeito = leito.getLeitosLivres(coAla);    
         
       for (int i=0; i<lLeito.size(); i++) {
     	  Leito l = lLeito.get(i);
