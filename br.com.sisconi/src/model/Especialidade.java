@@ -1,5 +1,9 @@
 package model;
 
+import java.util.List;
+
+import dao.UsuarioDAO;
+
 public class Especialidade {
 	private int codigoEspecialidade;
 	private String descricaoEspecialidade;
@@ -15,5 +19,10 @@ public class Especialidade {
 	}
 	public void setDescricaoEspecialidade(String descricaoEspecialidade) {
 		this.descricaoEspecialidade = descricaoEspecialidade;
+	}
+	
+	public List<Especialidade> getEspecialidades() {
+		UsuarioDAO udao = new UsuarioDAO();
+		return udao.getEspecialidades();
 	}
 }

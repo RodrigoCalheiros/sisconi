@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import dao.UsuarioDAO;
+
 public class Medico extends Usuario {
 	private int crm;
 	private List<Especialidade> listaEspecialidade;
@@ -18,4 +20,9 @@ public class Medico extends Usuario {
 	public void setListaEspecialidade(List<Especialidade> listaEspecialidade) {
 		this.listaEspecialidade = listaEspecialidade;
 	}
+	
+	public List<Medico> getMedicos(int codigoEspecialidade) {
+		UsuarioDAO udao = new UsuarioDAO();
+		return udao.getMedicos(codigoEspecialidade);
+	}	
 }
