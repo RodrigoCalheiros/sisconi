@@ -65,21 +65,25 @@ public class Main {
 //			System.out.println(lle.get(i).toString());
 //		}
 		
-		Paciente p = new Paciente();
-		p.setCodigoPaciente(2);
+//		Paciente p = new Paciente();
+//		p.setCodigoPaciente(2);
+//		Leito l = new Leito();
+//		l.setCodigoLeito(1);
+//		Medico m1 = new Medico();
+//		m1.setCodigoUsuario(2);
+//		List<Medico> lm = new ArrayList<Medico>();
+//		lm.add(m1);
+//		
+//		Internacao i = new Internacao();
+//		i.setPaciente(p);
+//		i.setLeito(l);
+//		i.setListaMedico(lm);
+//		
+//		i.iniciarInternacao();
+		
 		Leito l = new Leito();
-		l.setCodigoLeito(1);
-		Medico m1 = new Medico();
-		m1.setCodigoUsuario(2);
-		List<Medico> lm = new ArrayList<Medico>();
-		lm.add(m1);
-		
-		Internacao i = new Internacao();
-		i.setPaciente(p);
-		i.setLeito(l);
-		i.setListaMedico(lm);
-		
-		i.iniciarInternacao();
+		l = l.getStatusLeito(2);
+		System.out.println(l.toString());
 		
 	}
 	
