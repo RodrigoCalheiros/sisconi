@@ -21,8 +21,8 @@ public class Medico extends Usuario {
 		this.listaEspecialidade = listaEspecialidade;
 	}
 	
-	public List<Medico> getMedicos(int codigoEspecialidade) {
+	public List<Medico> getMedicos() {
 		UsuarioDAO udao = new UsuarioDAO();
-		return udao.getMedicos(codigoEspecialidade);
+		return udao.getMedicos();
 	}	
 }

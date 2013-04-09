@@ -90,23 +90,33 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public List<Medico> getMedicos(int codigoEspecialidade) {
+	public List<Medico> getMedicos() {
 		try {
 			List<Medico> lme = new ArrayList<Medico>();
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			Statement stm = con.createStatement();
-			ResultSet res = stm.executeQuery("select tb_medico.co_usuario, tb_medico.nr_crm, tb_usuario.nm_usuario, tb_especialidade.co_especialidade, tb_especialidade.ds_especialidade from tb_medico " +
-					"join tb_usuario on tb_usuario.co_usuario = tb_medico.co_usuario " +
-					"join tb_especialidade_medico on tb_especialidade_medico.co_usuario = tb_medico.co_usuario " +
-					"join tb_especialidade on tb_especialidade.co_especialidade = tb_especialidade_medico.co_especialidade " +
-					"where tb_especialidade.co_especialidade = "+codigoEspecialidade+" order by tb_usuario.nm_usuario");
-						
+			ResultSet res = stm.executeQuery("select tb_medico.co_usuario, tb_medico.nr_crm, tb_usuario.nm_usuario from tb_medico " +
+					"join tb_usuario on tb_usuario.co_usuario = tb_medico.co_usuario " +					
+					"order by tb_usuario.nm_usuario");
+			
 			while (res.next()){
+				List<Especialidade> les = new ArrayList<Especialidade>();
 				Medico m = new Medico();
 				m.setCodigoUsuario(res.getInt("tb_medico.co_usuario"));
 				m.setCrm(res.getInt("tb_medico.nr_crm"));
 				m.setNome(res.getString("tb_usuario.nm_usuario"));
-				m.setListaEspecialidade(null);
+				String sqlListaEspecialidades = "select tb_especialidade.co_especialidade, tb_especialidade.ds_especialidade from tb_especialidade " +
+						"join tb_especialidade_medico on tb_especialidade_medico.co_especialidade = tb_especialidade.co_especialidade " +
+						"join tb_medico on tb_especialidade_medico.co_usuario = tb_medico.co_usuario " +
+						"where tb_medico.co_usuario = "+m.getCodigoUsuario()+" order by tb_especialidade.ds_especialidade";
+				ResultSet res2 = stm.executeQuery(sqlListaEspecialidades);
+				while (res2.next()) {
+					Especialidade e = new Especialidade();
+					e.setCodigoEspecialidade(res.getInt("tb_especialidade.co_especialidade"));
+					e.setDescricaoEspecialidade(res.getString("tb_especialidade.ds_especialidade"));
+					les.add(e);
+				}				
+				m.setListaEspecialidade(les);				
 				lme.add(m);
 			}
 			return lme;
