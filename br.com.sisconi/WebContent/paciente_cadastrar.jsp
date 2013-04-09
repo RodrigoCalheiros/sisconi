@@ -262,7 +262,7 @@ function onBlurNrSus(){
 					</tr>
 					<tr>
 						<td align="right">Cidade:</td>
-						<td align="left"><span id="spanCidade">-</span></td>
+						<td align="left"><span id="spanCidade">--</span></td>
 					</tr>
 					<tr>
 						<td></td>

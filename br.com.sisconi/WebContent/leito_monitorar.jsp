@@ -14,7 +14,7 @@ function obterStatusLeito(pCoLeito){
 				$('#spanLeito' + pCoLeito).html(retornoSucesso);
 			}
 		});
-	setTimeout("obterStatusLeito(" + pCoLeito + "," + "'spanLeito" + pCoLeito + "')",10000);
+	setTimeout("obterStatusLeito(" + pCoLeito + "," + "'spanLeito" + pCoLeito + "')",5000);
 }
 
 function obterClasseTbLeito(pCoStatusLeito){

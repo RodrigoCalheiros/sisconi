@@ -1,7 +1,7 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
-<%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Estado, model.Paciente"%>  
+<%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<jsp:useBean id="paciente" class="model.Paciente"/>
+<jsp:useBean id="ala" class="model.Ala"/>
 <html>
 <%@include file="inc_head.jsp"%>
 <script>
@@ -22,34 +22,15 @@ function mostrarMsg(){
 	}
 }	
 
-function getPaciente(){
-	$.ajax({
-		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_localizar_sus').val(),
-		}).done(function(retornoSucesso) {
-			if (retornoSucesso != 0){
-				$('#span_dados_paciente').html(retornoSucesso);
-				$('#span_botoes_localizar_paciente').show();
-				$('#span_bt_salvar').show();
-			}else{
-				$('#span_dados_paciente').html("");
-				$('#span_botoes_localizar_paciente').slideUp();
-				alert("Paciente não cadastrado.");
-			}
-	});	
-}
-
 function getPacienteBloqueandoCampos(){
 	$.ajax({
 		url: "ajax_obter_paciente.jsp?nr_sus=" + $('#nr_localizar_sus').val(),
 		}).done(function(retornoSucesso) {
 			if (retornoSucesso != 0){
 				$('#span_dados_paciente').html(retornoSucesso);
-				$('#span_botoes_localizar_paciente').show();
 				desabilitarCamposPaciente();
-				$('#span_bt_salvar').slideUp();
 			}else{
 				$('#span_dados_paciente').html("");
-				$('#span_botoes_localizar_paciente').slideUp();
 				alert("Paciente não cadastrado.");
 			}
 	});	
@@ -57,10 +38,6 @@ function getPacienteBloqueandoCampos(){
 
 function obterDadosPaciente(){
 	getPacienteBloqueandoCampos();
-}
-
-function obterDadosPacienteAtualizar(){
-	getPaciente();
 }
 
 function desabilitarCamposPaciente(){
@@ -78,20 +55,14 @@ function desabilitarCamposPaciente(){
 	$('#co_estado').attr("disabled", true);
 }
 
-function limparCamposPaciente(){
-	$('#nm_paciente').val("");
-	$('#nm_mae').val("");
-	$('#nr_cpf').val("");
-	$('#nr_sus').val("");
-	$('#nr_telefone').val("");
-	$('#datepicker').val("");
-	$('#ds_rua').val("");
-	$('#ds_numero').val("");
-	$('#ds_complemento').val("");
-	$('#ds_bairro').val("");
-	$('#ds_cep').val("");
-	$('#co_estado').val("");
-	$('#spanCidade').html("");
+function getLeitosLivres(){
+	var coAla = 	$('#co_ala').val();
+	$.ajax({
+	  url: "ajax_obter_leitos_livres.jsp?co_ala=" + coAla,
+	  context: document.body
+	}).done(function(retornoSucesso) {
+		$('#spanLeitosLivres').html(retornoSucesso);
+	});	
 }
 
 function getExisteCpfPaciente(pCpf){
@@ -120,16 +91,6 @@ function getExisteNrSusPaciente(pNrSus){
 			}
 		});	
 	}
-}
-
-function getCidades(){
-	var codigoEstado = 	$('#co_estado').val();
-	$.ajax({
-	  url: "ajax_obter_cidades.jsp?codigoEstado=" + codigoEstado,
-	  context: document.body
-	}).done(function(retornoSucesso) {
-		$('#spanCidade').html(retornoSucesso);
-	});	
 }
 
 function remover(pValor,caractere){  
@@ -234,19 +195,6 @@ function salvarCadastro(){
 		}	
 	} 
 }
-
-function onBlurNrCpf(){
-	if ($('#hidden_nr_cpf').val() != $('#nr_cpf').val()){
-		ValidarCPF(document.getElementById('nr_cpf').value, 'nr_cpf');
-		getExisteCpfPaciente(document.getElementById('nr_cpf').value);
-	}
-}
-
-function onBlurNrSus(){
-	if ($('#hidden_nr_sus').val() != $('#nr_sus').val()){
-		getExisteNrSusPaciente(document.getElementById('nr_sus').value);
-	}
-}
 </script>
 <body onload="mostrarMsg()">
 <table class="tblConteudo">
@@ -254,7 +202,8 @@ function onBlurNrSus(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Paciente > Localizar Paciente</font><hr>
+	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Iniciar Internação</font><hr>
+		<form id="frm_paciente" action="paciente_atualizar_processa.jsp" method="post">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
@@ -262,31 +211,50 @@ function onBlurNrSus(){
 			</tr>
 			<tr>
 				<td colspan="2">
-					<span id="span_botoes_localizar_paciente" style="display: none;">
-						<button onclick="obterDadosPaciente()"><img src="_imagens/icones/16X16/documents.gif">&nbsp;Dados do Paciente</button>
-						<button onclick="obterDadosPacienteAtualizar()"><img src="_imagens/icones/16X16/edit.gif">&nbsp;Atualizar Dados do Paciente</button>
-						<button onclick=""><img src="_imagens/icones/16X16/file_temp.gif">&nbsp;Localizar Histórico</button>
-					</span>
+					<span id="span_dados_paciente"></span>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<form id="frm_paciente" action="paciente_atualizar_processa.jsp" method="post">
-						<span id="span_dados_paciente"></span>
-					</form>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<table width="100%">
+					<table class="tbl" width="100%">
+					<thead>
 						<tr>
-							<td width="180px"></td>
-							<td align="left"><span id="span_bt_salvar" style="display:none;"><input type="button" id="bt_reset" name="bt_reset" value="Limpar" onclick="limparCamposPaciente()">&nbsp;<input type="button" id="bt_cancelar" name="bt_cancelar" value="Cancelar" onclick="obterDadosPaciente()">&nbsp;<input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></span></td>
-						</tr>	
-					</table>
+							<th colspan="2">Leito</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td align="right" width="180px">Ala:</td>
+							<td align="left">
+								<select id="co_ala" name="co_ala" onchange="getLeitosLivres()"  required>
+								 	<option value="0">--</option>
+								<%      
+								   try {  
+								      List<Ala> lAla = ala.getAlas();    
+								        
+								      for (int i=0; i<lAla.size(); i++) {
+								    	  Ala a = lAla.get(i);
+								%>
+								    <option value="<%=a.getCodigoAla()%>"><%=a.getNomeAla()%></option>
+								<%
+								      }
+								   }catch (Exception e) {  
+									      e.printStackTrace();  
+									}
+								%>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">Leitos livres:</td>
+							<td align="left"><span id="spanLeitosLivres">--</span></td>
+						</tr>
+					</tbody>
+				</table>
 				</td>
 			</tr>
 		</table>
+		</form>
 	</td>
 </tr>
 <tr>
