@@ -112,8 +112,8 @@ public class UsuarioDAO {
 				ResultSet res2 = stm.executeQuery(sqlListaEspecialidades);
 				while (res2.next()) {
 					Especialidade e = new Especialidade();
-					e.setCodigoEspecialidade(res.getInt("tb_especialidade.co_especialidade"));
-					e.setDescricaoEspecialidade(res.getString("tb_especialidade.ds_especialidade"));
+					e.setCodigoEspecialidade(res2.getInt("tb_especialidade.co_especialidade"));
+					e.setDescricaoEspecialidade(res2.getString("tb_especialidade.ds_especialidade"));
 					les.add(e);
 				}				
 				m.setListaEspecialidade(les);				
