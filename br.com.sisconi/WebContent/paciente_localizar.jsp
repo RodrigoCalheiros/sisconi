@@ -272,7 +272,7 @@ function onBlurNrSus(){
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
-				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterDadosPaciente()"></td>
+				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="30" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterDadosPaciente()"></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -291,7 +291,7 @@ function onBlurNrSus(){
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td colspan="2">
 					<table width="100%">
 						<tr>
 							<td width="180px"></td>

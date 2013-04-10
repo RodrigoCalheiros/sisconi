@@ -3,10 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="ala" class="model.Ala"/>
 <jsp:useBean id="medico" class="model.Medico"/>
-<jsp:useBean id="especialidade" class="model.Especialidade"/>
 <html>
 <%@include file="inc_head.jsp"%>
 <script>
+var pMsg = <%=request.getParameter("msg")%>
+
+function mostrarMsg(){
+	if (pMsg != '' && pMsg != null){
+		alert(pMsg);
+	}
+}
+
 function getPacienteBloqueandoCampos(pNrSus){
 	$.ajax({
 		url: "ajax_obter_paciente.jsp?nr_sus=" + pNrSus,
@@ -79,16 +86,33 @@ function remover(pValor,caractere){
 
 function validarCadastro(){
 	var pCoPaciente = $('#hidden_co_paciente').val();
-	if (pCoPaciente > 0){
+	if (pCoPaciente <= 0){
 		alert("O Paciente deve ser preenchido.");
 		$('#nr_localizar_sus').val("");
 		$('#nr_localizar_sus').focus();
 		return false;
 	}
 	var pCoLeito = $('#co_leito').val();
-	if (pCoLeito > 0){
+	if (pCoLeito <= 0){
 		alert("O Leito deve ser preenchido.");
 		$('#co_ala').focus();
+		return false;
+	}
+	var idCbMedico = "";
+	var coMedicos = "";
+	var checkboxes = $('input:checkbox');
+	for (i = 0; i < checkboxes.length; i++){
+		idCbMedico = checkboxes[i].id;
+		if (idCbMedico.substring(0,10) == 'cb_medico_'){
+			if ($('#' + checkboxes[i].id).is(":checked")){
+				coMedicos = coMedicos + idCbMedico.substring(10,idCbMedico.length);
+				coMedicos = coMedicos + "_";
+			}
+		}	
+	}
+	$('#hidden_co_medicos').val(coMedicos);
+	if (coMedicos == ""){
+		alert("Selecione pelo menos um médico responsável pela internação.");
 		return false;
 	}
 	
@@ -103,7 +127,7 @@ function salvarCadastro(){
 	} 
 }
 </script>
-<body>
+<body onload="mostrarMsg()">
 <table class="tblConteudo">
 <tr>
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
@@ -111,10 +135,11 @@ function salvarCadastro(){
 <tr>
 	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Iniciar Internação</font><hr>
 		<form id="frm_internacao" action="internacao_iniciar_processa.jsp" method="post">
+		<input type="hidden" id="hidden_co_medicos" name="hidden_co_medicos" value="">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
-				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterDadosPaciente()"></td>
+				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="30" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterDadosPaciente()"></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -138,8 +163,7 @@ function salvarCadastro(){
 									 	<option value="0">--</option>
 									<%      
 									   try {  
-									      List<Ala> lAla = ala.getAlas();    
-									        
+									      List<Ala> lAla = ala.getAlas();  
 									      for (int i=0; i<lAla.size(); i++) {
 									    	  Ala a = lAla.get(i);
 									%>
@@ -180,8 +204,8 @@ function salvarCadastro(){
 									   	for (int j=0; j<lMedico.size(); j++) {
 									   		Medico m = lMedico.get(j);
 									%>
-	    									<input type="checkbox" class="cbMedico" id="check_<%=m.getCodigoUsuario()%>" name="" />
-	    									<label for="check_<%=m.getCodigoUsuario()%>">
+	    									<input type="checkbox" id="cb_medico_<%=m.getCodigoUsuario()%>" name="" />
+	    									<label for="cb_medico_<%=m.getCodigoUsuario()%>">
 	    										<%=m.getNome()%><br>
 	    										CRM:<%=m.getCrm()%><br>
 	    									</label>

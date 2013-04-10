@@ -62,10 +62,10 @@
      		}
      		else if ((coAla != l.getCodigoAla()) && (coAla > 0)){
      			coAla = l.getCodigoAla();
-      			if ((contador < 5) && (contador > 0)){
-      				for (int j = contador; j <= 4 ; j++) {
+      			if ((contador < 3) && (contador > 0)){
+      				for (int j = contador; j <= 2 ; j++) {
 %>
-		<td width="20%"></td>
+		<td width="33%"></td>
 <%
       				}
 %>
@@ -88,7 +88,7 @@
 <%
     	  	}
 %>
-		<td width="20%">
+		<td width="33%">
 			<span id="spanLeito<%=l.getCodigoLeito() %>"> 
 			<input type="hidden" id="co_leito_status_<%=l.getCodigoLeito() %>" name="co_leito_status_<%=l.getCodigoLeito() %>" value="<%=l.getCodigoStatusLeito() %>">   		
 			 <table class="<%=tbClass%>">
@@ -111,17 +111,17 @@
 			</span>
 		</td>
 <%
-			if (contador == 5){
+			if (contador == 3){
 				contador = 0;
 %>
 	</tr>
 <%
 			}
       	}
-		if ((contador < 5) && (contador > 0)){
-			for (int j = contador; j <= 4 ; j++) {
+		if ((contador < 3) && (contador > 0)){
+			for (int j = contador; j <= 2 ; j++) {
 %>
-			<td width="20%"></td>
+			<td width="33%"></td>
 <%
 			}
 %>
