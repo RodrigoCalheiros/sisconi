@@ -4,7 +4,7 @@
 	int retorno = 0;
 	String pNrSus = request.getParameter("nr_sus");	
 	boolean existeNumeroSusPaciente = paciente.existeNumeroSusPaciente(pNrSus);
-	if (existeNumeroSusPaciente){
+	if (existeNumeroSusPaciente == true){
 		retorno = 1;
 	}
 %>
