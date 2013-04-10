@@ -77,6 +77,11 @@ public class Internacao {
 		return idao.darAlta(this);
 	}
 	
+	public List<Internacao> getHistoricoInternacao(Paciente p) {
+		InternacaoDAO idao = new InternacaoDAO();
+		return idao.getHistoricoInternacao(p);
+	}
+	
 	public boolean verificaPacienteInternado(String numeroSus) {
 		InternacaoDAO idao = new InternacaoDAO();
 		return idao.verificaPacienteInternado(numeroSus);
