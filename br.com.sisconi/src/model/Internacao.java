@@ -77,5 +77,8 @@ public class Internacao {
 		return idao.darAlta(this);
 	}
 	
-
+	public boolean verificaPacienteInternado(String numeroSus) {
+		InternacaoDAO idao = new InternacaoDAO();
+		return idao.verificaPacienteInternado(numeroSus);
+	}
 }

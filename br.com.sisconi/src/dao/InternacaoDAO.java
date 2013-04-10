@@ -206,7 +206,6 @@ public class InternacaoDAO {
 		    
 		    smt.close();
 		    
-		    
 		    return lin;			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -216,5 +215,22 @@ public class InternacaoDAO {
 			return null;
 		}
 	}
-
+	
+	public boolean verificaPacienteInternado(String numeroSus) {
+		try {
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement smt = con.createStatement();
+			String sqlVerificaPacienteInternado = "select tb_paciente.nr_sus from tb_paciente " +
+					"join tb_internacao on tb_paciente.co_paciente = tb_internacao.co_paciente " +
+					"where tb_paciente.nr_sus like '"+numeroSus+"' and tb_internacao.dt_final is null";
+			ResultSet res = smt.executeQuery(sqlVerificaPacienteInternado);
+			if (res.next()) {
+				return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

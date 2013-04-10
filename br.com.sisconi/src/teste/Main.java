@@ -81,9 +81,17 @@ public class Main {
 //		
 //		i.iniciarInternacao();
 		
-		Leito l = new Leito();
-		l = l.getStatusLeito(2);
-		System.out.println(l.toString());
+//		Leito l = new Leito();
+//		l = l.getStatusLeito(2);
+//		System.out.println(l.toString());
+		
+		Internacao i = new Internacao();
+		boolean b = i.verificaPacienteInternado("999999999999999");
+		if (b == true) {
+			System.out.println("Paciente Internado");
+		} else {
+			System.out.println("Paciente não internado");
+		}
 		
 	}
 	
