@@ -77,6 +77,18 @@ function obterDadosPacienteAtualizar(){
 	getPaciente(pNrLocalizarSUS);
 }
 
+function obterHistorioPaciente(){
+	var pNrSUS = $('#hidden_nr_sus').val();
+	var pNrCpf = $('#hidden_nr_cpf').val();
+	var pCoPaciente = $('#hidden_co_paciente').val();
+	$.ajax({
+		url: "ajax_obter_historico_paciente.jsp?co_paciente=" + pCoPaciente + "&nr_sus=" + pNrSus + "&nr_cpf=" + pNrCpf,
+		}).done(function(retornoSucesso) {
+			$('#span_bt_salvar').hide();
+			$('#span_dados_paciente').html(retornoSucesso);
+	});
+}
+
 function desabilitarCamposPaciente(){
 	$('#nm_paciente').attr("disabled", true);
 	$('#nm_mae').attr("disabled", true);
@@ -279,7 +291,7 @@ function onBlurNrSus(){
 					<span id="span_botoes_localizar_paciente" style="display: none;">
 						<button onclick="obterInformacoesPaciente()"><img src="_imagens/icones/16X16/documents.gif">&nbsp;Dados do Paciente</button>
 						<button onclick="obterDadosPacienteAtualizar()"><img src="_imagens/icones/16X16/edit.gif">&nbsp;Atualizar Dados do Paciente</button>
-						<button onclick=""><img src="_imagens/icones/16X16/file_temp.gif">&nbsp;Localizar Histórico</button>
+						<button onclick="obterHistorioPaciente()"><img src="_imagens/icones/16X16/file_temp.gif">&nbsp;Localizar Histórico</button>
 					</span>
 				</td>
 			</tr>
