@@ -5,6 +5,10 @@ body {
 	margin: 0px; 
 	text-align: center; 
 }
+textarea{
+	width: 360px;
+	height: 150px;
+}
 
 button, input, textarea{
   font-family: Verdana, Arial, Helvetica, sans-serif;

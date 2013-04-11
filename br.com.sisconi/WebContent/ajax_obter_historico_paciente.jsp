@@ -1,5 +1,5 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page contentType="text/html" language="java" import="java.util.*, model.Estado, model.Internacao, model.Paciente"%>
+<%@ page contentType="text/html" language="java" import="java.util.*, model.Internacao, model.Medico"%>
  <jsp:useBean id="internacao" class="model.Internacao"/> 
  <jsp:useBean id="paciente" class="model.Paciente"/> 
 <%
@@ -10,12 +10,7 @@
 	
 	List<Internacao> lInternacao = internacao.getHistoricoInternacao(pCoPaciente);
 %>
-<script>
-  $(function() {
-	  $( "#accordion" ).accordion();
-	  obterStatusLeitos();
-  });
-</script>
+
 <input type="hidden" id="hidden_co_paciente" name="hidden_co_paciente" value="<%=pCoPaciente%>">
 <input type="hidden" id="hidden_nr_sus" name="hidden_nr_sus" value="<%=pNrSus%>">
 <input type="hidden" id="hidden_nr_cpf" name="hidden_nr_cpf" value="<%=pNrCpf%>">
@@ -63,12 +58,32 @@
 		<td align="left"><input type="text" id="co_leito" name="co_leito" maxlength="10" size="50" value="<%=inter.getLeito().getDescricaoAla()%>" disabled="disabled"></td>
 	</tr>
 	<tr>
-		<td align="right">Leito:</td>
+		<td align="right" valign="top">Leito:</td>
 		<td align="left"><input type="text" id="co_leito" name="co_leito" maxlength="10" size="50" value="<%=inter.getLeito().getCodigoLeito()%>" disabled="disabled"></td>
 	</tr>
 	<tr>
-		<td align="right">Alta:</td>
-		<td align="left"><input type="text" id="ds_alta" name="ds_alta" maxlength="10" size="50" value="<%=dsAlta%>" disabled="disabled"></td>
+		<td align="right" valign="top">Médico:</td>
+		<td align="left">
+		<div class="checkbox">
+		<%      
+		 	List<Medico> lMedico = inter.getListaMedico();
+		   	for (int j=0; j<lMedico.size(); j++) {
+		   		Medico m = lMedico.get(j);
+		%>
+							<input type="checkbox" id="cb_medico_<%=m.getCodigoUsuario()%>_<%=inter.getCodigoInternacao() %>" disabled="disabled" />
+							<label for="cb_medico_<%=m.getCodigoUsuario()%>_<%=inter.getCodigoInternacao() %>">
+								<%=m.getNome()%><br>
+								CRM:<%=m.getCrm()%><br>
+							</label>
+				<%
+			  }
+		%>
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top">Alta:</td>
+		<td align="left"><%if (dsAlta != ""){%><textarea id="ds_alta" name="ds_alta" maxlength="2000"  disabled="disabled"><%=dsAlta %></textarea><%}else{%>--<%}%></td>
 	</tr>
 </tbody>
 </table>

@@ -82,10 +82,13 @@ function obterHistorioPaciente(){
 	var pNrCpf = $('#hidden_nr_cpf').val();
 	var pCoPaciente = $('#hidden_co_paciente').val();
 	$.ajax({
-		url: "ajax_obter_historico_paciente.jsp?co_paciente=" + pCoPaciente + "&nr_sus=" + pNrSus + "&nr_cpf=" + pNrCpf,
+		url: "ajax_obter_historico_paciente.jsp?co_paciente=" + pCoPaciente + "&nr_sus=" + pNrSUS + "&nr_cpf=" + pNrCpf
 		}).done(function(retornoSucesso) {
 			$('#span_bt_salvar').hide();
 			$('#span_dados_paciente').html(retornoSucesso);
+			$( "#accordion" ).accordion();
+			$( "#check" ).button();
+		    $( ".checkbox" ).buttonset();
 	});
 }
 
