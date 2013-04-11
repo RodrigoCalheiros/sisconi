@@ -118,13 +118,19 @@ function getLeitosLivres(){
 }
 
 function validarCadastro(){
+	var pCoLeito = $('#co_leito').val();
+	if ((pCoLeito <= 0) || (pCoLeito == null)){
+		alert("O Novo Leito deve ser preenchido.");
+		$('#co_ala').focus();
+		return false;
+	}
 	return true;
 }
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja encerrar a internação?")){
-			document.forms['frm_internacao_encerrar'].submit();	
+		if (confirm("Você deseja remanejar a internação?")){
+			document.forms['frm_internacao_remanejar'].submit();	
 		}	
 	} 
 }
@@ -135,8 +141,8 @@ function salvarCadastro(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Encerrar Internação</font><hr>
-		<form id="frm_internacao_encerrar" action="internacao_encerrar_processa.jsp" method="post">
+	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Remanejar Internação</font><hr>
+		<form id="frm_internacao_remanejar" action="internacao_remanejar_processa.jsp" method="post">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>

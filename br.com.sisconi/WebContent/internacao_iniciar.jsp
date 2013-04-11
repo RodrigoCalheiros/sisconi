@@ -132,7 +132,7 @@ function validarCadastro(){
 		return false;
 	}
 	var pCoLeito = $('#co_leito').val();
-	if (pCoLeito <= 0){
+	if ((pCoLeito <= 0) || (pCoLeito == null)){
 		alert("O Leito deve ser preenchido.");
 		$('#co_ala').focus();
 		return false;

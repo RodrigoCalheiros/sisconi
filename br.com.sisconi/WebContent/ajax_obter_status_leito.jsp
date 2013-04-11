@@ -36,11 +36,11 @@
 	<tbody>
 		<tr>
 			<td align="right">Status:</td>
-			<td align="left"><font style="font-weight: bold; font-size: 10px;"><%=l.getDescricaoStatusLeito() %></font></td>
-			<td align="right"><button onclick="liberarLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 2){ %>disabled<%} %>><img src="_imagens/icones/16X16/apply.gif"><font style="font-weight: bold; font-size: 10px;">LIBERAR</font></button></td>
+			<td align="left"><font style="font-weight: bold; font-size: 11px;"><%=l.getDescricaoStatusLeito() %></font></td>
+			<td align="right"><button onclick="liberarLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 2){ %>disabled<%} %>><img src="_imagens/icones/16X16/apply.gif"><font style="font-weight: bold; font-size: 11px;">LIBERAR</font></button></td>
 		</tr>
 		<tr>
-			<td align="right" colspan="3"><button onclick="desbloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 1){ %>disabled<%} %>><img src="_imagens/icones/16X16/unlock.gif"><font style="font-weight: bold; font-size: 10px;">DESBLOQUEAR</font></button>&nbsp;<button onclick="bloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if ((l.getCodigoStatusLeito() == 1) || (l.getCodigoStatusLeito() == 4)){ %>disabled<%} %>><img src="_imagens/icones/16X16/lock.gif"><font style="font-weight: bold; font-size: 10px;">BLOQUEAR</font></button></td>
+			<td align="right" colspan="3"><button onclick="desbloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 1){ %>disabled<%} %>><img src="_imagens/icones/16X16/unlock.gif"><font style="font-weight: bold; font-size: 11px;">DESBLOQUEAR</font></button>&nbsp;<button onclick="bloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if ((l.getCodigoStatusLeito() == 1) || (l.getCodigoStatusLeito() == 4)){ %>disabled<%} %>><img src="_imagens/icones/16X16/lock.gif"><font style="font-weight: bold; font-size: 11px;">BLOQUEAR</font></button></td>
 		</tr>
 	</tbody>
 </table>
