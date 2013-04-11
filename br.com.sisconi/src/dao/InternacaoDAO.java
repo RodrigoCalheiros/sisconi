@@ -109,43 +109,49 @@ public class InternacaoDAO {
 		try {
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			Statement smt = con.createStatement();
-			String sqlGetCodigoLeitoAntigo = "select co_leito from tb_internacao where co_internacao = "+i.getCodigoInternacao();
 			
+			String sqlGetCodigoLeitoAntigo = "select co_leito from tb_internacao where co_internacao = "+i.getCodigoInternacao();
 			ResultSet res = smt.executeQuery(sqlGetCodigoLeitoAntigo);
 		    if (res.next()) {
 		    	Leito l = new Leito();
 		    	l.setCodigoLeito(res.getInt("co_leito"));
 		    	i.setLeito(l);
 		    }
-		    res.close();			
+		    res.close();
 			
 			String sqlRemanejarInternacao = "update tb_internacao set co_leito = "+codigoLeitoNovo+" "+
 					"where co_internacao = "+i.getCodigoInternacao()+" and " +
 					"dt_final is null";
-						
 		    smt.execute(sqlRemanejarInternacao);
 		    
-		    String sqlUpdateLeitoAntigo = "update tb_status_leito set " +
+		    String sqlUpdateStatusLeitoAntigo = "update tb_status_leito set " +
 					"dt_final = NOW() " + 
 					"where co_leito = "+i.getLeito().getCodigoLeito()+" and " +
 					"co_status = 4 and " +
 					"dt_final is null";
+		    smt.executeUpdate(sqlUpdateStatusLeitoAntigo);
 		    
-		    smt.executeUpdate(sqlUpdateLeitoAntigo);
-		    
-		    String sqlStatusLeitoAntigo = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial) values (" +
+		    String sqlInsertStatusLeitoAntigo = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial) values (" +
 		    		"(select count(temp.co_leito)+1 from (select co_leito from tb_status_leito) as temp where temp.co_leito = "+i.getLeito().getCodigoLeito()+"), " +
 					""+i.getLeito().getCodigoLeito()+", " +
 					"2, " +
 					"NOW())";
-		    smt.execute(sqlStatusLeitoAntigo);
+		    smt.execute(sqlInsertStatusLeitoAntigo);
 		    
-		    String sqlStatusLeitoNovo = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial) values (" +
+		    String sqlUpdateStatusAntigoLeitoNovo = "update tb_status_leito set " +
+		    		"dt_final = NOW() " + 
+					"where co_leito = "+codigoLeitoNovo+" and " +
+					"co_status = 3 and " +
+					"dt_final is null";
+		    smt.execute(sqlUpdateStatusAntigoLeitoNovo);
+		    
+		    String sqlInsertStatusLeitoNovo = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial) values (" +
 		    		"(select count(temp.co_leito)+1 from (select co_leito from tb_status_leito) as temp where temp.co_leito = "+codigoLeitoNovo+"), " +
 					""+codigoLeitoNovo+", " +
 					"4, " +
 					"NOW())";
-		    smt.execute(sqlStatusLeitoNovo);
+		    smt.execute(sqlInsertStatusLeitoNovo);
+		    
 		    smt.close();
 		    
 		    return true;			
