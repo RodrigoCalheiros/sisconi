@@ -6,8 +6,9 @@ body {
 	text-align: center; 
 }
 textarea{
-	width: 360px;
-	height: 150px;
+	width: 365px;
+	height: 200px;
+	resize: none;
 }
 
 button, input, textarea{

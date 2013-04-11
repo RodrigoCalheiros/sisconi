@@ -10,7 +10,6 @@
 	
 	List<Internacao> lInternacao = internacao.getHistoricoInternacao(pCoPaciente);
 %>
-
 <input type="hidden" id="hidden_co_paciente" name="hidden_co_paciente" value="<%=pCoPaciente%>">
 <input type="hidden" id="hidden_nr_sus" name="hidden_nr_sus" value="<%=pNrSus%>">
 <input type="hidden" id="hidden_nr_cpf" name="hidden_nr_cpf" value="<%=pNrCpf%>">
@@ -47,19 +46,19 @@
 <tbody>
 	<tr>
 		<td align="right" width="180px">Data Inicial:</td>
-		<td align="left"><input type="text" id="dt_inicial" name="dt_inicial" maxlength="10" size="50" value="<%=strDtInicial%>" disabled="disabled"></td>
+		<td align="left"><input type="text" class="dt_inicial" id="dt_inicial" name="dt_inicial" maxlength="10" size="50" value="<%=strDtInicial%>"></td>
 	</tr>
 	<tr>
 		<td align="right">Data Final:</td>
-		<td align="left"><input type="text" id="dt_final" name="dt_final" maxlength="10" size="50" value="<%=strDtFinal%>" disabled="disabled"></td>
+		<td align="left"><input type="text" class="dt_final" id="dt_final" name="dt_final" maxlength="10" size="50" value="<%=strDtFinal%>"></td>
 	</tr>
 	<tr>
 		<td align="right">Ala:</td>
-		<td align="left"><input type="text" id="co_leito" name="co_leito" maxlength="10" size="50" value="<%=inter.getLeito().getDescricaoAla()%>" disabled="disabled"></td>
+		<td align="left"><input type="text" class="ds_ala" id="ds_ala" name="ds_ala" maxlength="10" size="50" value="<%=inter.getLeito().getDescricaoAla()%>"></td>
 	</tr>
 	<tr>
 		<td align="right" valign="top">Leito:</td>
-		<td align="left"><input type="text" id="co_leito" name="co_leito" maxlength="10" size="50" value="<%=inter.getLeito().getCodigoLeito()%>" disabled="disabled"></td>
+		<td align="left"><input type="text" class="co_leito" id="co_leito" name="co_leito" maxlength="10" size="50" value="<%=inter.getLeito().getCodigoLeito()%>"></td>
 	</tr>
 	<tr>
 		<td align="right" valign="top">Médico:</td>
@@ -70,7 +69,7 @@
 		   	for (int j=0; j<lMedico.size(); j++) {
 		   		Medico m = lMedico.get(j);
 		%>
-							<input type="checkbox" id="cb_medico_<%=m.getCodigoUsuario()%>_<%=inter.getCodigoInternacao() %>" disabled="disabled" />
+							<input type="checkbox" class="checkbox" id="cb_medico_<%=m.getCodigoUsuario()%>_<%=inter.getCodigoInternacao() %>" />
 							<label for="cb_medico_<%=m.getCodigoUsuario()%>_<%=inter.getCodigoInternacao() %>">
 								<%=m.getNome()%><br>
 								CRM:<%=m.getCrm()%><br>
@@ -83,7 +82,7 @@
 	</tr>
 	<tr>
 		<td align="right" valign="top">Alta:</td>
-		<td align="left"><%if (dsAlta != ""){%><textarea id="ds_alta" name="ds_alta" maxlength="2000"  disabled="disabled"><%=dsAlta %></textarea><%}else{%>--<%}%></td>
+		<td align="left"><textarea class="ds_alta" id="ds_alta" name="ds_alta" maxlength="2000"><%=dsAlta %></textarea></td>
 	</tr>
 </tbody>
 </table>

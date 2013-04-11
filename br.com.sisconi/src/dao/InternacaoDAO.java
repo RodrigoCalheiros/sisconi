@@ -139,9 +139,8 @@ public class InternacaoDAO {
 		try {
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			String sqlDarAlta = "update tb_internacao set ds_alta = '"+i.getDescricaoDaAlta()+"' "+
-					"where co_internacao = "+i.getCodigoInternacao()+" and " +
-					"ds_alta is null and " +
-					"dt_final is null";
+					"where co_internacao = "+i.getCodigoInternacao()+
+					" and dt_final is null";
 			
 			Statement smt = con.createStatement();
 		    smt.execute(sqlDarAlta);		    

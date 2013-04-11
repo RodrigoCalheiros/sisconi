@@ -86,10 +86,19 @@ function obterHistorioPaciente(){
 		}).done(function(retornoSucesso) {
 			$('#span_bt_salvar').hide();
 			$('#span_dados_paciente').html(retornoSucesso);
-			$( "#accordion" ).accordion();
-			$( "#check" ).button();
-		    $( ".checkbox" ).buttonset();
+			desabilitarCamposHistorico();
 	});
+}
+
+function desabilitarCamposHistorico(){
+	$( "#accordion" ).accordion();
+    $( ".checkbox" ).buttonset();
+	$('.dt_inicial').attr("disabled", true);
+	$('.dt_final').attr("disabled", true);
+	$('.ds_ala').attr("disabled", true);
+	$('.co_leito').attr("disabled", true);
+	$('.checkbox').attr("disabled", true);
+	$('.ds_alta').attr("disabled", true);
 }
 
 function desabilitarCamposPaciente(){

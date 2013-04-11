@@ -55,7 +55,7 @@ function getPacienteBloqueandoCampos(pNrSus){
 				$('#spanLeito').hide();
 				$('#spanMedico').hide();
 				$('#spanBtSalvar').hide();
-				alert("Paciente não cadastrado.");
+				alert("Paciente não localizado.")
 			}
 	});	
 }
@@ -75,7 +75,7 @@ function obterDadosPaciente(){
 				getPacienteBloqueandoCampos($('#nr_localizar_sus').val());	
 			}
 			else{
-				alert("Já existe uma internação aberta para esse paciente.");
+				alert("Já existe uma internação ativa para esse paciente.");
 			}
 		}
 		else{
