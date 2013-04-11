@@ -159,10 +159,11 @@ public class InternacaoDAO {
 		try {
 			List<Internacao> lin = new ArrayList<Internacao>();
 			Connection con = ConexaoBD.getInstancia().getConexao();
-			String sqlListarInternacoes = "select i.co_internacao, i.co_leito, l.co_patrimonio, i.co_paciente, p.nm_paciente, i.dt_inicial, i.dt_final, i.ds_alta " +
+			String sqlListarInternacoes = "select i.co_internacao, i.co_leito, a.ds_ala, l.co_patrimonio, i.co_paciente, p.nm_paciente, i.dt_inicial, i.dt_final, i.ds_alta " +
 					"from tb_internacao as i " +
 					"join tb_paciente as p on i.co_paciente = p.co_paciente " +
 					"join tb_leito as l on i.co_leito = l.co_leito " +
+					"join tb_ala as a on l.co_ala = a.co_ala " +
 					"where i.co_paciente = "+codigoPaciente;		
 			Statement smt = con.createStatement();
 		    ResultSet res = smt.executeQuery(sqlListarInternacoes);
@@ -178,12 +179,13 @@ public class InternacaoDAO {
 		    	Leito l = new Leito();
 		    	l.setCodigoLeito(res.getInt("i.co_leito"));
 		    	l.setCodigoPatrimonio(res.getInt("l.co_patrimonio"));
-		    	i.setLeito(l);		    	
-		    	String formatDataInicial = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(res.getDate("i.dt_inicial"));
+		    	l.setDescricaoAla(res.getString("a.ds_ala"));
+		    	i.setLeito(l);
+		    	String formatDataInicial = new SimpleDateFormat("dd/MM/yyyy").format(res.getDate("i.dt_inicial")) +" "+ res.getTime("i.dt_inicial");
 		    	i.setDataInicial(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataInicial));
 		    	java.util.Date dataFinal = res.getDate("i.dt_final");
 		    	if (dataFinal != null) {
-		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dataFinal);
+		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy").format(dataFinal)+ " " + res.getTime("i._dt_final");
 		    		i.setDataFinal(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataFinal));
 		    	} else {
 		    		i.setDataFinal(null);
