@@ -87,8 +87,8 @@ public class Internacao {
 		return idao.verificaPacienteInternado(numeroSus);
 	}
 	
-	public Internacao getInternacao(String numeroSus) {
+	public Internacao getInternacaoAtiva(String numeroSus) {
 		InternacaoDAO idao = new InternacaoDAO();
-		return idao.getInternacao(numeroSus);
+		return idao.getInternacaoAtiva(numeroSus);
 	}
 }

@@ -46,8 +46,4 @@ public class Agendamento {
 	public void setStatusAgendamento(String statusAgendamento) {
 		this.statusAgendamento = statusAgendamento;
 	}
-	
-	
-	
-
 }

@@ -191,7 +191,7 @@ public class InternacaoDAO {
 		    		i.setDataFinal(null);
 		    	}		    	
 		    	i.setDescricaoDaAlta(res.getString("i.ds_alta"));
-		    	String sqlListarMedicosInternacoes = "select u.co_usuario, u.nm_usuario from tb_medico as m " +
+		    	String sqlListarMedicosInternacoes = "select u.co_usuario, u.nm_usuario, m.nr_crm from tb_medico as m " +
 		    			"join tb_medico_internacao as mi on m.co_usuario = mi.co_usuario " +
 		    			"join tb_usuario as u on m.co_usuario = u.co_usuario " +
 		    			"join tb_internacao as i on mi.co_internacao = i.co_internacao " +
@@ -204,6 +204,7 @@ public class InternacaoDAO {
 		    		Medico m = new Medico();
 		    		m.setCodigoUsuario(res2.getInt("u.co_usuario"));
 		    		m.setNome(res2.getString("u.nm_usuario"));
+		    		m.setCrm(res2.getInt("m.nr_crm"));
 		    		lme.add(m);
 		    	}
 		    	res2.close();
@@ -242,7 +243,75 @@ public class InternacaoDAO {
 		}
 	}
 	
-	public Internacao getInternacao(String numeroSus) {
-		return null;
+	public Internacao getInternacaoAtiva(String numeroSus) {
+		try {
+			Internacao i = new Internacao();
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			String sqlInternacao = "select i.co_internacao, i.co_leito, i.co_paciente, i.dt_inicial, i.dt_final, i.ds_alta, " +
+					"p.nr_sus, p.nm_paciente, p.nm_mae, a.co_ala, a.ds_ala, l.co_patrimonio " +
+					"from tb_internacao as i " +
+					"join tb_paciente as p on i.co_paciente = p.co_paciente " +
+					"join tb_leito as l on i.co_leito = l.co_leito " +
+					"join tb_ala as a on l.co_ala = a.co_ala " +
+					"where p.nr_sus like '"+numeroSus+"' and i.dt_final is null";		
+			Statement smt = con.createStatement();
+		    ResultSet res = smt.executeQuery(sqlInternacao);
+		    
+		    if (res.next()) {
+		    	List<Medico> lme = new ArrayList<Medico>();		    	
+		    	i.setCodigoInternacao(res.getInt("i.co_internacao"));
+		    	Paciente p = new Paciente();
+		    	p.setCodigoPaciente(res.getInt("i.co_paciente"));
+		    	p.setNome(res.getString("p.nm_paciente"));
+		    	p.setNumeroSus(res.getString("p.nr_sus"));
+		    	p.setNomeMae(res.getString("p.nm_mae"));
+		    	i.setPaciente(p);
+		    	Leito l = new Leito();
+		    	l.setCodigoLeito(res.getInt("i.co_leito"));
+		    	l.setCodigoPatrimonio(res.getInt("l.co_patrimonio"));
+		    	l.setDescricaoAla(res.getString("a.ds_ala"));
+		    	l.setCodigoAla(res.getInt("a.co_ala"));
+		    	i.setLeito(l);
+		    	String formatDataInicial = new SimpleDateFormat("dd/MM/yyyy").format(res.getDate("i.dt_inicial")) +" "+ res.getTime("i.dt_inicial");
+		    	i.setDataInicial(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataInicial));
+		    	java.util.Date dataFinal = res.getDate("i.dt_final");
+		    	if (dataFinal != null) {
+		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy").format(dataFinal)+ " " + res.getTime("i._dt_final");
+		    		i.setDataFinal(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataFinal));
+		    	} else {
+		    		i.setDataFinal(null);
+		    	}		    	
+		    	i.setDescricaoDaAlta(res.getString("i.ds_alta"));
+		    	String sqlListarMedicosInternacoes = "select u.co_usuario, u.nm_usuario, m.nr_crm from tb_medico as m " +
+		    			"join tb_medico_internacao as mi on m.co_usuario = mi.co_usuario " +
+		    			"join tb_usuario as u on m.co_usuario = u.co_usuario " +
+		    			"join tb_internacao as i on mi.co_internacao = i.co_internacao " +
+		    			"where i.co_internacao = "+i.getCodigoInternacao();
+		    	
+		    	Statement smt2 = con.createStatement();
+		    	ResultSet res2 = smt2.executeQuery(sqlListarMedicosInternacoes);
+		    	
+		    	while (res2.next()) {
+		    		Medico m = new Medico();
+		    		m.setCodigoUsuario(res2.getInt("u.co_usuario"));
+		    		m.setNome(res2.getString("u.nm_usuario"));
+		    		m.setCrm(res2.getInt("m.nr_crm"));
+		    		lme.add(m);
+		    	}
+		    	res2.close();
+		    	smt2.close();
+		    	i.setListaMedico(lme);	    	
+		    }
+		    
+		    smt.close();
+		    
+		    return i;			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
