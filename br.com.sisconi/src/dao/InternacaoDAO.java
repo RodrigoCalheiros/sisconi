@@ -155,7 +155,7 @@ public class InternacaoDAO {
 		}
 	}
 	
-	public List<Internacao> getHistoricoInternacao(Paciente p) {
+	public List<Internacao> getHistoricoInternacao(int codigoPaciente) {
 		try {
 			List<Internacao> lin = new ArrayList<Internacao>();
 			Connection con = ConexaoBD.getInstancia().getConexao();
@@ -163,7 +163,7 @@ public class InternacaoDAO {
 					"from tb_internacao as i " +
 					"join tb_paciente as p on i.co_paciente = p.co_paciente " +
 					"join tb_leito as l on i.co_leito = l.co_leito " +
-					"where i.co_paciente = "+p.getCodigoPaciente();		
+					"where i.co_paciente = "+codigoPaciente;		
 			Statement smt = con.createStatement();
 		    ResultSet res = smt.executeQuery(sqlListarInternacoes);
 		    
@@ -171,6 +171,9 @@ public class InternacaoDAO {
 		    	List<Medico> lme = new ArrayList<Medico>();
 		    	Internacao i = new Internacao();
 		    	i.setCodigoInternacao(res.getInt("i.co_internacao"));
+		    	Paciente p = new Paciente();
+		    	p.setCodigoPaciente(res.getInt("i.co_paciente"));
+		    	p.setNome(res.getString("p.nm_paciente"));
 		    	i.setPaciente(p);
 		    	Leito l = new Leito();
 		    	l.setCodigoLeito(res.getInt("i.co_leito"));
@@ -178,8 +181,13 @@ public class InternacaoDAO {
 		    	i.setLeito(l);		    	
 		    	String formatDataInicial = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(res.getDate("i.dt_inicial"));
 		    	i.setDataInicial(new SimpleDateFormat("dd/MM/yyyy").parse(formatDataInicial));
-		    	String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(res.getDate("i.dt_final"));
-		    	i.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(formatDataFinal));
+		    	java.util.Date dataFinal = res.getDate("i.dt_final");
+		    	if (dataFinal != null) {
+		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dataFinal);
+		    		i.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(formatDataFinal));
+		    	} else {
+		    		i.setDataFinal(null);
+		    	}		    	
 		    	i.setDescricaoDaAlta(res.getString("i.ds_alta"));
 		    	System.out.println("ok");
 		    	String sqlListarMedicosInternacoes = "select u.co_usuario, u.nm_usuario from tb_medico as m " +
@@ -231,5 +239,9 @@ public class InternacaoDAO {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public Internacao getInternacao(String numeroSus) {
+		return null;
 	}
 }
