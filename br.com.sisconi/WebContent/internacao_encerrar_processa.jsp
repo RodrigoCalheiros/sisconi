@@ -9,7 +9,7 @@
     
 	boolean retorno = internacao.encerrarInternacao();
 	if (retorno == true){
-		response.sendRedirect("internacao_encerrar.jsp?msg='Internação cadastrada com sucesso.'");
+		response.sendRedirect("internacao_encerrar.jsp?msg='Internação encerrada com sucesso.'");
 	}
 	else{
 		response.sendRedirect("internacao_encerrar.jsp?msg='Erro ao encerrar a internação.'");

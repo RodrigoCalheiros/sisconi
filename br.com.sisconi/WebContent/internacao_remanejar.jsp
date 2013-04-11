@@ -153,14 +153,14 @@ function salvarCadastro(){
 						<table class="tbl" width="100%">
 						<thead>
 							<tr>
-								<th colspan="2">Leito</th>
+								<th colspan="2">Novo Leito</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td align="right" width="180px">Ala:</td>
+								<td align="right" width="180px">Nova Ala:</td>
 								<td align="left">
-									<select id="co_nova_ala" name="co_nova_ala" onchange="getLeitosLivres()"  required>
+									<select id="co_ala" name="co_ala" onchange="getLeitosLivres()"  required>
 									 	<option value="0">--</option>
 									<%      
 									   try {  
@@ -179,7 +179,7 @@ function salvarCadastro(){
 								</td>
 							</tr>
 							<tr>
-								<td align="right">Leito livre:</td>
+								<td align="right">Novo Leito livre:</td>
 								<td align="left"><span id="spanLeitosLivres">--</span></td>
 							</tr>
 						</tbody>
