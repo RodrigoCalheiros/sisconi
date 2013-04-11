@@ -130,10 +130,6 @@ function bloquearLeito(pCoLeito, pCoStatus){
 								<td align="left">Bloqueado</td>
 							</tr>
 							<tr>
-								<td align="center"><img src="_imagens/qd_orange.png"></td>
-								<td align="left">Reservado</td>
-							</tr>
-							<tr>
 								<td align="center"><img src="_imagens/qd_blue.png"></td>
 								<td align="left">Em Higienização</td>
 							</tr>

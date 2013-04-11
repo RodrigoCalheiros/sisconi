@@ -14,10 +14,10 @@ function mostrarMsg(){
 	}
 }
 
-function existeInternacaoAbertaNrSus(pNrSus){
+function existeAgendamentoAtivoNrSus(pNrSus){
 	var retorno = 1;
 	$.ajax({
-		  url: "ajax_existe_internacao_aberta_nr_sus.jsp?nr_sus=" + pNrSus,
+		  url: "ajax_existe_agendamento_ativo_nr_sus.jsp?nr_sus=" + pNrSus,
 		  async: false
 		}).done(function(retornoSucesso) {
 			if (retornoSucesso == 0){
@@ -71,11 +71,11 @@ function obterDadosPaciente(){
 		var nrSus = $('#nr_localizar_sus').val();
 		existeNrSus = getExisteNrSusPaciente(nrSus);
 		if (existeNrSus == 1){
-			if (existeInternacaoAbertaNrSus(nrSus) == 0){
+			if (existeAgendamentoAtivoNrSus(nrSus) == 0){
 				getPacienteBloqueandoCampos($('#nr_localizar_sus').val());	
 			}
 			else{
-				alert("Já existe uma internação ativa para esse paciente.");
+				alert("Já existe um agendamento ativo para esse paciente.");
 			}
 		}
 		else{

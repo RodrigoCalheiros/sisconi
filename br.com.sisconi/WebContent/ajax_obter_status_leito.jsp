@@ -21,9 +21,6 @@
 		case 4: 
 			tbClass = "tbocupado";
 			break;
-		case 5: 
-			tbClass = "tbreservado";
-			break;
 	}
 %>
 <input type="hidden" id="co_leito_status_<%=coLeito %>" name="co_leito_status_<%=coLeito %>" value="<%=l.getCodigoStatusLeito() %>">

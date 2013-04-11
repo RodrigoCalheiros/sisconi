@@ -47,9 +47,6 @@
 	   			case 4: 
 	   				tbClass = "tbocupado";
 	   				break;
-	   			case 5: 
-	   				tbClass = "tbreservado";
-	   				break;
    			}
      		if ((coAla != l.getCodigoAla()) && (coAla == 0)){
      			coAla = l.getCodigoAla();
