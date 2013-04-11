@@ -57,11 +57,11 @@
 	</tr>
 	<tr>
 		<td align="right">Ala:</td>
-		<td align="left"><input type="text" id="ds_ala" name="ds_ala" maxlength="10" size="50" value="<%=inter.getLeito().getDescricaoAla()%>"></td>
+		<td align="left"><input type="text" id="ds_ala_atual" name="ds_ala_atual" maxlength="10" size="50" value="<%=inter.getLeito().getDescricaoAla()%>"></td>
 	</tr>
 	<tr>
 		<td align="right" valign="top">Leito:</td>
-		<td align="left"><input type="text" id="co_leito" name="co_leito" maxlength="10" size="50" value="<%=inter.getLeito().getCodigoLeito()%>"></td>
+		<td align="left"><input type="text" id="co_leito_atual" name="co_leito_atual" maxlength="10" size="50" value="<%=inter.getLeito().getCodigoLeito()%>"></td>
 	</tr>
 	<tr>
 		<td align="right" valign="top">Médico:</td>

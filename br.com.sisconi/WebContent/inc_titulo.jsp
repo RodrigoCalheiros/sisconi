@@ -60,9 +60,9 @@
 	            <li><a href="internacao_iniciar.jsp">Iniciar Internação</a></li>
 	            <li><a href="internacao_encerrar.jsp">Encerrar Internação</a></li>
 	            <li><a href="internacao_dar_alta.jsp">Dar Alta</a></li>
+	            <li><a href="internacao_remanejar.jsp">Remanejar Internação</a></li>
 	            <li><a href="#">Agendar Internação</a></li>
 	            <li><a href="#">Cancelar Agendamento</a></li>
-	            <li><a href="internacao_remanejar.jsp">Remanejar Internação</a></li>
 	        </ul>
 	    </li>
 	    <li>

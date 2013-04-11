@@ -86,8 +86,8 @@ function desabilitarCamposInternacao(){
 	$('#nm_mae').attr("disabled", true);
 	$('#dt_inicial').attr("disabled", true);
 	$('#dt_final').attr("disabled", true);
-	$('#ds_ala').attr("disabled", true);
-	$('#co_leito').attr("disabled", true);
+	$('#ds_ala_atual').attr("disabled", true);
+	$('#co_leito_atual').attr("disabled", true);
 	$('.checkbox').attr("disabled", true);
 	$('#ds_alta').attr("disabled", true);
 }
