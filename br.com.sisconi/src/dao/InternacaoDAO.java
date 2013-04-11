@@ -72,6 +72,16 @@ public class InternacaoDAO {
 			Statement smt = con.createStatement();
 		    smt.execute(sqlEncerrarInternacao);
 		    
+		    String sqlInternacao = "select co_leito from tb_internacao where co_internacao = "+i.getCodigoInternacao();
+		    
+		    ResultSet res = smt.executeQuery(sqlInternacao);
+		    if (res.next()) {
+		    	Leito l = new Leito();
+		    	l.setCodigoLeito(res.getInt("co_leito"));
+		    	i.setLeito(l);
+		    }
+		    res.close();
+		    
 		    String sqlUpdateLeitoAntigo = "update tb_status_leito set " +
 					"dt_final = NOW() " + 
 					"where co_leito = "+i.getLeito().getCodigoLeito()+" and " +
@@ -98,11 +108,21 @@ public class InternacaoDAO {
 	public boolean remanejarInternacao(Internacao i, int codigoLeitoNovo) {
 		try {
 			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement smt = con.createStatement();
+			String sqlGetCodigoLeitoAntigo = "select co_leito from tb_internacao where co_internacao = "+i.getCodigoInternacao();
+			
+			ResultSet res = smt.executeQuery(sqlGetCodigoLeitoAntigo);
+		    if (res.next()) {
+		    	Leito l = new Leito();
+		    	l.setCodigoLeito(res.getInt("co_leito"));
+		    	i.setLeito(l);
+		    }
+		    res.close();			
+			
 			String sqlRemanejarInternacao = "update tb_internacao set co_leito = "+codigoLeitoNovo+" "+
 					"where co_internacao = "+i.getCodigoInternacao()+" and " +
 					"dt_final is null";
-			
-			Statement smt = con.createStatement();
+						
 		    smt.execute(sqlRemanejarInternacao);
 		    
 		    String sqlUpdateLeitoAntigo = "update tb_status_leito set " +
