@@ -204,7 +204,7 @@ public class InternacaoDAO {
 		    	i.setDataInicial(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataInicial));
 		    	java.util.Date dataFinal = res.getDate("i.dt_final");
 		    	if (dataFinal != null) {
-		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy").format(dataFinal)+ " " + res.getTime("i._dt_final");
+		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy").format(dataFinal)+ " " + res.getTime("i.dt_final");
 		    		i.setDataFinal(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataFinal));
 		    	} else {
 		    		i.setDataFinal(null);
@@ -295,7 +295,7 @@ public class InternacaoDAO {
 		    	i.setDataInicial(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataInicial));
 		    	java.util.Date dataFinal = res.getDate("i.dt_final");
 		    	if (dataFinal != null) {
-		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy").format(dataFinal)+ " " + res.getTime("i._dt_final");
+		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy").format(dataFinal)+ " " + res.getTime("i.dt_final");
 		    		i.setDataFinal(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataFinal));
 		    	} else {
 		    		i.setDataFinal(null);
