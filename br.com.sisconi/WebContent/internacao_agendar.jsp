@@ -55,7 +55,7 @@ function getPacienteBloqueandoCampos(pNrSus){
 				$('#spanLeito').hide();
 				$('#spanMedico').hide();
 				$('#spanBtSalvar').hide();
-				alert("Paciente não cadastrado.");
+				alert("Paciente não localizado.")
 			}
 	});	
 }
@@ -75,7 +75,7 @@ function obterDadosPaciente(){
 				getPacienteBloqueandoCampos($('#nr_localizar_sus').val());	
 			}
 			else{
-				alert("Já existe uma internação aberta para esse paciente.");
+				alert("Já existe uma internação ativa para esse paciente.");
 			}
 		}
 		else{
@@ -132,7 +132,7 @@ function validarCadastro(){
 		return false;
 	}
 	var pCoLeito = $('#co_leito').val();
-	if (pCoLeito <= 0){
+	if ((pCoLeito <= 0) || (pCoLeito == null)){
 		alert("O Leito deve ser preenchido.");
 		$('#co_ala').focus();
 		return false;
@@ -172,7 +172,7 @@ function salvarCadastro(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Iniciar Internação</font><hr>
+	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Agendar Internação</font><hr>
 		<form id="frm_internacao" action="internacao_iniciar_processa.jsp" method="post">
 		<input type="hidden" id="hidden_co_medicos" name="hidden_co_medicos" value="">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">

@@ -12,6 +12,9 @@
 	<script src="js/jquery/jquery-ui-1.10.2.custom.js" type="text/javascript"></script>
 	<script src="js/jquery/jquery.maskedinput.js" type="text/javascript"></script>
 	
+	<!-- JsChart -->
+	<script type="text/javascript" src="js/jschart/jscharts.js"></script>
+	
 	<!-- Js Validação -->
 	<script type="text/javascript" src="js/MascaraValidacao.js"></script>
 	

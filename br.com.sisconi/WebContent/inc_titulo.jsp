@@ -61,14 +61,14 @@
 	            <li><a href="internacao_encerrar.jsp">Encerrar Internação</a></li>
 	            <li><a href="internacao_dar_alta.jsp">Dar Alta</a></li>
 	            <li><a href="internacao_remanejar.jsp">Remanejar Internação</a></li>
-	            <li><a href="#">Agendar Internação</a></li>
+	            <li><a href="internacao_agendar.jsp">Agendar Internação</a></li>
 	            <li><a href="#">Cancelar Agendamento</a></li>
 	        </ul>
 	    </li>
 	    <li>
 	        <a href="#"><img src="_imagens/icones/16X16/calculator.gif">&nbsp;Estatísticas</a>
 	        <ul>
-	            <li><a href="#">Estatística de Ocupação dos Leitos</a></li>
+	            <li><a href="estatistica_ocupacao_de_leitos.jsp">Estatística de Ocupação dos Leitos</a></li>
 	        </ul>
 	    </li>
 	    <li>
