@@ -180,16 +180,15 @@ public class InternacaoDAO {
 		    	l.setCodigoPatrimonio(res.getInt("l.co_patrimonio"));
 		    	i.setLeito(l);		    	
 		    	String formatDataInicial = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(res.getDate("i.dt_inicial"));
-		    	i.setDataInicial(new SimpleDateFormat("dd/MM/yyyy").parse(formatDataInicial));
+		    	i.setDataInicial(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataInicial));
 		    	java.util.Date dataFinal = res.getDate("i.dt_final");
 		    	if (dataFinal != null) {
 		    		String formatDataFinal = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dataFinal);
-		    		i.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(formatDataFinal));
+		    		i.setDataFinal(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(formatDataFinal));
 		    	} else {
 		    		i.setDataFinal(null);
 		    	}		    	
 		    	i.setDescricaoDaAlta(res.getString("i.ds_alta"));
-		    	System.out.println("ok");
 		    	String sqlListarMedicosInternacoes = "select u.co_usuario, u.nm_usuario from tb_medico as m " +
 		    			"join tb_medico_internacao as mi on m.co_usuario = mi.co_usuario " +
 		    			"join tb_usuario as u on m.co_usuario = u.co_usuario " +
