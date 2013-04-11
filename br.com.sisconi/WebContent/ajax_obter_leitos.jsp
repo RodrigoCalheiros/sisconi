@@ -101,10 +101,10 @@
 					<tr>
 						<td align="right">Status:</td>
 						<td align="left"><font style="font-weight: bold;"><%=l.getDescricaoStatusLeito() %></font></td>
-						<td align="right"><button onclick="liberarLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 2){ %>disabled<%} %>><img src="_imagens/icones/16X16/apply.gif"><font style="font-weight: bold;">LIBERAR</font></button></td>
+						<td align="right"><button onclick="liberarLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 2){ %>disabled<%} %>><img src="_imagens/icones/16X16/apply.gif">LIBERAR</button></td>
 					</tr>
 					<tr>
-						<td align="right" colspan="3"><button onclick="desbloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 1){ %>disabled<%} %>><img src="_imagens/icones/16X16/unlock.gif"><font style="font-weight: bold;">DESBLOQUEAR</font></button>&nbsp;<button onclick="bloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if ((l.getCodigoStatusLeito() == 1) || (l.getCodigoStatusLeito() == 4)){ %>disabled<%} %>><img src="_imagens/icones/16X16/lock.gif"><font style="font-weight: bold;">BLOQUEAR</font></button></td>
+						<td align="right" colspan="3"><button onclick="desbloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if (l.getCodigoStatusLeito() != 1){ %>disabled<%} %>><img src="_imagens/icones/16X16/unlock.gif">DESBLOQUEAR</button>&nbsp;<button onclick="bloquearLeito(<%=l.getCodigoLeito() %>, <%=l.getCodigoStatusLeito() %>)" <%if ((l.getCodigoStatusLeito() == 1) || (l.getCodigoStatusLeito() == 4)){ %>disabled<%} %>><img src="_imagens/icones/16X16/lock.gif">BLOQUEAR</button></td>
 					</tr>
 				</tbody>
 			</table>

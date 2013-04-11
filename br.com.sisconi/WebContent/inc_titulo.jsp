@@ -62,7 +62,7 @@
 	            <li><a href="#">Dar Alta</a></li>
 	            <li><a href="#">Agendar Internação</a></li>
 	            <li><a href="#">Cancelar Agendamento</a></li>
-	            <li><a href="#">Remanejar Internação</a></li>
+	            <li><a href="internacao_remanejar.jsp">Remanejar Internação</a></li>
 	        </ul>
 	    </li>
 	    <li>
