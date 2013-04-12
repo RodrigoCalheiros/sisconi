@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,6 +176,60 @@ public class LeitoDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public List<Leito> getLeitosLivresAgendamento(java.util.Date data) {
+		try{
+			List<Leito> lle = new ArrayList<Leito>();
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery("select l.co_leito, l.co_ala, a.ds_ala, l.co_patrimonio from tb_leito as l " +
+						"join tb_status_leito as stl on (l.co_leito = stl.co_leito) " +
+						"join tb_ala as a on (a.co_ala = l.co_ala) " +
+					    "where stl.co_status <> 1 and stl.dt_final is null and l.co_leito not in (select agen.co_leito " +
+						"from tb_agendamento as agen where DATE(agen.dt_agendamento) = '"+new SimpleDateFormat("yyyy-MM-dd").format(data)+"')");
+			while (res.next()) {
+				Leito l = new Leito();
+				l.setCodigoLeito(res.getInt("l.co_leito"));
+				l.setCodigoAla(res.getInt("l.co_ala"));
+				l.setDescricaoAla(res.getString("a.ds_ala"));
+				l.setCodigoPatrimonio(res.getInt("l.co_patrimonio"));
+				lle.add(l);				
+			}
+			return lle;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public int[][] getEstatistica(java.util.Date dataInicio, java.util.Date dataFim) {
+		try{
+			Connection con = ConexaoBD.getInstancia().getConexao();
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery("select count(stl.co_status) as cont, stl.co_leito, stl.co_status " +
+					"from tb_status_leito as stl " +
+					"where co_status = 4 " +
+					"and DATE(stl.dt_inicial) >= '"+new SimpleDateFormat("yyyy-MM-dd").format(dataInicio)+"' " +
+					"and DATE(dt_inicial) <= '"+new SimpleDateFormat("yyyy-MM-dd").format(dataFim)+"' " +
+					"group by stl.co_leito");
+			int tamanho = 0;
+			if (res.last()) {
+				tamanho = res.getRow();
+				res.beforeFirst();
+			}
+			int[][] retorno = new int[tamanho][2];
+			int contador = 0;
+			while (res.next()) {				
+				retorno[contador][0] = res.getInt("stl.co_leito");
+				retorno[contador][1] = res.getInt("cont");
+				contador++;
+			}
+			return retorno;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
 	}
 
 }

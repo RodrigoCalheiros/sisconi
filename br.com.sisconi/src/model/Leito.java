@@ -112,6 +112,16 @@ public class Leito {
 		LeitoDAO ldao = new LeitoDAO();
 		return ldao.getStatusLeito(codigoLeito);
 	}
+	
+	public List<Leito> getLeitosLivresAgendamento(java.util.Date data) {
+		LeitoDAO ldao = new LeitoDAO();
+		return ldao.getLeitosLivresAgendamento(data);
+	}
+	
+	public int[][] getEstatistica(java.util.Date dataInicio, java.util.Date dataFim) {
+		LeitoDAO ldao = new LeitoDAO();
+		return ldao.getEstatistica(dataInicio, dataFim);
+	}
 
 	@Override
 	public String toString() {

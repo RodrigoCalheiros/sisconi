@@ -56,5 +56,13 @@ public class Usuario {
 		List<TipoUsuario> listaTipoUsuario = udao.getTipoUsuario(cpf);
 		return listaTipoUsuario;
 	}
+	@Override
+	public String toString() {
+		return "Usuario [codigoUsuario=" + codigoUsuario + ", nome=" + nome
+				+ ", cpf=" + cpf + ", senha=" + senha + ", tipoUsuario="
+				+ tipoUsuario + "]";
+	}
+	
+	
 	
 }

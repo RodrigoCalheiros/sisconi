@@ -1,11 +1,14 @@
 package teste;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import dao.PacienteDAO;
 
+import model.Agendamento;
 import model.Ala;
 import model.Internacao;
 import model.Leito;
@@ -13,7 +16,7 @@ import model.Medico;
 import model.Paciente;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		/*Paciente p = new Paciente();
 		p.setCpf("99999999999");
 		p.setDataNascimento(new Date("12/12/1956"));
@@ -85,13 +88,29 @@ public class Main {
 //		l = l.getStatusLeito(2);
 //		System.out.println(l.toString());
 		
-		Internacao i = new Internacao();
-		boolean b = i.verificaPacienteInternado("999999999999999");
-		if (b == true) {
-			System.out.println("Paciente Internado");
-		} else {
-			System.out.println("Paciente não internado");
+//		Internacao i = new Internacao();
+//		boolean b = i.verificaPacienteInternado("999999999999999");
+//		if (b == true) {
+//			System.out.println("Paciente Internado");
+//		} else {
+//			System.out.println("Paciente não internado");
+//		}
+		
+//		Leito l = new Leito();
+//		List<Leito> lle = l.getLeitosLivresAgendamento(new Date());
+//		for (int i=0; i<lle.size(); i++) {
+//			System.out.println(lle.get(i));
+//		}
+		
+//		Agendamento a = new Agendamento();
+//		System.out.println(a.getAgendamento("666666666666666").toString());
+		
+		Leito l = new Leito();
+		int[][] lista = l.getEstatistica(new SimpleDateFormat("dd/MM/yyyy").parse("11/04/2013"), new SimpleDateFormat("dd/MM/yyyy").parse("14/04/2013"));
+		for (int i=0; i<lista.length; i++) {
+			System.out.println("Leito: "+lista[i][0]+" Quantidade: "+lista[i][1]);
 		}
+		
 		
 	}
 	

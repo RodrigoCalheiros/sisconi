@@ -24,5 +24,12 @@ public class Medico extends Usuario {
 	public List<Medico> getMedicos() {
 		UsuarioDAO udao = new UsuarioDAO();
 		return udao.getMedicos();
+	}
+	
+	@Override
+	public String toString() {
+		return "Medico [crm=" + crm + ", listaEspecialidade="
+				+ listaEspecialidade + "]";
 	}	
+	
 }

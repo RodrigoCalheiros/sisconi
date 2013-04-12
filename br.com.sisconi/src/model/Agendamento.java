@@ -2,6 +2,8 @@ package model;
 
 import java.util.Date;
 
+import dao.AgendamentoDAO;
+
 public class Agendamento {
 	private int codigoAgendamento;
 	private Date dataAgendamento;
@@ -46,4 +48,39 @@ public class Agendamento {
 	public void setStatusAgendamento(String statusAgendamento) {
 		this.statusAgendamento = statusAgendamento;
 	}
+	
+	public boolean efetuarAgendamento() {
+		AgendamentoDAO adao = new AgendamentoDAO();
+		return adao.insert(this);
+	}
+	
+	public boolean cancelarAgendamento() {
+		AgendamentoDAO adao = new AgendamentoDAO();
+		return adao.update(this);
+	}
+	
+	public boolean verificaPacienteAgendado(String numeroSus) {
+		AgendamentoDAO adao = new AgendamentoDAO();
+		return adao.verificaPacienteAgendado(numeroSus);
+	}
+	
+	public boolean verificaAgendamentoDataLeito(int codigoLeito, java.util.Date data) {
+		AgendamentoDAO adao = new AgendamentoDAO();
+		return adao.verificaAgendamentoDataLeito(codigoLeito, data);
+	}
+	
+	public Agendamento getAgendamento(String numeroSus) {
+		AgendamentoDAO adao = new AgendamentoDAO();
+		return adao.select(numeroSus);
+	}
+	
+	@Override
+	public String toString() {
+		return "Agendamento [codigoAgendamento=" + codigoAgendamento
+				+ ", dataAgendamento=" + dataAgendamento + ", paciente="
+				+ paciente + ", leito=" + leito + ", medico=" + medico
+				+ ", statusAgendamento=" + statusAgendamento + "]";
+	}
+	
+	
 }
