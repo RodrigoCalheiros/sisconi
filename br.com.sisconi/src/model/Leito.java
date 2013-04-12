@@ -113,9 +113,9 @@ public class Leito {
 		return ldao.getStatusLeito(codigoLeito);
 	}
 	
-	public List<Leito> getLeitosLivresAgendamento(java.util.Date data) {
+	public List<Leito> getLeitosLivresAgendamento(java.util.Date data, int codigoAla) {
 		LeitoDAO ldao = new LeitoDAO();
-		return ldao.getLeitosLivresAgendamento(data);
+		return ldao.getLeitosLivresAgendamento(data, codigoAla);
 	}
 	
 	public int[][] getEstatistica(java.util.Date dataInicio, java.util.Date dataFim) {

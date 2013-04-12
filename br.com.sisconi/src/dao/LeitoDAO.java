@@ -178,7 +178,7 @@ public class LeitoDAO {
 		}
 	}
 	
-	public List<Leito> getLeitosLivresAgendamento(java.util.Date data) {
+	public List<Leito> getLeitosLivresAgendamento(java.util.Date data, int codigoAla) {
 		try{
 			List<Leito> lle = new ArrayList<Leito>();
 			Connection con = ConexaoBD.getInstancia().getConexao();
@@ -186,7 +186,7 @@ public class LeitoDAO {
 			ResultSet res = stm.executeQuery("select l.co_leito, l.co_ala, a.ds_ala, l.co_patrimonio from tb_leito as l " +
 						"join tb_status_leito as stl on (l.co_leito = stl.co_leito) " +
 						"join tb_ala as a on (a.co_ala = l.co_ala) " +
-					    "where stl.co_status <> 1 and stl.dt_final is null and l.co_leito not in (select agen.co_leito " +
+					    "where stl.co_status <> 1 and a.co_ala = "+codigoAla+" and stl.dt_final is null and l.co_leito not in (select agen.co_leito " +
 						"from tb_agendamento as agen where DATE(agen.dt_agendamento) = '"+new SimpleDateFormat("yyyy-MM-dd").format(data)+"')");
 			while (res.next()) {
 				Leito l = new Leito();
