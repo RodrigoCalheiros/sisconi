@@ -24,6 +24,7 @@
     	$( "#accordion" ).accordion();
         $( "#check" ).button();
         $( "#format" ).buttonset();
+        $( "#radio" ).buttonset();
 		$( "#datepicker" ).datepicker({
 			changeMonth: true,
 			changeYear: true,

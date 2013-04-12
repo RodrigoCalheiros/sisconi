@@ -21,9 +21,9 @@ public class AgendamentoDAO {
 					a.getLeito().getCodigoLeito()+", " +
 					a.getMedico().getCodigoUsuario()+", " +
 					a.getPaciente().getCodigoPaciente()+", " +
-					new java.sql.Date(a.getDataAgendamento().getTime())+", " +
-					"'Agendado'";
-			
+					"'" + new java.sql.Date(a.getDataAgendamento().getTime())+"', " +
+					"'Agendado')";
+			System.out.println(sqlAgendamento);
 		    smt.execute(sqlAgendamento);
 		    
 //		    String sqlStatusLeito = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial, dt_final) values (" +

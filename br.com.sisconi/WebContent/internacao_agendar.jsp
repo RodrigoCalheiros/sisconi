@@ -100,14 +100,17 @@ function desabilitarCamposPaciente(){
 	$('#co_estado').attr("disabled", true);
 }
 
-function getLeitosLivres(){
+function getLeitosLivresAgendamento(){
 	var coAla = $('#co_ala').val();
-	$.ajax({
-	  url: "ajax_obter_leitos_livres.jsp?co_ala=" + coAla,
-	  context: document.body
-	}).done(function(retornoSucesso) {
-		$('#spanLeitosLivres').html(retornoSucesso);
-	});	
+	var dtAgendamento = $('#dt_agendamento').val();
+	if ((coAla != 0) && (dtAgendamento != "")){
+		$.ajax({
+			  url: "ajax_obter_leitos_livres_agendamento.jsp?co_ala=" + coAla + "&dt_agendamento=" + dtAgendamento,
+			  context: document.body
+			}).done(function(retornoSucesso) {
+				$('#spanLeitosLivres').html(retornoSucesso);
+			});	
+	}	
 }
 
 function remover(pValor,caractere){  
@@ -137,20 +140,17 @@ function validarCadastro(){
 		$('#co_ala').focus();
 		return false;
 	}
-	var idCbMedico = "";
-	var coMedicos = "";
-	var checkboxes = $('input:checkbox');
-	for (i = 0; i < checkboxes.length; i++){
-		idCbMedico = checkboxes[i].id;
-		if (idCbMedico.substring(0,10) == 'cb_medico_'){
-			if ($('#' + checkboxes[i].id).is(":checked")){
-				coMedicos = coMedicos + idCbMedico.substring(10,idCbMedico.length);
-				coMedicos = coMedicos + "_";
-			}
+	var idRdMedico = "";
+	var coMedico = "";
+	var radiosMedico = $('input:radio[name=radio_medico]');
+	for (i = 0; i < radiosMedico.length; i++){
+		if ($('#' + radiosMedico[i].id).is(':checked')){
+			coMedico = $('#' + radiosMedico[i].id).val();
+			break;
 		}	
 	}
-	$('#hidden_co_medicos').val(coMedicos);
-	if (coMedicos == ""){
+	$('#hidden_co_medico').val(coMedico);
+	if ($('#hidden_co_medico').val() == ""){
 		alert("Selecione pelo menos um médico responsável pela internação.");
 		return false;
 	}
@@ -160,11 +160,26 @@ function validarCadastro(){
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja cadastrar a internação?")){
-			document.forms['frm_internacao'].submit();	
+		if (confirm("Você deseja cadastrar o agendamento da internação?")){
+			document.forms['frm_agendamento_internacao'].submit();	
 		}	
 	} 
 }
+</script>
+<script type="text/javascript">
+	$(function(){
+		$( ".datepicker" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "1900:<%=new java.util.Date()%>",
+			dateFormat: 'dd/mm/yy',
+	        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+	        dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+		});
+	});
 </script>
 <body onload="mostrarMsg()">
 <table class="tblConteudo">
@@ -173,8 +188,8 @@ function salvarCadastro(){
 </tr>
 <tr>
 	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Agendar Internação</font><hr>
-		<form id="frm_internacao" action="internacao_iniciar_processa.jsp" method="post">
-		<input type="hidden" id="hidden_co_medicos" name="hidden_co_medicos" value="">
+		<form id="frm_agendamento_internacao" action="internacao_agendar_processa.jsp" method="post">
+		<input type="hidden" id="hidden_co_medico" name="hidden_co_medico" value="">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
@@ -196,9 +211,13 @@ function salvarCadastro(){
 						</thead>
 						<tbody>
 							<tr>
+								<td align="right">Data Agendamento:</td>
+								<td align="left"><input type="text" class="datepicker" id="dt_agendamento" name="dt_agendamento" maxlength="10" size="50" onKeyPress="MascaraData(form.dt_agendamento);" onchange="getLeitosLivresAgendamento()" required></td>
+							</tr>
+							<tr>
 								<td align="right" width="180px">Ala:</td>
 								<td align="left">
-									<select id="co_ala" name="co_ala" onchange="getLeitosLivres()"  required>
+									<select id="co_ala" name="co_ala" onchange="getLeitosLivresAgendamento()"  required>
 									 	<option value="0">--</option>
 									<%      
 									   try {  
@@ -217,7 +236,7 @@ function salvarCadastro(){
 								</td>
 							</tr>
 							<tr>
-								<td align="right">Leito livre:</td>
+								<td align="right">Leito:</td>
 								<td align="left"><span id="spanLeitosLivres">--</span></td>
 							</tr>
 						</tbody>
@@ -237,14 +256,14 @@ function salvarCadastro(){
 						<tbody>
 							<tr>
 								<td colspan="2" align="left">
-									<div id="format">
+									<div id="radio">
     								<%      
 									 	List<Medico> lMedico = medico.getMedicos();
 									   	for (int j=0; j<lMedico.size(); j++) {
 									   		Medico m = lMedico.get(j);
 									%>
-	    									<input type="checkbox" id="cb_medico_<%=m.getCodigoUsuario()%>" name="" />
-	    									<label for="cb_medico_<%=m.getCodigoUsuario()%>">
+	    									<input type="radio" id="radio_medico_<%=m.getCodigoUsuario()%>" name="radio_medico" value="<%=m.getCodigoUsuario()%>" />
+	    									<label for="radio_medico_<%=m.getCodigoUsuario()%>">
 	    										<%=m.getNome()%><br>
 	    										CRM:<%=m.getCrm()%><br>
 	    									</label>

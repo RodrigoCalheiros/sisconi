@@ -150,7 +150,7 @@ function validarCadastro(){
 		}	
 	}
 	$('#hidden_co_medicos').val(coMedicos);
-	if (coMedicos == ""){
+	if ($('#hidden_co_medicos').val() == ""){
 		alert("Selecione pelo menos um médico responsável pela internação.");
 		return false;
 	}
