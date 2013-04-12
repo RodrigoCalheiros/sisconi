@@ -1,3 +1,4 @@
+<%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%@ page contentType="text/html" language="java" import="java.sql.*, java.util.*, model.Cidade"%>
  <jsp:useBean id="paciente" class="model.Paciente"/> 
 <%

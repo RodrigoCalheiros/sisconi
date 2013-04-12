@@ -1,3 +1,4 @@
+<%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%@ page contentType="text/html" language="java" import="java.util.*, model.Agendamento"%>
  <jsp:useBean id="agendamento" class="model.Agendamento"/> 
 <%

@@ -1,3 +1,4 @@
+<%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html" language="java" import="java.util.*, model.Estado, model.Paciente"%>
  <jsp:useBean id="paciente" class="model.Paciente"/> 

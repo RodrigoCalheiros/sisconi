@@ -14,14 +14,14 @@ function mostrarMsg(){
 	}
 }
 
-function existeInternacaoAbertaNrSus(pNrSus){
-	var retorno = 1;
+function existeAgendamentoAtivoNrSus(pNrSus){
+	var retorno = 0;
 	$.ajax({
-		  url: "ajax_existe_internacao_aberta_nr_sus.jsp?nr_sus=" + pNrSus,
+		  url: "ajax_existe_agendamento_ativo_nr_sus.jsp?nr_sus=" + pNrSus,
 		  async: false
 		}).done(function(retornoSucesso) {
-			if (retornoSucesso == 0){
-				retorno =  0;
+			if (retornoSucesso == 1){
+				retorno =  1;
 			}
 		});
 	return retorno;
@@ -40,23 +40,23 @@ function getExisteNrSusPaciente(pNrSus){
 	return retorno;
 }
 
-function getInternacaoAtivaBloqueandoCampos(pNrSus){
+function getAgendamentoAtivoBloqueandoCampos(pNrSus){
 	$.ajax({
-		url: "ajax_obter_internacao_ativa_nr_sus.jsp?nr_sus=" + pNrSus
+		url: "ajax_obter_agendamento_ativo_nr_sus.jsp?nr_sus=" + pNrSus
 		}).done(function(retornoSucesso) {
 			if (retornoSucesso != 0){
-				$('#span_dados_internacao').html(retornoSucesso);
-				desabilitarCamposInternacao();
+				$('#span_dados_agendamento').html(retornoSucesso);
+				desabilitarCamposAgendamento();
 				$('#spanBtSalvar').show();
 			}else{
-				$('#span_dados_internacao').html("");
+				$('#span_dados_agendamento').html("");
 				$('#spanBtSalvar').hide();
-				alert("Internação não localizada.");
+				alert("Agendamento não localizada.");
 			}
 	});	
 }
 
-function obterInternacaoAtivaNrSus(){
+function obterAgendamentoAtivoNrSus(){
 	var pNrLocalizarSUS = remover($('#nr_localizar_sus').val(), ' ');
 	if (pNrLocalizarSUS == ""){
 		alert("O número do SUS do paciente deve ser preenchido.");
@@ -67,11 +67,11 @@ function obterInternacaoAtivaNrSus(){
 		var nrSus = $('#nr_localizar_sus').val();
 		existeNrSus = getExisteNrSusPaciente(nrSus);
 		if (existeNrSus == 1){
-			if (existeInternacaoAbertaNrSus(nrSus) == 1){
-				getInternacaoAtivaBloqueandoCampos($('#nr_localizar_sus').val());
+			if (existeAgendamentoAtivoNrSus(nrSus) == 1){
+				getAgendamentoAtivoBloqueandoCampos($('#nr_localizar_sus').val());	
 			}
 			else{
-				alert("Não existe uma internação ativa para esse paciente.");
+				alert("Não existe um agendamento ativo para esse paciente.");
 			}
 		}
 		else{
@@ -81,15 +81,27 @@ function obterInternacaoAtivaNrSus(){
 	}
 }
 
-function desabilitarCamposInternacao(){
+function desabilitarCamposAgendamento(){
+	$('#ds_status_agendamento').attr("disabled", true);
 	$('#nm_paciente').attr("disabled", true);
 	$('#nm_mae').attr("disabled", true);
-	$('#dt_inicial').attr("disabled", true);
-	$('#dt_final').attr("disabled", true);
-	$('#ds_ala_atual').attr("disabled", true);
-	$('#co_leito_atual').attr("disabled", true);
-	$('.checkbox').attr("disabled", true);
-	$('#ds_alta').attr("disabled", true);
+	$('#dt_agendamento').attr("disabled", true);
+	$('#ds_ala').attr("disabled", true);
+	$('#co_leito').attr("disabled", true);
+	$('.radio').attr({disabled: true});
+}
+
+function getLeitosLivresAgendamento(){
+	var coAla = $('#co_ala').val();
+	var dtAgendamento = $('#dt_agendamento').val();
+	if ((coAla != 0) && (dtAgendamento != "")){
+		$.ajax({
+			  url: "ajax_obter_leitos_livres_agendamento.jsp?co_ala=" + coAla + "&dt_agendamento=" + dtAgendamento,
+			  context: document.body
+			}).done(function(retornoSucesso) {
+				$('#spanLeitosLivres').html(retornoSucesso);
+			});	
+	}	
 }
 
 function remover(pValor,caractere){  
@@ -111,8 +123,8 @@ function validarCadastro(){
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja encerrar a internação?")){
-			document.forms['frm_internacao_encerrar'].submit();	
+		if (confirm("Você deseja cancelar o agendamento da internação?")){
+			document.forms['frm_internacao_cancelar'].submit();	
 		}	
 	} 
 }
@@ -123,16 +135,16 @@ function salvarCadastro(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Encerrar Internação</font><hr>
-		<form id="frm_internacao_encerrar" action="internacao_encerrar_processa.jsp" method="post">
+	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Cancelar Agendamento</font><hr>
+		<form id="frm_internacao_cancelar" action="internacao_agendar_cancelar_processa.jsp" method="post">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
-				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="30" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterInternacaoAtivaNrSus()"></td>
+				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="30" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterAgendamentoAtivoNrSus()"></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<span id="span_dados_internacao"></span>
+					<span id="span_dados_agendamento"></span>
 				</td>
 			</tr>
 			<tr>
