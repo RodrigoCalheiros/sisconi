@@ -1,4 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
+<%
+if (!(session.getAttribute("co_tipo_usuario").equals(1))){
+	response.sendRedirect("acesso_negado.jsp");
+}
+%>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Estado, model.Paciente"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="paciente" class="model.Paciente"/>
@@ -174,7 +179,7 @@ function onBlurNrSus(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Paciente > Cadastrar Paciente</font><hr>
+	<td class="tblConteudoCorpo"><br><font color="#28166F" style="font-weight: bold;">Paciente > Cadastrar Paciente</font><hr>
 		<form id="frm_paciente" action="paciente_cadastrar_processa.jsp" method="post">
 			<table class="tbl" width="100%">
 				<thead>

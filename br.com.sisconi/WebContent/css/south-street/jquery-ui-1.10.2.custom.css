@@ -529,7 +529,7 @@ button.ui-button::-moz-focus-inner {
 	margin: 0;
 	display: block;
 	outline: none;
-	z-index: 10;
+	z-index: 9999;
 }
 .ui-menu .ui-menu {
 	overflow: visible !important;

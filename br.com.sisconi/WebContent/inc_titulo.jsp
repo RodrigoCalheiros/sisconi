@@ -43,32 +43,32 @@
 	    <li>
 	        <a href="#"><img src="_imagens/icones/16X16/address-book.gif">&nbsp;Paciente</a>
 	        <ul>
-	            <li><a href="paciente_cadastrar.jsp">Cadastrar Paciente</a></li>
-	            <li><a href="paciente_localizar.jsp">Localizar Paciente</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(1))){ %>class="ui-state-disabled"<%}%>><a href="paciente_cadastrar.jsp">Cadastrar Paciente</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(1))){ %>class="ui-state-disabled"<%}%>><a href="paciente_localizar.jsp">Localizar Paciente</a></li>
 	        </ul>
 	    </li>
 	    <li>
 	        <a href="#"><img src="_imagens/icones/16X16/leito.png">&nbsp;Leito</a>
 	        <ul>
-	            <li><a href="leito_cadastrar.jsp">Cadastrar Leito</a></li>
-	            <li><a href="leito_monitorar.jsp">Monitorar Leitos</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(2))){ %>class="ui-state-disabled"<%}%>><a href="leito_cadastrar.jsp">Cadastrar Leito</a></li>
+	            <li <%if (session.getAttribute("co_tipo_usuario").equals(3)){ %>class="ui-state-disabled"<%}%>><a href="leito_monitorar.jsp">Monitorar Leitos</a></li>
 	        </ul>
 	    </li>
 	    <li>
 	        <a href="#"><img src="_imagens/icones/16X16/notepad.gif">&nbsp;Internação</a>
 	        <ul>
-	            <li><a href="internacao_iniciar.jsp">Iniciar Internação</a></li>
-	            <li><a href="internacao_encerrar.jsp">Encerrar Internação</a></li>
-	            <li><a href="internacao_dar_alta.jsp">Dar Alta</a></li>
-	            <li><a href="internacao_remanejar.jsp">Remanejar Internação</a></li>
-	            <li><a href="internacao_agendar.jsp">Agendar Internação</a></li>
-	            <li><a href="internacao_agendar_cancelar.jsp">Cancelar Agendamento</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(1))){ %>class="ui-state-disabled"<%}%>><a href="internacao_iniciar.jsp">Iniciar Internação</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(1))){ %>class="ui-state-disabled"<%}%>><a href="internacao_encerrar.jsp">Encerrar Internação</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(3))){ %>class="ui-state-disabled"<%}%>><a href="internacao_dar_alta.jsp">Dar Alta</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(2))){ %>class="ui-state-disabled"<%}%>><a href="internacao_remanejar.jsp">Remanejar Internação</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(1))){ %>class="ui-state-disabled"<%}%>><a href="internacao_agendar.jsp">Agendar Internação</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(1))){ %>class="ui-state-disabled"<%}%>><a href="internacao_agendar_cancelar.jsp">Cancelar Agendamento</a></li>
 	        </ul>
 	    </li>
 	    <li>
 	        <a href="#"><img src="_imagens/icones/16X16/calculator.gif">&nbsp;Estatísticas</a>
 	        <ul>
-	            <li><a href="estatistica_ocupacao_de_leitos.jsp">Estatística de Ocupação dos Leitos</a></li>
+	            <li <%if (!(session.getAttribute("co_tipo_usuario").equals(2))){ %>class="ui-state-disabled"<%}%>><a href="estatistica_ocupacao_de_leitos.jsp">Estatística de Ocupação dos Leitos</a></li>
 	        </ul>
 	    </li>
 	    <li>
