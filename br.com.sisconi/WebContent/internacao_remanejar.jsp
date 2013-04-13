@@ -1,8 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%
-if (!(session.getAttribute("co_tipo_usuario").equals(2))){
-	response.sendRedirect("acesso_negado.jsp");
-}
+if (session.getAttribute("co_tipo_usuario") != null){
+	if (!(session.getAttribute("co_tipo_usuario").equals(2))){
+		response.sendRedirect("acesso_negado.jsp");
+	}
 %>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala, model.Especialidade, model.Medico"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -134,7 +135,7 @@ function validarCadastro(){
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja remanejar a internação?")){
+		if (confirm("Você deseja remanejar o paciente do leito " + $('#co_leito_atual').val() + " para o leito " + $('#co_leito').val() + "?")){
 			document.forms['frm_internacao_remanejar'].submit();	
 		}	
 	} 
@@ -146,7 +147,7 @@ function salvarCadastro(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Remanejar Internação</font><hr>
+	<td class="tblConteudoCorpo"><br><font color="#28166F" style="font-weight: bold;">Internação > Remanejar Internação</font><hr>
 		<form id="frm_internacao_remanejar" action="internacao_remanejar_processa.jsp" method="post">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
@@ -169,7 +170,7 @@ function salvarCadastro(){
 						</thead>
 						<tbody>
 							<tr>
-								<td align="right" width="180px">Nova Ala:</td>
+								<td align="right" width="180px">Ala*:</td>
 								<td align="left">
 									<select id="co_ala" name="co_ala" onchange="getLeitosLivres()"  required>
 									 	<option value="0">--</option>
@@ -190,8 +191,12 @@ function salvarCadastro(){
 								</td>
 							</tr>
 							<tr>
-								<td align="right">Novo Leito livre:</td>
+								<td align="right">Novo Leito livre*:</td>
 								<td align="left"><span id="spanLeitosLivres">--</span></td>
+							</tr>
+							<tr>
+								<td align="left">* Campo Obrigatório</td>
+								<td align="left"></td>
 							</tr>
 						</tbody>
 						</table>
@@ -214,3 +219,6 @@ function salvarCadastro(){
 </table>
 </body>
 </html>
+<%
+}
+%>

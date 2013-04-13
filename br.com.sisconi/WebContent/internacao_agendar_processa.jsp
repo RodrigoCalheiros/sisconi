@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="agendamento" class="model.Agendamento"/>
 <%
+	String pNrSus = request.getParameter("hidden_nr_sus");
+
 	String pStringCoPaciente = request.getParameter("hidden_co_paciente");
 	int pCoPaciente = Integer.parseInt(pStringCoPaciente);
 
@@ -32,7 +34,7 @@
     
  	boolean retorno = agendamento.efetuarAgendamento();
  	if (retorno == true){
-		response.sendRedirect("internacao_agendar.jsp?msg='Agendamento de internação cadastrado com sucesso.'");
+		response.sendRedirect("internacao_agendar.jsp?msg='Agendamento de internação do paciente com número de SUS " + pNrSus + " cadastrado com sucesso.'");
 	}
 	else{
 		response.sendRedirect("internacao_agendar.jsp?msg='Erro ao cadastrar o agendamento da internação.'");

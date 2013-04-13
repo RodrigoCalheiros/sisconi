@@ -5,6 +5,8 @@
 <jsp:useBean id="paciente" class="model.Paciente"/>
 <jsp:useBean id="leito" class="model.Leito"/>
 <%
+	String pNrSus = request.getParameter("hidden_nr_sus");
+
 	String pStringCoPaciente = request.getParameter("hidden_co_paciente");
 	int pCoPaciente = Integer.parseInt(pStringCoPaciente);
 
@@ -36,7 +38,7 @@
     
 	boolean retorno = internacao.iniciarInternacao();
 	if (retorno == true){
-		response.sendRedirect("internacao_iniciar.jsp?msg='Internação cadastrada com sucesso.'");
+		response.sendRedirect("internacao_iniciar.jsp?msg='Internação do paciente com número do SUS " + pNrSus + " cadastrada com sucesso.'");
 	}
 	else{
 		response.sendRedirect("internacao_iniciar.jsp?msg='Erro ao cadastrar a internação.'");

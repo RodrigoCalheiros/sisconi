@@ -11,37 +11,38 @@
 	String coresGrafico = "[";
 	String tituloGrafico = "Ocupação de leitos no período de " + pStringDtInicial + " à " + pStringDtFinal;
 	int contador = 0;
-    for (int i=0; i < vOcupacaoLeitos.length; i++) {
-    	if (i>0){
-    		dadosGrafico = dadosGrafico + ", ";
-    		coresGrafico = coresGrafico + ", ";
-    	}
-    	contador++;
-    	dadosGrafico = dadosGrafico + "['" + vOcupacaoLeitos[i][0] + "', " + vOcupacaoLeitos[i][1] + "]";
-    	if (contador == 1){
-    		coresGrafico = coresGrafico + "'#FA5E1F'";	
-    	}
-    	else if (contador == 2){
-    		coresGrafico = coresGrafico + "'#FDCB3F'";	
-    	}
-    	else if (contador == 3){
-    		coresGrafico = coresGrafico + "'#71D743'";	
-    	}
-    	else if (contador == 4){
-    		coresGrafico = coresGrafico + "'#D23333'";	
-    	}
-    	else if (contador == 5){
-    		coresGrafico = coresGrafico + "'#BAE73F'";	
-    	}
-    	else if (contador == 6){
-    		coresGrafico = coresGrafico + "'#AB7B55'";	
-    	}
-    	else{
-    		coresGrafico = coresGrafico + "'#B381C9'";
-    		contador = 0;
-    	}
-    }
-    coresGrafico = coresGrafico + "]";
+	if (vOcupacaoLeitos.length > 0){
+	    for (int i=0; i < vOcupacaoLeitos.length; i++) {
+	    	if (i>0){
+	    		dadosGrafico = dadosGrafico + ", ";
+	    		coresGrafico = coresGrafico + ", ";
+	    	}
+	    	contador++;
+	    	dadosGrafico = dadosGrafico + "['" + vOcupacaoLeitos[i][0] + "', " + vOcupacaoLeitos[i][1] + "]";
+	    	if (contador == 1){
+	    		coresGrafico = coresGrafico + "'#FA5E1F'";	
+	    	}
+	    	else if (contador == 2){
+	    		coresGrafico = coresGrafico + "'#FDCB3F'";	
+	    	}
+	    	else if (contador == 3){
+	    		coresGrafico = coresGrafico + "'#71D743'";	
+	    	}
+	    	else if (contador == 4){
+	    		coresGrafico = coresGrafico + "'#D23333'";	
+	    	}
+	    	else if (contador == 5){
+	    		coresGrafico = coresGrafico + "'#BAE73F'";	
+	    	}
+	    	else if (contador == 6){
+	    		coresGrafico = coresGrafico + "'#AB7B55'";	
+	    	}
+	    	else{
+	    		coresGrafico = coresGrafico + "'#B381C9'";
+	    		contador = 0;
+	    	}
+	    }
+	    coresGrafico = coresGrafico + "]";
 %>
 <script type="text/javascript">
 	var myData = new Array(<%=dadosGrafico%>);
@@ -70,5 +71,12 @@
 	myChart.setSize(720, 400);
 	myChart.setBackgroundImage('chart_bg.jpg');
 	myChart.draw();
-	
 </script>
+<%
+	}
+	else{
+%>
+<%=0 %>
+<%
+	}
+%>

@@ -1,8 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%
-if (session.getAttribute("co_tipo_usuario").equals(3)){
-	response.sendRedirect("acesso_negado.jsp");
-}
+if (session.getAttribute("co_tipo_usuario") != null){
+	if (session.getAttribute("co_tipo_usuario").equals(3)){
+		response.sendRedirect("acesso_negado.jsp");
+	}
 %>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,28 +54,37 @@ function obterLeitos(){
 }
 
 function desbloquearLeito(pCoLeito, pCoStatus){
-	$.ajax({
-		url: "ajax_desbloquear_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
-		}).done(function(retornoSucesso) {
-			obterStatusLeito(pCoLeito);
-		});
+	if (confirm("Você deseja desbloquear o leito " + pCoLeito + " ?")){
+		$.ajax({
+			url: "ajax_desbloquear_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
+			}).done(function(retornoSucesso) {
+				obterStatusLeito(pCoLeito);
+				alert("Leito " + pCoLeito + " desbloqueado com sucesso.");
+			});
+	}
 }
 
 function liberarLeito(pCoLeito, pCoStatus){
-	$.ajax({
-		url: "ajax_liberar_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
-		}).done(function(retornoSucesso) {
-			obterStatusLeito(pCoLeito);
-		});
+	if (confirm("Você deseja liberar o leito " + pCoLeito + " ?")){
+		$.ajax({
+			url: "ajax_liberar_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
+			}).done(function(retornoSucesso) {
+				obterStatusLeito(pCoLeito);
+				alert("Leito " + pCoLeito + " liberado com sucesso.");
+			});
+	}
 }
 
 function bloquearLeito(pCoLeito, pCoStatus){
-	$.ajax({
-		url: "ajax_bloquear_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
-		}).done(function(retornoSucesso) {
-			obterStatusLeito(pCoLeito);
-		
-		});
+	if (confirm("Você deseja bloquear o leito " + pCoLeito + " ?")){
+		$.ajax({
+			url: "ajax_bloquear_leito.jsp?co_leito=" + pCoLeito + "&co_status=" + pCoStatus,
+			}).done(function(retornoSucesso) {
+				obterStatusLeito(pCoLeito);
+				alert("Leito " + pCoLeito + " bloqueado com sucesso.");
+			
+			});
+	}
 }
 
 </script>
@@ -151,3 +161,6 @@ function bloquearLeito(pCoLeito, pCoStatus){
 </table>
 </body>
 </html>
+<%
+}
+%>

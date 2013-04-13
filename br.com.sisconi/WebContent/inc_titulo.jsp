@@ -1,3 +1,6 @@
+<% 
+	if (session.getAttribute("co_usuario") != null){
+%>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#menu").menu({
@@ -81,3 +84,6 @@
 	</td>
 </tr>
 </table>
+<%
+	}
+%>
