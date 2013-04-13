@@ -73,14 +73,4 @@ public class Agendamento {
 		AgendamentoDAO adao = new AgendamentoDAO();
 		return adao.select(numeroSus);
 	}
-	
-	@Override
-	public String toString() {
-		return "Agendamento [codigoAgendamento=" + codigoAgendamento
-				+ ", dataAgendamento=" + dataAgendamento + ", paciente="
-				+ paciente + ", leito=" + leito + ", medico=" + medico
-				+ ", statusAgendamento=" + statusAgendamento + "]";
-	}
-	
-	
 }

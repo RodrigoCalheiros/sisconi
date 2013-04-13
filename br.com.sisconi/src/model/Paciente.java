@@ -157,20 +157,4 @@ public class Paciente {
 		PacienteDAO pdao = new PacienteDAO();
 		return pdao.existeNumeroSusPaciente(numeroSus);
 	}
-	
-	@Override
-	public String toString() {
-		return "Paciente [codigoPaciente=" + codigoPaciente + ", nome=" + nome
-				+ ", nomeMae=" + nomeMae + ", cpf=" + cpf + ", numeroSus="
-				+ numeroSus + ", enderecoRua=" + enderecoRua
-				+ ", enderecoNumero=" + enderecoNumero + ", enderecoBairro="
-				+ enderecoBairro + ", enderecoCEP=" + enderecoCEP
-				+ ", enderecoComplemento=" + enderecoComplemento
-				+ ", enderecoCidade=" + enderecoCidade + ", enderecoEstado="
-				+ enderecoEstado + ", numeroTelefone=" + numeroTelefone
-				+ ", dataNascimento=" + dataNascimento + "]";
-	}
-	
-	
-	
 }

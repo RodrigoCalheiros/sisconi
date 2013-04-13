@@ -122,14 +122,4 @@ public class Leito {
 		LeitoDAO ldao = new LeitoDAO();
 		return ldao.getEstatistica(dataInicio, dataFim);
 	}
-
-	@Override
-	public String toString() {
-		return "Leito [codigoLeito=" + codigoLeito + ", codigoAla=" + codigoAla
-				+ ", codigoPatrimonio=" + codigoPatrimonio
-				+ ", codigoStatusLeito=" + codigoStatusLeito
-				+ ", descricaoStatusLeito=" + descricaoStatusLeito + "]";
-	}
-	
-	
 }

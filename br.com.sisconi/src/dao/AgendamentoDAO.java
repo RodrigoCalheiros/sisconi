@@ -30,13 +30,6 @@ public class AgendamentoDAO {
 					"'Agendado')";
 		    smt.execute(sqlAgendamento);
 		    
-//		    String sqlStatusLeito = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial, dt_final) values (" +
-//		    		"(select count(temp.co_leito)+1 from (select co_leito from tb_status_leito) as temp where temp.co_leito = "+a.getLeito().getCodigoLeito()+"), " +
-//					a.getLeito().getCodigoLeito()+", " +
-//					"5, " +
-//					a.getDataAgendamento()+", " +
-//					a.getDataAgendamento()+")";
-//		    smt.execute(sqlStatusLeito);
 		    smt.close();
 		    
 		    return true;			

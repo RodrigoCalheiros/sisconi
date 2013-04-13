@@ -22,8 +22,5 @@ public class Estado {
 	}
 	public void setUF(String uF) {
 		UF = uF;
-	}
-	
-	
-	
+	}	
 }

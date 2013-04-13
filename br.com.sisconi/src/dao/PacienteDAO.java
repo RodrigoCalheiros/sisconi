@@ -46,16 +46,6 @@ public class PacienteDAO {
 			psmt.executeUpdate();
 			psmt.close();
 			
-			/*String sqlPaciente = "insert into tb_paciente (nr_sus, nr_cpf, nm_paciente, nm_mae, nr_telefone, dt_nascimento) " +
-					"values (" +
-					"'"+p.getNumeroSus()+"', " +
-					"'"+p.getCpf()+"', " +
-					"'"+p.getNome()+"', " +
-					"'"+p.getNomeMae()+"', " +
-					"'"+p.getNumeroTelefone()+"', " +
-					"'"+new Date(p.getDataNascimento().getTime())+"'" +
-					")";*/
-			
 			PreparedStatement psmtEndereco = con.prepareStatement("insert into tb_endereco (co_paciente, ds_rua, ds_numero, ds_bairro, ds_cep, ds_complemento, co_cidade) " +
 					"values (?,?,?,?,?,?,?)");
 			
@@ -74,30 +64,6 @@ public class PacienteDAO {
 			psmtEndereco.executeUpdate();
 			psmtEndereco.close();
 			
-			/*String sqlEndereco = "insert into tb_endereco (co_paciente, " +
-					"ds_rua, " +
-					"ds_numero, " +
-					"ds_bairro, " +
-					"ds_cep, " +
-					"ds_complemento, " +
-					"co_cidade) " +
-					"values " +
-					"((select tb_paciente.co_paciente from tb_paciente where tb_paciente.nr_sus like '"+p.getNumeroSus()+"'), " +
-					"'"+p.getEnderecoRua()+"', " +
-					"'"+p.getEnderecoNumero()+"', " +
-					"'"+p.getEnderecoBairro()+"', " +
-					"'"+p.getEnderecoCEP()+"', " +
-					"'"+p.getEnderecoComplemento()+"', " + 
-					"'"+p.getEnderecoCodigoCidade()+"')";*/
-	
-		    //Statement smt = con.createStatement();
-		    //smt.execute(sqlPaciente);
-		    //smt.execute(sqlEndereco);
-		    //smt.close();
-		    
-		    System.out.println("Paciente "+p.getNome()+" inserido com sucesso.");
-		    
-		    //ConexaoBD.getInstancia().fecharConexao();
 		    return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -151,7 +117,6 @@ public class PacienteDAO {
 				p.setEnderecoCodigoCidade(res.getInt("tb_cidade.co_cidade"));
 				p.setEnderecoCodigoEstado(res.getInt("tb_estado.co_estado"));
 			}
-			//ConexaoBD.getInstancia().fecharConexao();
 			return p;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -192,17 +157,6 @@ public class PacienteDAO {
 			psmt.executeUpdate();
 			psmt.close();
 			
-			/*Statement stm = con.createStatement();
-			String sqlPaciente = "UPDATE tb_paciente SET " +
-					"nr_sus = '"+p.getNumeroSus()+"', " +
-					"nr_cpf = '"+p.getCpf()+"', " +
-					"nm_paciente = '"+p.getNome()+"', " +
-					"nm_mae = '"+p.getNomeMae()+"', " +
-					"nr_telefone = '"+p.getNumeroTelefone()+"', " +
-					"dt_nascimento = '"+new Date(p.getDataNascimento().getTime())+"' " +
-					"WHERE co_paciente = "+p.getCodigoPaciente();
-			stm.executeUpdate(sqlPaciente);*/
-			
 			PreparedStatement psmtEndereco = con.prepareStatement("update tb_endereco set ds_rua=?, ds_numero=?, ds_bairro=?, ds_cep=?, ds_complemento=?, co_cidade=? where co_paciente=?");
 			
 			psmtEndereco.setString(1, p.getEnderecoRua());
@@ -216,16 +170,6 @@ public class PacienteDAO {
 			psmtEndereco.executeUpdate();
 			psmtEndereco.close();
 			
-			/*String sqlEndereco = "UPDATE tb_endereco SET " +
-					"ds_rua = '"+p.getEnderecoRua()+"', " +
-					"ds_numero = '"+p.getEnderecoNumero()+"', " +
-					"ds_bairro = '"+p.getEnderecoBairro()+"', " +
-					"ds_cep = '"+p.getEnderecoCEP()+"', " +
-					"ds_complemento = '"+p.getEnderecoComplemento()+"', " +
-					"co_cidade = "+p.getEnderecoCodigoCidade()+" " +
-					"WHERE co_paciente = "+p.getCodigoPaciente();
-			stm.executeUpdate(sqlEndereco);
-			stm.close();*/
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
