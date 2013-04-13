@@ -17,6 +17,11 @@ public class AgendamentoDAO {
 			Connection con = ConexaoBD.getInstancia().getConexao();
 			Statement smt = con.createStatement();
 			
+			boolean verifica = verificaAgendamentoDataLeito(a.getLeito().getCodigoLeito(), a.getDataAgendamento());
+			if (verifica) {
+				return false;
+			}
+			
 			String sqlAgendamento = "insert into tb_agendamento (co_leito, co_usuario, co_paciente, dt_agendamento, ds_status_agendamento) values (" +
 					a.getLeito().getCodigoLeito()+", " +
 					a.getMedico().getCodigoUsuario()+", " +
@@ -56,7 +61,7 @@ public class AgendamentoDAO {
 					"join tb_medico as m on m.co_usuario = a.co_usuario " +
 					"join tb_ala as ala on l.co_ala = ala.co_ala " +
 					"join tb_usuario as u on u.co_usuario = m.co_usuario " +
-					"where p.nr_sus like '"+numeroSus+"'";
+					"where p.nr_sus like '"+numeroSus+"' and a.ds_status_agendamento like 'Agendado'";
 			
 		    ResultSet res = smt.executeQuery(sqlAgendamento);
 		    

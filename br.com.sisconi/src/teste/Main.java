@@ -96,20 +96,20 @@ public class Main {
 //			System.out.println("Paciente não internado");
 //		}
 		
-//		Leito l = new Leito();
-//		List<Leito> lle = l.getLeitosLivresAgendamento(new Date());
-//		for (int i=0; i<lle.size(); i++) {
-//			System.out.println(lle.get(i));
-//		}
+		Leito l = new Leito();
+		List<Leito> lle = l.getLeitosLivresAgendamento(new SimpleDateFormat("dd/MM/yyyy").parse("18/04/2013"), 1);
+		for (int i=0; i<lle.size(); i++) {
+			System.out.println(lle.get(i));
+		}
 		
 //		Agendamento a = new Agendamento();
 //		System.out.println(a.getAgendamento("666666666666666").toString());
 		
-		Leito l = new Leito();
-		int[][] lista = l.getEstatistica(new SimpleDateFormat("dd/MM/yyyy").parse("11/04/2013"), new SimpleDateFormat("dd/MM/yyyy").parse("14/04/2013"));
-		for (int i=0; i<lista.length; i++) {
-			System.out.println("Leito: "+lista[i][0]+" Quantidade: "+lista[i][1]);
-		}
+//		Leito l = new Leito();
+//		int[][] lista = l.getEstatistica(new SimpleDateFormat("dd/MM/yyyy").parse("11/04/2013"), new SimpleDateFormat("dd/MM/yyyy").parse("14/04/2013"));
+//		for (int i=0; i<lista.length; i++) {
+//			System.out.println("Leito: "+lista[i][0]+" Quantidade: "+lista[i][1]);
+//		}
 		
 		
 	}
