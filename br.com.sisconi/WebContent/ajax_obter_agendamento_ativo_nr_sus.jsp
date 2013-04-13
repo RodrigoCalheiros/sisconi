@@ -9,7 +9,7 @@
 	if (agend.getCodigoAgendamento() > 0){
 		Date dtAgendamento = null;
 		String strDtAgendamento = "";
-		java.text.DateFormat dateformat = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		java.text.DateFormat dateformat = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		if(agend.getDataAgendamento() != null){
 			dtAgendamento = agend.getDataAgendamento();
 			strDtAgendamento = dateformat.format(dtAgendamento);
