@@ -16,6 +16,6 @@
 		response.sendRedirect("leito_cadastrar.jsp?msg='Leito " + pCoPatrimonio + " cadastrado com sucesso.'");
 	}
 	else{
-		response.sendRedirect("leito_cadastrar.jsp?msg='Erro ao cadastrar o leito.'");
+		response.sendRedirect("leito_cadastrar.jsp?msg='Leito " + pCoPatrimonio + " já cadastrado.'");
 	}
 %>

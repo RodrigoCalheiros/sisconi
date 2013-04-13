@@ -28,7 +28,6 @@ public class AgendamentoDAO {
 					a.getPaciente().getCodigoPaciente()+", " +
 					"'" + new java.sql.Date(a.getDataAgendamento().getTime())+"', " +
 					"'Agendado')";
-			System.out.println(sqlAgendamento);
 		    smt.execute(sqlAgendamento);
 		    
 //		    String sqlStatusLeito = "insert into tb_status_leito (co_status_leito, co_leito, co_status, dt_inicial, dt_final) values (" +
@@ -61,7 +60,8 @@ public class AgendamentoDAO {
 					"join tb_medico as m on m.co_usuario = a.co_usuario " +
 					"join tb_ala as ala on l.co_ala = ala.co_ala " +
 					"join tb_usuario as u on u.co_usuario = m.co_usuario " +
-					"where p.nr_sus like '"+numeroSus+"' and a.ds_status_agendamento like 'Agendado'";
+					"where p.nr_sus like '"+numeroSus+"' and a.ds_status_agendamento like 'Agendado' " + 
+					"and DATE(a.dt_agendamento) >= curdate()";
 			
 		    ResultSet res = smt.executeQuery(sqlAgendamento);
 		    

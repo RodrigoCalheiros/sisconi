@@ -75,10 +75,7 @@
 	        </ul>
 	    </li>
 	    <li>
-	        <a href="#"><img src="_imagens/icones/16X16/configure.gif">&nbsp;Opções</a>
-	        <ul>
-	            <li><a href="logoff_processa.jsp">Sair do Sistema</a></li>
-	        </ul>
+	        <a href="logoff_processa.jsp"><img src="_imagens/icones/16X16/lock.gif">&nbsp;Sair do Sistema</a>
 	    </li>
 	</ul>	
 	</td>
