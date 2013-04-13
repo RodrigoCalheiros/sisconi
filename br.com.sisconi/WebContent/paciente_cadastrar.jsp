@@ -1,8 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%
-if (!(session.getAttribute("co_tipo_usuario").equals(1))){
-	response.sendRedirect("acesso_negado.jsp");
-}
+if (session.getAttribute("co_tipo_usuario") != null){
+	if (!(session.getAttribute("co_tipo_usuario").equals(1))){
+		response.sendRedirect("acesso_negado.jsp");
+	}
 %>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Estado, model.Paciente"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -39,7 +40,7 @@ function getExisteNrSusPaciente(pNrSus){
 			}).done(function(retornoSucesso) {
 			var retorno = retornoSucesso;
 			if (retorno == 1){
-				alert("Número do SUS " + pNrSus + " já cadastrado.");
+				alert("Paciente com número do SUS " + pNrSus + " já está cadastrado.");
 				$('#nr_sus').focus();
 			}
 		});	
@@ -77,27 +78,18 @@ function validarCadastro(){
 		$('#nm_paciente').focus();
 		return false;
 	}
-	var pNmMae = remover($('#nm_mae').val(), ' ');
-	if (pNmMae == ""){
-		alert("O nome da Mãe deve ser preenchido.");
-		$('#nm_mae').val("");
-		$('#nm_mae').focus();
-		return false;
-	}
-	var pNrCpf = remover($('#nr_cpf').val(), ' ');
-	if (pNrCpf == ""){
-		$('#nr_cpf').val("");
-	}
-	else if (ValidarCPF($('#nr_cpf').val(), 'nr_cpf') == false){
-		alert("O CPF " + $('#nr_cpf').val() + " é inválido.");
-		$('#nr_cpf').focus();
-		return false;
-	}
 	var pNrSus = remover($('#nr_sus').val(), ' ');
 	if (pNrSus == ""){
 		alert("O número do SUS deve ser preenchido.");
 		$('#nr_sus').val("");
 		$('#nr_sus').focus();
+		return false;
+	}
+	var pNmMae = remover($('#nm_mae').val(), ' ');
+	if (pNmMae == ""){
+		alert("O nome da Mãe deve ser preenchido.");
+		$('#nm_mae').val("");
+		$('#nm_mae').focus();
 		return false;
 	}
 	var pDtNascimento = remover($("#datepicker").val(), ' ');
@@ -109,6 +101,15 @@ function validarCadastro(){
 	}
 	else{
 		validaData(document.getElementById('datepicker'), $("#datepicker").val());
+	}
+	var pNrCpf = remover($('#nr_cpf').val(), ' ');
+	if (pNrCpf == ""){
+		$('#nr_cpf').val("");
+	}
+	else if (ValidarCPF($('#nr_cpf').val(), 'nr_cpf') == false){
+		alert("O CPF " + $('#nr_cpf').val() + " é inválido.");
+		$('#nr_cpf').focus();
+		return false;
 	}
 	var pNrTelefone = remover($('#nr_telefone').val(), ' ');
 	if (pNrTelefone == ""){
@@ -144,7 +145,7 @@ function validarCadastro(){
 		$('#ds_cep').val("");
 	}
 	if ($('#co_estado').val() == "0"){
-		alert("O nome do Estado deve ser preenchido.");
+		alert("O Estado deve ser preenchido.");
 		$('#co_estado').focus();
 		return false;
 	}
@@ -189,19 +190,19 @@ function onBlurNrSus(){
 				</thead>
 				<tbody>
 					<tr>
-						<td align="right" width="180px">Nome:</td>
+						<td align="right" width="180px">Nome*:</td>
 						<td align="left"><input type="text" id="nm_paciente" name="nm_paciente" maxlength="70" size="50" placeholder="Insira o nome do paciente" required></td>
 					</tr>
 					<tr>
-						<td align="right">Número do SUS:</td>
+						<td align="right">Número do SUS*:</td>
 						<td align="left"><input type="text" id="nr_sus" name="nr_sus" maxlength="15" size="50" placeholder="Insira o número do SUS do paciente" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required></td>
 					</tr>
 					<tr>
-						<td align="right">Nome da Mãe:</td>
+						<td align="right">Nome da Mãe*:</td>
 						<td align="left"><input type="text" id="nm_mae" name="nm_mae" maxlength="70" size="50" placeholder="Insira o nome da mãe do paciente" required></td>
 					</tr>
 					<tr>
-						<td align="right">Data de Nascimento:</td>
+						<td align="right">Data de Nascimento*:</td>
 						<td align="left"><input type="text" id="datepicker" name="dt_nascimento" maxlength="10" size="50" placeholder="Insira a data de nascimento do paciente" onKeyPress="MascaraData(form.dt_nascimento);" required></td>
 					</tr>
 					<tr>
@@ -211,6 +212,10 @@ function onBlurNrSus(){
 					<tr>
 						<td align="right">Telefone:</td>
 						<td align="left"><input type="text" id="nr_telefone" name="nr_telefone" maxlength="14" size="50" placeholder="Insira o número do telefone do paciente" onKeyPress="MascaraTelefone(form.nr_telefone);"></td>
+					</tr>
+					<tr>
+						<td align="left">* Campo Obrigatório</td>
+						<td align="left"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -223,11 +228,11 @@ function onBlurNrSus(){
 				</thead>
 				<tbody>
 					<tr>
-						<td align="right" width="180px">Rua:</td>
+						<td align="right" width="180px">Rua*:</td>
 						<td align="left"><input type="text" id="ds_rua" name="ds_rua" maxlength="60" size="50" placeholder="Insira o nome da rua do endereço do paciente" required></td>
 					</tr>
 					<tr>
-						<td align="right">Número:</td>
+						<td align="right">Número*:</td>
 						<td align="left"><input type="text" id="ds_numero" name="ds_numero" maxlength="10" size="50" placeholder="Insira o número do endereço do paciente" onKeyPress="mascaraInteiro();" required></td>
 					</tr>
 					<tr>
@@ -235,7 +240,7 @@ function onBlurNrSus(){
 						<td align="left"><input type="text" id="ds_complemento" name="ds_complemento" maxlength="100" size="50" placeholder="Insira o complemento do endereço do paciente" ></td>
 					</tr>
 					<tr>
-						<td align="right">Bairro:</td>
+						<td align="right">Bairro*:</td>
 						<td align="left"><input type="text" id="ds_bairro" name="ds_bairro" maxlength="40" size="50" placeholder="Insira o nome do bairro do endereço do paciente" required></td>
 					</tr>
 					<tr>
@@ -243,7 +248,7 @@ function onBlurNrSus(){
 						<td align="left"><input type="text" id="ds_cep" name="ds_cep" maxlength="10" size="50" placeholder="Insira o CEP do endereço do paciente" onKeyPress="MascaraCep(form.ds_cep);"></td>
 					</tr>
 					<tr>
-						<td align="right">Estado:</td>
+						<td align="right">Estado*:</td>
 						<td align="left">
 							<select name="co_estado" id="co_estado" onchange="getCidades()" required>
 								<option value="0">--</option>
@@ -266,11 +271,11 @@ function onBlurNrSus(){
 						</td>
 					</tr>
 					<tr>
-						<td align="right">Cidade:</td>
+						<td align="right">Cidade*:</td>
 						<td align="left"><span id="spanCidade">--</span></td>
 					</tr>
 					<tr>
-						<td></td>
+						<td align="left">* Campo Obrigatório</td>
 						<td align="left"><input type="reset" id="bt_reset" name="bt_reset" value="Limpar">&nbsp;<input type="button" id="bt_salvar" name="bt_salvar" value="Salvar" onclick="salvarCadastro()"></td>
 					</tr>
 				</tbody>
@@ -284,3 +289,6 @@ function onBlurNrSus(){
 </table>
 </body>
 </html>
+<%
+}
+%>

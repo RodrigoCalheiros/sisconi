@@ -1,8 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%
-if (!(session.getAttribute("co_tipo_usuario").equals(1))){
-	response.sendRedirect("acesso_negado.jsp");
-}
+if (session.getAttribute("co_tipo_usuario") != null){
+	if (!(session.getAttribute("co_tipo_usuario").equals(1))){
+		response.sendRedirect("acesso_negado.jsp");
+	}
 %>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala, model.Especialidade, model.Medico"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -165,7 +166,7 @@ function validarCadastro(){
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja cadastrar a internação?")){
+		if (confirm("Você deseja confirmar a internação do paciente com o número do SUS " + $('#hidden_nr_sus').val() + "?")){
 			document.forms['frm_internacao'].submit();	
 		}	
 	} 
@@ -201,7 +202,7 @@ function salvarCadastro(){
 						</thead>
 						<tbody>
 							<tr>
-								<td align="right" width="180px">Ala:</td>
+								<td align="right" width="180px">Ala*:</td>
 								<td align="left">
 									<select id="co_ala" name="co_ala" onchange="getLeitosLivres()"  required>
 									 	<option value="0">--</option>
@@ -222,8 +223,12 @@ function salvarCadastro(){
 								</td>
 							</tr>
 							<tr>
-								<td align="right">Leito livre:</td>
+								<td align="right">Leito livre*:</td>
 								<td align="left"><span id="spanLeitosLivres">--</span></td>
+							</tr>
+							<tr>
+								<td align="left">* Campo Obrigatório</td>
+								<td align="left"></td>
 							</tr>
 						</tbody>
 						</table>
@@ -241,7 +246,8 @@ function salvarCadastro(){
 						</thead>
 						<tbody>
 							<tr>
-								<td colspan="2" align="left">
+								<td align="right" width="180px">Médico*:</td>
+								<td align="left">
 									<div id="format">
     								<%      
 									 	List<Medico> lMedico = medico.getMedicos();
@@ -258,6 +264,10 @@ function salvarCadastro(){
 									%>
 									</div>
 								</td>
+							</tr>
+							<tr>
+								<td align="left">* Campo Obrigatório</td>
+								<td align="left"></td>
 							</tr>
 						</tbody>
 						</table>
@@ -281,3 +291,6 @@ function salvarCadastro(){
 </table>
 </body>
 </html>
+<%
+}
+%>

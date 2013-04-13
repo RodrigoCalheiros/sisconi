@@ -1,8 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%
-if (!(session.getAttribute("co_tipo_usuario").equals(1))){
-	response.sendRedirect("acesso_negado.jsp");
-}
+if (session.getAttribute("co_tipo_usuario") != null){
+	if (!(session.getAttribute("co_tipo_usuario").equals(1))){
+		response.sendRedirect("acesso_negado.jsp");
+	}
 %>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala, model.Especialidade, model.Medico"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -128,7 +129,7 @@ function validarCadastro(){
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja cancelar o agendamento da internação?")){
+		if (confirm("Você deseja cancelar o agendamento da internação do paciente?")){
 			document.forms['frm_internacao_cancelar'].submit();	
 		}	
 	} 
@@ -140,7 +141,7 @@ function salvarCadastro(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Cancelar Agendamento</font><hr>
+	<td class="tblConteudoCorpo"><br><font color="#28166F" style="font-weight: bold;">Internação > Cancelar Agendamento</font><hr>
 		<form id="frm_internacao_cancelar" action="internacao_agendar_cancelar_processa.jsp" method="post">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
@@ -169,3 +170,6 @@ function salvarCadastro(){
 </table>
 </body>
 </html>
+<%
+}
+%>

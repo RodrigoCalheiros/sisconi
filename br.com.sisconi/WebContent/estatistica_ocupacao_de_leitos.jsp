@@ -1,8 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%
-if (!(session.getAttribute("co_tipo_usuario").equals(2))){
-	response.sendRedirect("acesso_negado.jsp");
-}
+if (session.getAttribute("co_tipo_usuario") != null){
+	if (!(session.getAttribute("co_tipo_usuario").equals(2))){
+		response.sendRedirect("acesso_negado.jsp");
+	}
 %>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,7 +31,14 @@ function obterEstatisticaOcupacaoLeitos(){
 	$.ajax({
 		url: "ajax_obter_estatistica_ocupacao_leitos.jsp?dt_inicial=" + pDtInicial + "&dt_final=" + pDtFinal
 		}).done(function(retornoSucesso) {
-			$('#graph').html(retornoSucesso);
+			if (retornoSucesso != 0){
+				$('#graph').html(retornoSucesso);	
+			}
+			else{
+				$('#graph').html("");
+				alert("Não existe estatísticas para esse período de tempo.");
+			}
+			
 	});
 }
 </script>
@@ -40,7 +48,7 @@ function obterEstatisticaOcupacaoLeitos(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Estatísticas > Estatística de Ocupação de Leitos</font><hr>
+	<td class="tblConteudoCorpo"><br><font color="#28166F" style="font-weight: bold;">Estatísticas > Estatística de Ocupação de Leitos</font><hr>
 		<form id="form_estatistica">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
@@ -63,3 +71,6 @@ function obterEstatisticaOcupacaoLeitos(){
 </table>
 </body>
 </html>
+<%
+}
+%>

@@ -1,8 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%
-if (!(session.getAttribute("co_tipo_usuario").equals(1))){
-	response.sendRedirect("acesso_negado.jsp");
-}
+if (session.getAttribute("co_tipo_usuario") != null){
+	if (!(session.getAttribute("co_tipo_usuario").equals(1))){
+		response.sendRedirect("acesso_negado.jsp");
+	}
 %>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Estado, model.Paciente"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -38,7 +39,8 @@ function getPaciente(pNrSus){
 			}else{
 				$('#span_botoes_localizar_paciente').hide();
 				$('#span_dados_paciente').html("");
-				alert("Paciente não cadastrado.");
+				$('#span_bt_salvar').hide();
+				alert("Cadastro do paciente com número do SUS " + pNrSus + " não foi encontrado.");
 			}
 	});	
 }
@@ -55,7 +57,7 @@ function getPacienteBloqueandoCampos(pNrSus){
 			}else{
 				$('#span_botoes_localizar_paciente').hide();
 				$('#span_dados_paciente').html("");
-				alert("Paciente não cadastrado.");
+				alert("Cadastro do paciente com número do SUS " + pNrSus + " não foi encontrado.");
 			}
 	});	
 }
@@ -158,7 +160,7 @@ function getExisteNrSusPaciente(pNrSus){
 			}).done(function(retornoSucesso) {
 			var retorno = retornoSucesso;
 			if (retorno == 1){
-				alert("Número do SUS " + pNrSus + " já cadastrado.");
+				alert("Paciente com número do SUS " + pNrSus + " já está cadastrado.");
 				$('#nr_sus').focus();
 			}
 		});	
@@ -301,7 +303,7 @@ function onBlurNrSus(){
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
 			<tr>
 				<td align="right" width="40%">Número do SUS:</td>
-				<td align="left" width="60%"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="30" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterDadosPaciente()"></td>
+				<td align="left" width="60%"><form id="form_localizar"><input type="text" id="nr_localizar_sus" name="nr_localizar_sus" maxlength="15" size="30" onBlur="onBlurNrSus();" onKeyPress="mascaraInteiro();" required><input type="button" id="bt_localizar_paciente" name="bt_localizar_paciente" value="Localizar" onclick="obterDadosPaciente()"><input type="reset" value="Limpar"></form></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -338,3 +340,6 @@ function onBlurNrSus(){
 </table>
 </body>
 </html>
+<%
+}
+%>

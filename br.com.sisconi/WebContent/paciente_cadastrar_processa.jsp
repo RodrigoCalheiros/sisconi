@@ -34,7 +34,7 @@
 	
 	boolean retorno = paciente.cadastrarPaciente();
 	if (retorno == true){
-		response.sendRedirect("paciente_localizar.jsp?nr_sus='" + pNrSus + "'&msg='O Paciente " + pNmPaciente + " foi cadastrado com sucesso.'");
+		response.sendRedirect("paciente_localizar.jsp?nr_sus='" + pNrSus + "'&msg='Paciente " + pNmPaciente + " cadastrado com sucesso.'");
 	}
 	else{
 		response.sendRedirect("paciente_cadastrar.jsp?msg='Erro ao cadastrar o paciente.'");

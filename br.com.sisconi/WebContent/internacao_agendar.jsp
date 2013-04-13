@@ -1,8 +1,9 @@
 <%@include file="inc_verifica_acesso_usuario.jsp"%>
 <%
-if (!(session.getAttribute("co_tipo_usuario").equals(1))){
-	response.sendRedirect("acesso_negado.jsp");
-}
+if (session.getAttribute("co_tipo_usuario") != null){
+	if (!(session.getAttribute("co_tipo_usuario").equals(1))){
+		response.sendRedirect("acesso_negado.jsp");
+	}
 %>
 <%@ page contentType="text/html; charset=windows-1252" pageEncoding="windows-1252" language="java" import="java.util.*, model.Ala, model.Especialidade, model.Medico"%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -165,7 +166,7 @@ function validarCadastro(){
 
 function salvarCadastro(){
 	if (validarCadastro() == true){
-		if (confirm("Você deseja cadastrar o agendamento da internação?")){
+		if (confirm("Você confirma o agendamento da internação do paciente como número de SUS " + $('#hidden_nr_sus').val() + "?")){
 			document.forms['frm_agendamento_internacao'].submit();	
 		}	
 	} 
@@ -192,7 +193,7 @@ function salvarCadastro(){
 	<td class="tblConteudoTitulo"><%@include file="inc_titulo.jsp"%></td>
 </tr>
 <tr>
-	<td class="tblConteudoCorpo"><br><font color="#28166F">Internação > Agendar Internação</font><hr>
+	<td class="tblConteudoCorpo"><br><font color="#28166F" style="font-weight: bold;">Internação > Agendar Internação</font><hr>
 		<form id="frm_agendamento_internacao" action="internacao_agendar_processa.jsp" method="post">
 		<input type="hidden" id="hidden_co_medico" name="hidden_co_medico" value="">
 		<table border="0" cellpadding="0" cellspacing="8" width="100%">
@@ -216,11 +217,11 @@ function salvarCadastro(){
 						</thead>
 						<tbody>
 							<tr>
-								<td align="right">Data Agendamento:</td>
+								<td align="right">Data Agendamento*:</td>
 								<td align="left"><input type="text" class="datepicker" id="dt_agendamento" name="dt_agendamento" maxlength="10" size="50" onKeyPress="MascaraData(form.dt_agendamento);" onchange="getLeitosLivresAgendamento()" required></td>
 							</tr>
 							<tr>
-								<td align="right" width="180px">Ala:</td>
+								<td align="right" width="180px">Ala*:</td>
 								<td align="left">
 									<select id="co_ala" name="co_ala" onchange="getLeitosLivresAgendamento()"  required>
 									 	<option value="0">--</option>
@@ -241,8 +242,12 @@ function salvarCadastro(){
 								</td>
 							</tr>
 							<tr>
-								<td align="right">Leito:</td>
+								<td align="right">Leito*:</td>
 								<td align="left"><span id="spanLeitosLivres">--</span></td>
+							</tr>
+							<tr>
+								<td align="left">* Campo Obrigatório</td>
+								<td align="left"></td>
 							</tr>
 						</tbody>
 						</table>
@@ -260,7 +265,8 @@ function salvarCadastro(){
 						</thead>
 						<tbody>
 							<tr>
-								<td colspan="2" align="left">
+								<td align="right" width="180px">Médico*:</td>
+								<td align="left">
 									<div id="radio">
     								<%      
 									 	List<Medico> lMedico = medico.getMedicos();
@@ -277,6 +283,10 @@ function salvarCadastro(){
 									%>
 									</div>
 								</td>
+							</tr>
+							<tr>
+								<td align="left">* Campo Obrigatório</td>
+								<td align="left"></td>
 							</tr>
 						</tbody>
 						</table>
@@ -300,3 +310,6 @@ function salvarCadastro(){
 </table>
 </body>
 </html>
+<%
+}
+%>
