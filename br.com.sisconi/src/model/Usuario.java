@@ -2,8 +2,6 @@ package model;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import dao.UsuarioDAO;
 
 public class Usuario {
